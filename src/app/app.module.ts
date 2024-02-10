@@ -6,13 +6,19 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './forms/login/login.component';
 import { CadastroComponent } from './forms/cadastro/cadastro.component';
+import { IndexComponent } from './principal/index/index.component';
+import { CardCampanhaComponent } from './cards/card-campanha/card-campanha.component';
+import { CardPersonagemComponent } from './cards/card-personagem/card-personagem.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    IndexComponent,
+    CardCampanhaComponent,
+    CardPersonagemComponent
   ],
   imports: [
     BrowserModule,
