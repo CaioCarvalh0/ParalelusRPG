@@ -12,6 +12,7 @@ import { CardPersonagemComponent } from './cards/card-personagem/card-personagem
 import { PainelUsuarioComponent } from './principal/painel-usuario/painel-usuario.component';
 import { CriacaoCampanhaComponent } from './campanha/criacao-campanha/criacao-campanha.component';
 import { CampanhaComponent } from './campanha/campanha.component';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
