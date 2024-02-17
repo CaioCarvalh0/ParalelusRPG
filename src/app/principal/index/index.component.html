@@ -1,27 +1,38 @@
 <div class="w-full h-[93%]">
-    <div  class="flex flex-row h-full p-11">
+  <div class="flex flex-row h-full p-11">
 
-        <div class="basis-1/3 h-full border-r-2  border-[#FF1457] p-1 justify-center flex">
-            <div>
-                <button type="button" class="w-full pl-11 pr-11 p-2 me-2 text-lg focus:outline-none bg-[#FF1457] rounded-xl shadow-xl border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
-                    <div>Criar</div>
-                    <div>Nova Campanha</div>
-                </button>
-            </div>
-        </div>
-
-        <div class="basis-1/3 h-full border-r-2 border-[#FF1457] p-3">
-            <div class="text-2xl">  
-                Suas Campanhas:
-            </div>
-        </div>
-        <div class="basis-1/3 h-full p-3 flex flex-col justify-between ">
-            <div class="text-2xl">
-                Encontre uma campanha:
-            </div>
-            <div class="text-2xl">
-                Campanhas Terminadas:
-            </div>
-        </div>
+    <div class="basis-1/3 h-full border-r-2  border-[#FF1457] p-1 justify-center flex">
+      <div>
+        <button type="button" routerLink="/campanha" routerLinkActive="active" 
+          class="w-full pl-11 pr-11 p-2 me-2 text-lg focus:outline-none bg-[#FF1457] rounded-xl shadow-xl border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
+          <div>Criar</div>
+          <div>Nova Campanha</div>
+        </button>
+        
+      </div>
     </div>
+
+    <div class="basis-1/3 h-full border-r-2 border-[#FF1457] p-3">
+      <div class="text-2xl">
+        Suas Campanhas:
+      </div>
+      <app-card-campanha></app-card-campanha>
+      <app-card-campanha></app-card-campanha>
+    </div>
+    <div class="basis-1/3 h-full p-3 flex flex-col justify-between ">
+      <div>
+        <div class="text-2xl">
+          Encontre uma campanha:
+        </div>
+        <app-card-campanha></app-card-campanha>
+        <app-card-campanha></app-card-campanha>
+      </div>
+      <div>
+        <div class="text-2xl">
+          Campanhas Terminadas:
+        </div>
+        <app-card-campanha></app-card-campanha>
+      </div>
+    </div>
+  </div>
 </div>

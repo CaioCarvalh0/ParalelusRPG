@@ -9,6 +9,10 @@ import { CadastroComponent } from './forms/cadastro/cadastro.component';
 import { IndexComponent } from './principal/index/index.component';
 import { CardCampanhaComponent } from './cards/card-campanha/card-campanha.component';
 import { CardPersonagemComponent } from './cards/card-personagem/card-personagem.component';
+import { PainelUsuarioComponent } from './principal/painel-usuario/painel-usuario.component';
+import { CriacaoCampanhaComponent } from './campanha/criacao-campanha/criacao-campanha.component';
+import { CampanhaComponent } from './campanha/campanha.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,11 +22,15 @@ import { CardPersonagemComponent } from './cards/card-personagem/card-personagem
     CadastroComponent,
     IndexComponent,
     CardCampanhaComponent,
-    CardPersonagemComponent
+    CardPersonagemComponent,
+    PainelUsuarioComponent,
+    CriacaoCampanhaComponent,
+    CampanhaComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

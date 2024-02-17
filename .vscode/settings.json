@@ -1,0 +1,35 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.iconTheme": "symbols",
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "sonarlint.rules": {
+        "typescript:S1186": {
+            "level": "off"
+        }
+    },
+    "[html]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "symbols.hidesExplorerArrows": false,
+
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.lineHeight": 1.4,
+    "editor.rulers": [80,120],
+    "editor.renderLineHighlight": "gutter",
+    "workbench.editor.labelFormat": "short",
+    "explorer.compactFolders": false,
+    "editor.semanticHighlighting.enabled": false,
+    "breadcrumbs.enabled": false,
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false,
+    "workbench.colorTheme": "Min Dark",
+    "editor.stickyScroll.enabled": false,
+    "editor.minimap.enabled": false,
+    "workbench.activityBar.location": "hidden",
+
+}
