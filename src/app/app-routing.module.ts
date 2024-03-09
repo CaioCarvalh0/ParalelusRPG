@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'index', component: IndexComponent },
   { path: 'usuario', component: PainelUsuarioComponent },
-  { path: 'campanha', component: CriacaoCampanhaComponent },
+  { path: 'criaçãodecampanha', component: CriacaoCampanhaComponent },
 ];
 
 @NgModule({

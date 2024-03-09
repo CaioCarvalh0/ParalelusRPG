@@ -1,16 +1,57 @@
-<div class="flex flex-col w-full h-2/3 items-center justify-center ">
-    <div class="flex w-[490px] h-[490px] items-center justify-center rounded-md bg-[#453745] shadow-2xl">
-        <form class="w-[380px]">
+<div class="container-geral ">
+  
+  <div class="flex w-[490px] h-[490px] items-center justify-center rounded-md bg-[#453745] shadow-2xl">
+    <form class="w-[380px]">
 
-            <div>
+      <div>
 
-            </div>
+      </div>
 
-            <div class="mb-4">
-                <label class="mb-2 text-base ">Nome da Campanha:</label>
-                <input type="text" class="block w-full p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50 sm:text-xs focus:ring-[#FF1457] focus:border-[#FF1457]">
-            </div>
+      <div class="mb-4">
+        <label class="mb-2 text-base ">Nome da Campanha:</label>
+        <input type="text"
+          class="block w-full p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50 sm:text-xs focus:ring-[#FF1457] focus:border-[#FF1457]">
+      </div>
 
-        </form>
+      <div class=" flex flex-col justify-center ">
+
+        <div class="flex flex-col">
+          <label class="mb-2 text-base ">Level da Campanha:</label>
+          <div class="flex p-2 flex-row items-center border border-[#FF1457] h-[40px] w-[150px] rounded-md justify-between">
+            <button type="button" mat-icon-button (click)="removeLvl()">
+              <mat-icon class="text-[#FF1457]">remove</mat-icon>
+            </button>
+            <div class="text-[#FF1457] text-2xl">{{ lvlCampanha }}</div>
+            <button type="button" mat-icon-button (click)="addLvl()">
+              <mat-icon class="text-[#FF1457]">add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex flex-col">
+          <label class="mb-2 text-base ">Qtd. Jogadores:</label>
+          <div class="flex p-2 flex-row items-center border border-[#FF1457] h-[40px] w-[150px] rounded-md justify-between">
+            <button type="button" mat-icon-button (click)="removeJog()">
+              <mat-icon class="text-[#FF1457]">remove</mat-icon>
+            </button>
+            <div class="text-[#FF1457] text-2xl">{{ JogsCampanha }}</div>
+            <button type="button" mat-icon-button (click)="addJog()">
+              <mat-icon class="text-[#FF1457]">add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+  <div class="w-full">
+    <div class="flex flex-row gap-3 justify-end">
+      <button type="button" class=" p-2 pl-6 pr-6 me-2 mb-2 text-sm bg-[#613C4C] border border-[#FF1457] rounded-lg
+      hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">Cancelar</button>
+      <button type="button" class=" p-2 pl-6 pr-6 me-2 mb-2 text-sm bg-[#FF1457] rounded-lg
+       hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">Criar</button>
     </div>
+  </div>
 </div>
