@@ -13,7 +13,7 @@ export class CriacaoCampanhaComponent {
 
 
   addLvl(){
-    if(this.lvlCampanha >= 0){
+    if(this.lvlCampanha >= 0 && this.lvlCampanha < 30){
       this.lvlCampanha = this.lvlCampanha + 1
     }
   }
