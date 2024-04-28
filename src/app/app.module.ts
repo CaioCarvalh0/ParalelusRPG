@@ -14,6 +14,7 @@ import { CriacaoCampanhaComponent } from './campanha/criacao-campanha/criacao-ca
 import { CampanhaComponent } from './campanha/campanha.component';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FichaComponent } from './ficha/ficha.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CardPersonagemComponent,
     PainelUsuarioComponent,
     CriacaoCampanhaComponent,
-    CampanhaComponent
+    CampanhaComponent,
+    FichaComponent
   ],
   imports: [
     BrowserModule,
