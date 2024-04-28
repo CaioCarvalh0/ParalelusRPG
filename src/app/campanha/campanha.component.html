@@ -1,1 +1,44 @@
-<p>campanha works!</p>
+<div class="container-geral ">
+  <div class="w-full h-full flex flex-row p-2">
+    <div class="basis-[75%] p-3 w-full h-full flex flex-col">
+      <div class="text-2xl">Jogadores:</div>
+
+      <div class="w-full h-[85%] ">
+        <app-card-personagem></app-card-personagem>
+      </div>
+
+      <div class="w-full flex flex-row items-end gap-3 ">
+        <button type="button" class="w-[150px] p-2 pl-6 pr-6 text-sm bg-[#FF1457] rounded-lg  hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
+           Adicionar Personagem
+        </button>
+
+        <button type="button" class="w-[150px] flex justify-center justify-evenly items-center h-[40px] text-sm bg-[#FF1457] rounded-lg hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
+            <div> Solicitações </div> 
+            <mat-icon class="text-xl ">notifications</mat-icon>
+        </button>
+      </div>
+
+    </div>
+    <div class="basis-[1%] flex w-full pt-11 pb-11  h-ful justify-center">
+      <div class="bg-[#FF1457] rounded-lg h-full w-[2px]"></div>
+    </div>
+
+    <div class="basis-[24%] w-full h-full flex flex-col items-center gap-2 ">
+      <div>
+        <button type="button" class="w-[200px] h-[60px] text-xl p-2 pl-6 pr-6   bg-[#FF1457] rounded-lg
+           hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
+           Adicionar NPC
+        </button>
+      </div>
+      <div class="h-full "> 
+        <app-card-personagem></app-card-personagem>
+      </div>
+      <div>
+        <button type="button" class="w-[200px] h-[40px] text-lg p-2 pl-6 pr-6   bg-[#FF1457] rounded-lg
+           hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
+           Iniciar Sessão
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
