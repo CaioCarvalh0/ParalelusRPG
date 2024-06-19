@@ -1,5 +1,22 @@
-<div class="text-4xl w-full h-[7%] bg-[#2B2C30] items-center justify-center flex gap-2">
+<nav class="container-menu">
+
+  <div class="flex-1 "></div>
+
+  <div class="flex items-center">
     <span>🏹</span>
-    <h1 class="text-gray-50">Paralelus Rpg</h1>
+    <span class="text-gray-50">{{ pageTitle }}</span>
     <span>🎲</span>
-</div>
+  </div>
+
+  <div class="flex-1 flex justify-end pr-5">
+    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLinkActive="active" routerLink="/index">Home</button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/usuario">Perfil</button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/livro" >Livro</button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/usuario">Sair</button>
+    </mat-menu>
+  </div>
+  
+</nav>
+<router-outlet></router-outlet>

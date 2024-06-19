@@ -7,6 +7,7 @@ import { PainelUsuarioComponent } from './principal/painel-usuario/painel-usuari
 import { CriacaoCampanhaComponent } from './campanha/criacao-campanha/criacao-campanha.component';
 import { CampanhaComponent } from './campanha/campanha.component';
 import { FichaComponent } from './ficha/ficha.component';
+import { LivroComponent } from './livro/livro.component';
 
 const routes: Routes = [
   { path: '', component:LoginComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'criaçãodecampanha', component: CriacaoCampanhaComponent },
   { path: 'campanha', component: CampanhaComponent },
   { path: 'ficha', component: FichaComponent },
+  { path: 'livro', component: LivroComponent },
 ];
 
 @NgModule({

@@ -15,6 +15,9 @@ import { CampanhaComponent } from './campanha/campanha.component';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FichaComponent } from './ficha/ficha.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { LivroComponent } from './livro/livro.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +31,16 @@ import { FichaComponent } from './ficha/ficha.component';
     PainelUsuarioComponent,
     CriacaoCampanhaComponent,
     CampanhaComponent,
-    FichaComponent
+    FichaComponent,
+    LivroComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

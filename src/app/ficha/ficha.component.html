@@ -43,7 +43,7 @@
                     </div>
                     <div>
                         <label class="mb-2 text-base ">Características:</label>
-                        <textarea type="text" class="w-full h-32 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
+                        <textarea type="text" class="w-full h-full p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
                     </div>
                 </div>
                 <div class="flex basis-[60%] justify-center p-3">
@@ -54,7 +54,7 @@
                                     <div class="text-black">Agi</div>
                                 </div>
                             </div>
-                            <div class="flex flex-row w-full justify-between 2xl:justify-around z-10">
+                            <div class="flex flex-row w-full justify-between  z-10">
                                 <div class="hexagon-borda ">
                                     <div class="hexagon-background">
                                         <div class="text-black">Força</div>
@@ -69,7 +69,7 @@
                             <div class="flex items-center justify-center">
                                 <div class="absolute circle text-3xl">Atributos</div>
                             </div>
-                            <div class="flex flex-row w-full justify-between 2xl:justify-around z-10">
+                            <div class="flex flex-row w-full justify-between  z-10">
                                 <div class="hexagon-borda">
                                     <div class="hexagon-background">
                                         <div class="text-black">Int</div>
@@ -91,23 +91,35 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full h-full flex flex-col p-2 bg-rosa-choque">
-                <div class="w-full h-[350px] rounded-md shadow-lg bg-rosa-escuro">
 
-                </div>
-                <div class="w-full h-[120px] rounded-md bg-rosa-cinza border-[3px] border-rosa-choque ">
-
-                </div>
-                <div class="w-full flex flex-row justify-between">
-                    <div>
-                        <label class="mb-2 text-base ">Campanha:</label>
-                        <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
+            <div class="w-full h-[250px] flex flex-col p-2 gap-3  ">
+                <div class="w-full h-full flex flex-row p-2 gap-4 rounded-md shadow-lg bg-rosa-escuro">
+                    <div class="h-full flex flex-col">
+                        <label class="mb-2 text-sm">ESCOLHA SUA SINGULARIDADE:</label>
+                        <textarea type="text" class="w-full h-full resize-none p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
                     </div>
-                    <button routerLink="/index" routerLinkActive="active" type="button" class="w-full p-2 me-2 mb-2 text-sm focus:outline-none bg-[#FF1457] rounded-lg border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">ENTRAR</button>
-                    <button routerLink="/index" routerLinkActive="active" type="button" class="w-full p-2 me-2 mb-2 text-sm focus:outline-none bg-[#FF1457] rounded-lg border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">Reset</button>
-                    <button routerLink="/index" routerLinkActive="active" type="button" class="w-full p-2 me-2 mb-2 text-sm focus:outline-none bg-[#FF1457] rounded-lg border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">Salvar</button>
+                    <div class="flex flex-col h-full gap-2">
+                        <div>
+                            <label class="mb-2 text-base ">Caminhos:</label>
+                            <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
+                        </div>
+                        <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
+                            <div class="text-rosa-choque">Caminhos Escolidos:</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col h-full gap-2">
+                        <div>
+                            <label class="mb-2 text-base ">Arquetipos:</label>
+                            <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
+                        </div>
+                        <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
+                            <div class="text-rosa-choque">Arquetipos Escolidos:</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
