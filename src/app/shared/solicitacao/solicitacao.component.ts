@@ -2,9 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-solicitacao',
-  templateUrl: './solicitacao.component.html',
-  styleUrls: ['./solicitacao.component.scss']
+    selector: 'app-solicitacao',
+    templateUrl: './solicitacao.component.html',
+    styleUrls: ['./solicitacao.component.scss'],
+    standalone: false
 })
 export class SolicitacaoComponent {
 

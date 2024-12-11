@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { SolicitacaoComponent } from '../shared/solicitacao/solicitacao.component';
 
 @Component({
-  selector: 'app-campanha',
-  templateUrl: './campanha.component.html',
-  styleUrls: ['./campanha.component.scss']
+    selector: 'app-campanha',
+    templateUrl: './campanha.component.html',
+    styleUrls: ['./campanha.component.scss'],
+    standalone: false
 })
 export class CampanhaComponent implements OnInit{
 

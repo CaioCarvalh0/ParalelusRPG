@@ -4,9 +4,10 @@ import { LoginDTO } from 'src/app/dto/login-dto';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;

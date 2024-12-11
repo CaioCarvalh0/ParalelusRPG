@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-criacao-campanha',
-  templateUrl: './criacao-campanha.component.html',
-  styleUrls: ['./criacao-campanha.component.scss']
+    selector: 'app-criacao-campanha',
+    templateUrl: './criacao-campanha.component.html',
+    styleUrls: ['./criacao-campanha.component.scss'],
+    standalone: false
 })
 export class CriacaoCampanhaComponent {
   lvlCampanha: number = 0
