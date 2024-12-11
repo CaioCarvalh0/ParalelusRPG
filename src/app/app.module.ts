@@ -15,10 +15,14 @@ import { CampanhaComponent } from './campanha/campanha.component';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FichaComponent } from './ficha/ficha.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { LivroComponent } from './livro/livro.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokeIntercotorService } from './interceptor/request-toke.interceptor.service';
+import { ErrorInterceptorService } from './interceptor/error.interceptor.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,9 +44,14 @@ import { LivroComponent } from './livro/livro.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatDialogModule,
-    MatMenuModule
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatMenuModule,
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: TokeIntercotorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
