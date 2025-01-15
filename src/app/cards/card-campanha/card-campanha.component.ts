@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Campanha } from 'src/app/models/campanha';
 
 @Component({
     selector: 'app-card-campanha',
@@ -6,6 +7,15 @@ import { Component } from '@angular/core';
     styleUrls: ['./card-campanha.component.scss'],
     standalone: false
 })
-export class CardCampanhaComponent {
+export class CardCampanhaComponent implements OnInit {
 
+    @Input() campanha: Campanha = new Campanha();
+    constructor() { 
+
+    }
+
+    ngOnInit(){
+        console.log(this.campanha);
+    }
+    
 }

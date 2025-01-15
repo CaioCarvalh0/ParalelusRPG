@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndexComponent } from './index.component';
+import { IndexComponent } from './home.component';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;

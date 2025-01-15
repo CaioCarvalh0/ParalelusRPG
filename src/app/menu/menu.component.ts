@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd  } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
     selector: 'app-menu',
@@ -11,7 +12,10 @@ import { filter } from 'rxjs/operators';
 export class MenuComponent implements OnInit {
   pageTitle: string = 'Paralelus Rpg';
 
-  constructor(private router: Router) { 
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService,
+  ) { 
   }
 
   ngOnInit(): void {
@@ -41,8 +45,13 @@ export class MenuComponent implements OnInit {
         this.pageTitle = 'Livro';
         break;
       default:
-        this.pageTitle = 'Paralelus Rpg';
+        this.pageTitle = 'Paralellus Rpg';
         break;
     }
+  }
+
+  desLogar(){
+    this.authService.removeTokenOnLocalStorage();
+    this.router.navigate(['/']);
   }
 }

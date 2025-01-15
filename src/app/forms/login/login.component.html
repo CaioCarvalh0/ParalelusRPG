@@ -1,22 +1,22 @@
 <div class="flex flex-col w-full h-2/3 items-center justify-center ">
-  <form class="w-[380px]" [formGroup]="formLogin" (submit)="Login()">
-    <div class="mb-4">
-      <label class="mb-2 text-base ">Nome de Usuario:</label>
+  <form class="w-[380px] gap-2 flex flex-col" [formGroup]="formLogin" (submit)="Login()">
+    <div>
+      <label class="label-padrao">Nome de Usuario:</label>
       <input type="text" formControlName="login"
-        class="block w-full p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50 sm:text-xs focus:ring-[#FF1457] focus:border-[#FF1457]">
+        class="input-padrao">
     </div>
-    <div class="mb-4">
+    <div>
       <div>
-        <label class="mb-2 text-base ">Senha:</label>
-        <input type="text" formControlName="senha"
-          class="block w-full p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50 sm:text-xs focus:ring-[#FF1457] focus:border-[#FF1457]">
+        <label class="label-padrao">Senha:</label>
+        <input type="password" formControlName="senha"
+          class="input-padrao">
       </div>
       <p class="text-[10px] flex justify-end">ESQUECEU A SENHA?</p>
     </div>
 
     <button type="submit" [disabled]="formLogin.invalid"
-      class="w-full p-2 me-2 mb-2 text-sm focus:outline-none bg-[#FF1457] rounded-lg border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457] disabled:bg-cinza-escuro">ENTRAR</button>
-    <button routerLink="/cadastro" routerLinkActive="active" type="button"
-      class="w-full p-2 me-2 mb-2 text-sm focus:outline-none bg-[#FF1457] rounded-lg border border-gray-200 hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">CADASTRAR-SE</button>
+      class="button-padrao">ENTRAR</button>
+    <button type="button" (click)="goToCadastro()"
+      class="button-padrao">CADASTRAR-SE</button>
   </form>
 </div>

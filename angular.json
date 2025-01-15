@@ -29,12 +29,17 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/styles-container.scss"
+              "src/styles-container.scss",
+              "src/styles.inputs.scss",
+              "src/styles.button.scss"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss",
-              "src/styles-container.scss"
+              "src/styles-container.scss",
+              "src/styles.inputs.scss",
+              "src/styles.button.scss",
+              "src/styles.variaveis.scss"
             ],
             "scripts": [],
             "browser": "src/main.ts"

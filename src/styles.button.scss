@@ -1,0 +1,31 @@
+.button-padrao {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #FF1457;
+  border-radius: 0.5rem;
+  font-size: 0.875rem /* 14px */;
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  border-width: 1px;
+
+  &:hover {
+    --tw-border-opacity: 1;
+    border-color: rgb(255 20 87 / var(--tw-border-opacity)) /* #ff1457 */;
+    --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+    --tw-text-opacity: 1 !important;
+    color: rgb(255 20 87 / var(--tw-text-opacity)) /* #ff1457 */ !important;
+  }
+
+  &:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  &:disabled{
+    --tw-bg-opacity: 1;
+    background-color: rgb(43 44 48 / var(--tw-bg-opacity)) /* #2b2c30 */;
+    cursor: not-allowed;
+  }
+}

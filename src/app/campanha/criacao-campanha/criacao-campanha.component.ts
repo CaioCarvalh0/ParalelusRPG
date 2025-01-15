@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 })
 export class CriacaoCampanhaComponent {
   lvlCampanha: number = 0
-  JogsCampanha: number = 0
+ 
+  constructor() { 
 
-
-
+  }
 
   addLvl(){
     if(this.lvlCampanha >= 0 && this.lvlCampanha < 30){
@@ -21,17 +21,6 @@ export class CriacaoCampanhaComponent {
   removeLvl(){
     if(this.lvlCampanha > 0){
       this.lvlCampanha = this.lvlCampanha - 1
-    }
-  }
-
-  addJog(){
-    if(this.JogsCampanha >= 0){
-      this.JogsCampanha = this.JogsCampanha + 1
-    }
-  }
-  removeJog(){
-    if(this.JogsCampanha > 0){
-      this.JogsCampanha = this.JogsCampanha - 1
     }
   }
 

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './forms/login/login.component';
 import { CadastroComponent } from './forms/cadastro/cadastro.component';
-import { IndexComponent } from './principal/index/index.component';
+import { HomeComponent } from './principal/home/home.component';
 import { CardCampanhaComponent } from './cards/card-campanha/card-campanha.component';
 import { CardPersonagemComponent } from './cards/card-personagem/card-personagem.component';
 import { PainelUsuarioComponent } from './principal/painel-usuario/painel-usuario.component';
@@ -23,13 +25,15 @@ import { TokeIntercotorService } from './interceptor/request-toke.interceptor.se
 import { ErrorInterceptorService } from './interceptor/error.interceptor.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
+import { ButtonModule } from 'primeng/button';
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     LoginComponent,
     CadastroComponent,
-    IndexComponent,
+    HomeComponent,
     CardCampanhaComponent,
     CardPersonagemComponent,
     PainelUsuarioComponent,
@@ -40,6 +44,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    SharedModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -47,6 +54,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatMenuModule,
+    ButtonModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokeIntercotorService, multi: true},

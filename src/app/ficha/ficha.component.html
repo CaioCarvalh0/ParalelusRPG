@@ -1,137 +1,122 @@
-<div class="container-geral">
-    <div class="w-full h-full flex flex-row">
-        <div class="basis-[40%] w-full h-full flex flex-col p-2 gap-3 ">
-
-            <div class="w-full flex flex-col p-2 bg-rosa-cinza rounded-md">
-                <div>
-                    <div>Nome do personagem</div>
-                    <div class="flex flex-row">
-                        <div class="w-[120px] h-[120px] text-black bg-white">
-                            FOTO
-                        </div>
-                        <div class="flex flex-col bg-rosa-choque p-3 justify-around ">
-                            <div class="flex flex-col gap-3">
-                                <div>vida</div>
-                                <div>energia</div>
-                            </div>
-                            <div class="flex flex-row  justify-center">
-                                <div>status</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full h-full flex flex-col p-2 gap-3 bg-rosa-cinza rounded-md">
-                
-            </div>
+<div class="container-geral-row">
+  <div class="container-nome-tabs">
+    <div class="container-nome">
+      <div>
+        <p-button label="Danger" severity="danger" />
+        <div>Nome do personagem</div>
+        <div class="container-foto-vida-engeria">
+          <div class="container-foto">
+            FOTO
+          </div>
+          <div class="container-vida-energia">
+              <div>vida</div>
+              <div>energia</div>
+          </div>
         </div>
-
-        <div class="basis-[60%] w-full h-full p-2">
-
-            <div class="w-full flex flex-row ">
-                <div class="flex flex-col basis-[40%] gap-2">
-                    <div>
-                        <label class="mb-2 text-base ">Nome:</label>
-                        <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
-                    </div>
-                    <div>
-                        <label class="mb-2 text-base ">Raça:</label>
-                        <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
-                    </div>
-                    <div>
-                        <label class="mb-2 text-base ">Idade:</label>
-                        <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
-                    </div>
-                    <div>
-                        <label class="mb-2 text-base ">Características:</label>
-                        <textarea type="text" class="w-full h-auto p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
-                    </div>
-                </div>
-
-                <div class="flex basis-[60%] justify-center p-1">
-
-                    <div class="flex flex-row h-full w-full">
-                        <div class="flex flex-col w-full justify-around items-center">
-
-                            <div class="hexagon-borda z-10">
-                                <div class="hexagon-background">
-                                    <div class="text-black">Agi</div>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-row w-full justify-around mb-1 z-10">
-                                <div class="hexagon-borda ">
-                                    <div class="hexagon-background">
-                                        <div class="text-black">Força</div>
-                                    </div>
-                                </div>
-                                <div class="hexagon-borda">
-                                    <div class="hexagon-background">
-                                        <div class="text-black">Res</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <div class="absolute circle text-3xl">Atributos</div>
-                            </div>
-                            <div class="flex flex-row w-full justify-around mt-1 z-10">
-                                <div class="hexagon-borda">
-                                    <div class="hexagon-background">
-                                        <div class="text-black">Int</div>
-                                    </div>
-                                </div>
-                                <div class="hexagon-borda">
-                                    <div class="hexagon-background">
-                                        <div class="text-black">Sanid</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="hexagon-borda z-10">
-                                <div class="hexagon-background">
-                                    <div class="text-black">Poder</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-
-            </div>
-            
-            <div class="w-full h-[250px] flex flex-col p-2 gap-3  ">
-                <div class="w-full h-full flex flex-row p-2 gap-4 rounded-md shadow-lg bg-rosa-escuro">
-                    <div class="h-full flex flex-col">
-                        <label class="mb-2 text-sm">ESCOLHA SUA SINGULARIDADE:</label>
-                        <textarea type="text" class="w-full h-full resize-none p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
-                    </div>
-                    <div class="flex flex-col h-full gap-2">
-                        <div>
-                            <label class="mb-2 text-base ">Caminhos:</label>
-                            <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
-                        </div>
-                        <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
-                            <div class="text-rosa-choque">Caminhos Escolidos:</div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col h-full gap-2">
-                        <div>
-                            <label class="mb-2 text-base ">Arquetipos:</label>
-                            <input type="text" class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
-                        </div>
-                        <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
-                            <div class="text-rosa-choque">Arquetipos Escolidos:</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+      </div>
     </div>
+
+    <div class="container-tabs">
+    </div>
+  </div>
+
+  <div class="basis-[60%] w-full h-full p-2">
+
+    <div class="w-full flex flex-row h-[50%]">
+      <div class="flex flex-col basis-[40%] gap-2">
+        <div>
+          <label class="label-padrao">Nome:</label>
+          <input type="text"
+            class="input-padrao">
+        </div>
+        <div>
+          <label class="label-padrao">Raça:</label>
+          <input type="text"
+            class="input-padrao">
+        </div>
+        <div>
+          <label class="label-padrao">Idade:</label>
+          <input type="text"
+            class="input-padrao">
+        </div>
+        <div>
+          <label class="label-padrao">Características:</label>
+          <textarea type="text"
+            class="w-full h-auto p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
+        </div>
+      </div>
+
+      <div class="container-atributos-img">
+
+        <div class="container-atributos">
+
+          <div class="container-for-int">
+            <div class="hexagon-borda">
+              <div class="hexagon-background">for</div>
+            </div>
+            <div class="hexagon-borda">
+              <div class="hexagon-background">int</div>
+            </div>
+          </div>
+          <div class="container-agi-pow">
+            <div class="hexagon-borda">
+              <div class="hexagon-background">agi</div>
+            </div>
+            <div class="absolute circle -z-10">Atributos</div>
+            <div class="hexagon-borda">
+              <div class="hexagon-background">pow</div>
+            </div>
+          </div>
+          <div class="container-res-san">
+            <div class="hexagon-borda">
+              <div class="hexagon-background">res</div>
+            </div>
+            <div class="hexagon-borda">
+              <div class="hexagon-background">san</div>
+            </div>
+          </div>
+
+        </div>
+        <!-- 
+        <div class="container-img">
+          <img src="assets/img/Atributos.png" alt="atributo">
+        </div> -->
+
+      </div>
+
+
+    </div>
+
+    <div class="w-full h-[250px] flex flex-col p-2 gap-3  ">
+      <div class="w-full h-full flex flex-row p-2 gap-4 rounded-md shadow-lg bg-rosa-escuro">
+        <div class="h-full flex flex-col">
+          <label class="mb-2 text-sm">ESCOLHA SUA SINGULARIDADE:</label>
+          <textarea type="text"
+            class="w-full h-full resize-none p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
+        </div>
+        <div class="flex flex-col h-full gap-2">
+          <div>
+            <label class="mb-2 text-base ">Caminhos:</label>
+            <input type="text"
+              class="input-padrao">
+          </div>
+          <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
+            <div class="text-rosa-choque">Caminhos Escolidos:</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col h-full gap-2">
+          <div>
+            <label class="mb-2 text-base ">Arquetipos:</label>
+            <input type="text"
+              class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
+          </div>
+          <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
+            <div class="text-rosa-choque">Arquetipos Escolidos:</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

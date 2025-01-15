@@ -1,6 +1,10 @@
-export interface Usuario {
-    id: number;
-    login: string;
-    senha: string;
-    email: string;
+export class Usuario {
+    id: number = 0;
+    login: string = '';
+    senha: string = '';
+    email: string = '';
+
+    constructor(init?: Partial<Usuario>) {
+        Object.assign(this, init);
+    }
 }

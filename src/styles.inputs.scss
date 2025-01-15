@@ -1,0 +1,26 @@
+.label-padrao{
+    margin-bottom: 0.5rem /* 8px */;
+    font-size: 1rem /* 16px */;
+    line-height: 1.5rem /* 24px */;
+}
+
+.input-padrao{
+    width: 100%;
+    display: block;
+    --tw-text-opacity: 1;
+    color: rgb(17 24 39 / var(--tw-text-opacity)); /* #111827 */
+    border: 1px solid #FF1457;
+    border-radius: 0.375rem /* 6px */;
+    --tw-bg-opacity: 1;
+    font-size: 16px /* 12px */;
+    line-height: 1rem /* 16px */;
+    background-color: rgb(249 250 251 / var(--tw-bg-opacity)) /* #f9fafb */;
+    --tw-border-opacity: 1;
+    border-color: rgb(255 20 87 / var(--tw-border-opacity)) /* #ff1457 */;
+
+    &:focus{
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(255 20 87 / var(--tw-ring-opacity)) /* #ff1457 */;
+        border-color: #FF1457;
+    }
+}
