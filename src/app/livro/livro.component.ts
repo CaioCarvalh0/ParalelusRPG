@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-livro',
     templateUrl: './livro.component.html',
     styleUrls: ['./livro.component.scss'],
-    standalone: false
+    standalone: true
 })
 export class LivroComponent {
 

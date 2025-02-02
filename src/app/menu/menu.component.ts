@@ -2,12 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd  } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthenticationService } from '../service/authentication.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      MatIconModule,
+      MatMenuModule
+    ]
 })
 export class MenuComponent implements OnInit {
   pageTitle: string = 'Paralelus Rpg';

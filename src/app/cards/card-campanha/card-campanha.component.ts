@@ -5,7 +5,9 @@ import { Campanha } from 'src/app/models/campanha';
     selector: 'app-card-campanha',
     templateUrl: './card-campanha.component.html',
     styleUrls: ['./card-campanha.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [ 
+    ]
 })
 export class CardCampanhaComponent implements OnInit {
 

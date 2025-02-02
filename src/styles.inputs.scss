@@ -7,6 +7,7 @@
 .input-padrao{
     width: 100%;
     display: block;
+    padding: 4px;
     --tw-text-opacity: 1;
     color: rgb(17 24 39 / var(--tw-text-opacity)); /* #111827 */
     border: 1px solid #FF1457;
@@ -22,5 +23,30 @@
         --tw-ring-opacity: 1;
         --tw-ring-color: rgb(255 20 87 / var(--tw-ring-opacity)) /* #ff1457 */;
         border-color: #FF1457;
+        outline: none;
+        box-shadow: 0 0 0 1px #FF1457;
     }
 }
+
+
+.input-textarea{
+    width: 100%;
+    height: 100%;
+    resize: none;
+    --tw-text-opacity: 1;
+    border-width: 1px;
+    border-color: #FF1457;
+    color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+    border-radius: 0.375rem; /* 6px */
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+
+
+    &:focus{
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(255 20 87 / var(--tw-ring-opacity)) /* #ff1457 */;
+        border-color: #FF1457;
+        outline: none;
+        box-shadow: 0 0 0 1px #FF1457;
+    }
+}   

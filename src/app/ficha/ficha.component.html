@@ -1,50 +1,60 @@
 <div class="container-geral-row">
-  <div class="container-nome-tabs">
-    <div class="container-nome">
-      <div>
-        <p-button label="Danger" severity="danger" />
-        <div>Nome do personagem</div>
-        <div class="container-foto-vida-engeria">
-          <div class="container-foto">
-            FOTO
-          </div>
-          <div class="container-vida-energia">
-              <div>vida</div>
-              <div>energia</div>
-          </div>
-        </div>
+  <div class="container-geral-left">
+
+    <div class="container-foto-vida-engeria">
+      <div class="container-foto">
+        FOTO
+      </div>
+
+      <div class="container-vida-energia">
+        <div>Vida</div>
+        <p-progressbar color="red" [value]="(vidaatual / maxvida) * 100">
+          <ng-template #content let-value>
+            <span>{{vidaatual}}/{{ maxvida }}</span>
+          </ng-template>
+        </p-progressbar>
+
+        <div>Energia</div>
+        <p-progressbar color="rgb(74, 183, 255)" [value]="50">
+          <ng-template #content let-value>
+            <span>{{value}}/100</span>
+          </ng-template>
+        </p-progressbar>
+
       </div>
     </div>
 
-    <div class="container-tabs">
+    <div class="container-tabs flex-grow">
+
+      @for (item of listaPericia; track item.id) {
+      <div>{{ item.nome }}</div>
+      }
+
     </div>
   </div>
 
-  <div class="basis-[60%] w-full h-full p-2">
+  <div class="container-geral-rigth">
 
-    <div class="w-full flex flex-row h-[50%]">
-      <div class="flex flex-col basis-[40%] gap-2">
+    <div class="container-form-atrib">
+
+      <form class="container-form">
         <div>
           <label class="label-padrao">Nome:</label>
-          <input type="text"
-            class="input-padrao">
+          <input type="text" class="input-padrao">
         </div>
-        <div>
-          <label class="label-padrao">Raça:</label>
-          <input type="text"
-            class="input-padrao">
+        <div class="container-raca">
+          <label class="">Raça:</label>
+          <p-select class="raca" size="small" [options]="listaRaca" optionLabel="nome" placeholder="Selecione a Raça" />
         </div>
         <div>
           <label class="label-padrao">Idade:</label>
-          <input type="text"
-            class="input-padrao">
+          <input type="text" class="input-padrao">
         </div>
-        <div>
+        <div class="container-textarea">
           <label class="label-padrao">Características:</label>
-          <textarea type="text"
-            class="w-full h-auto p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
+          <textarea type="text" class="input-textarea"></textarea>
         </div>
-      </div>
+      </form>
 
       <div class="container-atributos-img">
 
@@ -52,7 +62,12 @@
 
           <div class="container-for-int">
             <div class="hexagon-borda">
-              <div class="hexagon-background">for</div>
+              <div class="hexagon-background flex-col ">
+                <div class="text-2xl">
+                  3
+                </div>
+                <div>for</div>
+              </div>
             </div>
             <div class="hexagon-borda">
               <div class="hexagon-background">int</div>
@@ -62,7 +77,7 @@
             <div class="hexagon-borda">
               <div class="hexagon-background">agi</div>
             </div>
-            <div class="absolute circle -z-10">Atributos</div>
+            <div class="circle">Atributos</div>
             <div class="hexagon-borda">
               <div class="hexagon-background">pow</div>
             </div>
@@ -77,44 +92,62 @@
           </div>
 
         </div>
-        <!-- 
-        <div class="container-img">
-          <img src="assets/img/Atributos.png" alt="atributo">
-        </div> -->
 
       </div>
 
 
     </div>
 
-    <div class="w-full h-[250px] flex flex-col p-2 gap-3  ">
-      <div class="w-full h-full flex flex-row p-2 gap-4 rounded-md shadow-lg bg-rosa-escuro">
-        <div class="h-full flex flex-col">
-          <label class="mb-2 text-sm">ESCOLHA SUA SINGULARIDADE:</label>
-          <textarea type="text"
-            class="w-full h-full resize-none p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]"></textarea>
-        </div>
-        <div class="flex flex-col h-full gap-2">
+    <div class="container-geral-bottom">
+      <div class="container-sing-caminho-arquetpo">
+
+        <div class="container-caminho">
           <div>
-            <label class="mb-2 text-base ">Caminhos:</label>
-            <input type="text"
-              class="input-padrao">
+            <label class="label-padrao">Caminhos:</label>
+            <p-select class="w-full max-w-full" size="small"
+              [options]="listaCaminho" optionLabel="nome" 
+              (onChange)="selectCaminho()"
+              placeholder="Selecione um Caminho" [(ngModel)]="caminho"/>
           </div>
-          <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
-            <div class="text-rosa-choque">Caminhos Escolidos:</div>
+          <div class="content-caminho ">
+            <div class="title">Caminhos Escolidos:</div>
+            @for (caminho of listaCaminhoSelecionado; track $index) {
+              <div class="row-caminho">
+                <span>{{ caminho.nome }}</span> 
+                <p-button icon="pi pi-times" 
+                [rounded]="true" [text]="true"
+                severity="danger" click (click)="removeCaminho(caminho)"/>
+              </div>
+            }
           </div>
         </div>
 
-        <div class="flex flex-col h-full gap-2">
+        <div class="container-arquetipo">
           <div>
-            <label class="mb-2 text-base ">Arquetipos:</label>
-            <input type="text"
-              class="w-full h-8 p-2 text-gray-900 border border-[#FF1457] rounded-md bg-gray-50  focus:ring-[#FF1457] focus:border-[#FF1457]">
+            <label class="label-padrao">Arquetipos:</label>
+            <p-select class="w-full" size="small" 
+              [options]="listaCaminhoArquetipo" optionLabel="nome"
+              (onChange)="selectArquetipo()"
+              placeholder="Selecione um Arquetipos" [(ngModel)]="arquetipo" />
           </div>
-          <div class="flex flex-col w-full h-full items-center border-2 rounded-md bg-rosa-escuro border-[#FF1457] ">
-            <div class="text-rosa-choque">Arquetipos Escolidos:</div>
+          <div class="content-arquetipo">
+            <div class="title">Arquetipos Escolidos:</div>
+            @for (arquetipo of listaArquetipoSelecionado; track $index) {
+              <div class="row-caminho">
+                <span>{{ arquetipo.nome }}</span> 
+                <p-button icon="pi pi-times" 
+                [rounded]="true" [text]="true"
+                severity="danger" click (click)="removeArquetipo(arquetipo)"/>
+              </div>
+            }
           </div>
         </div>
+
+        <div class="container-singularidade">
+          <label class="label-padrao">SINGULARIDADE:</label>
+          <textarea type="text" class="input-textarea"></textarea>
+        </div>
+
       </div>
     </div>
 

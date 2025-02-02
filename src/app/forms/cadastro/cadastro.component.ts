@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterDTO } from 'src/app/dto/register-dto';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -9,7 +9,10 @@ import { ModalService } from 'src/app/service/modal.service';
     selector: 'app-cadastro',
     templateUrl: './cadastro.component.html',
     styleUrls: ['./cadastro.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+        ReactiveFormsModule
+    ]
 })
 export class CadastroComponent implements OnInit {
     formCadastro: FormGroup

@@ -10,20 +10,14 @@ import { FichaComponent } from './ficha/ficha.component';
 import { LivroComponent } from './livro/livro.component';
 import { AuthGuard } from './guards/auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'home', component: HomeComponent , canActivate: [false] },
   { path: 'usuario', component: PainelUsuarioComponent, canActivate: [false] },
-  { path: 'criaçãodecampanha', component: CriacaoCampanhaComponent, canActivate: [false] },
+  { path: 'criacaodecampanha', component: CriacaoCampanhaComponent, canActivate: [false] },
   { path: 'campanha', component: CampanhaComponent, canActivate: [false] },
   { path: 'ficha', component: FichaComponent, canActivate: [AuthGuard] },
   { path: 'livro', component: LivroComponent, canActivate: [false] },
   { path: '**', redirectTo: 'login' },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

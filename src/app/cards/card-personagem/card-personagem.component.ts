@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-card-personagem',
     templateUrl: './card-personagem.component.html',
     styleUrls: ['./card-personagem.component.scss'],
-    standalone: false
+    standalone: true
 })
 export class CardPersonagemComponent {
 

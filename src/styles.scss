@@ -1,4 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+@tailwind base;
+}
+
+@layer tailwind-utilities {
+@tailwind components;
+@tailwind utilities;
+
+}
+
+@import "primeicons/primeicons.css";
+
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon+SC&family=Rubik:wght@300&display=swap');
 
 
@@ -6,8 +19,7 @@ body{
     background-color: #35313B;
 }
 *{
-    color: white;
     font-family: 'IM Fell French Canon SC', serif;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: white; }

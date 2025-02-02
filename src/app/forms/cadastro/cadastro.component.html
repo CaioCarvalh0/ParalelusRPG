@@ -1,32 +1,31 @@
 <div class="container-geral-center">
-  <div class="flex w-[490px] h-[490px] items-center justify-center rounded-md bg-[#453745] shadow-2xl">
-    <form [formGroup]="formCadastro" class="w-[380px]" (submit)="cadastrarUsario()">
-      <div class="mb-4">
-        <label class="label-padrao">Nome de Usuario:</label>
-        <input type="text" class="input-padrao" formControlName="nome">
-      </div>
-      <div class="mb-4">
-        <label class="label-padrao">Email:</label>
-        <input type="text" class="input-padrao" formControlName="email">
-      </div>
-      <div class="mb-4">
-        <label class="label-padrao">Nome para Login:</label>
-        <input type="text" class="input-padrao" formControlName="login">
-      </div>
-      <div class="mb-4">
-        <div>
-          <label class="label-padrao">Senha:</label>
-          <input type="password" class="input-padrao" formControlName="senha">
-        </div>
-      </div>
-      <div class="mb-7">
-        <div>
-          <label class="label-padrao">Confirmar Senha:</label>
-          <input type="password" class="input-padrao" formControlName="confirmSenha">
-        </div>
-      </div>
-      <button type="submit" [disabled]="formCadastro.invalid"
-        class="button-padrao">CADASTRAR-SE</button>
-    </form>
-  </div>
+  <form [formGroup]="formCadastro" class="container-form" (submit)="cadastrarUsario()">
+
+    <div>
+      <label class="label-padrao">Usuario:</label>
+      <input type="text" class="input-padrao" formControlName="nome">
+    </div>
+
+    <div>
+      <label class="label-padrao">Email:</label>
+      <input type="text" class="input-padrao" formControlName="email">
+    </div>
+
+    <div>
+      <label class="label-padrao">Login:</label>
+      <input type="text" class="input-padrao" formControlName="login">
+    </div>
+
+    <div>
+      <label class="label-padrao">Senha:</label>
+      <input type="password" class="input-padrao" formControlName="senha">
+    </div>
+    
+    <div>
+      <label class="label-padrao">Confirmar Senha:</label>
+      <input type="password" class="input-padrao" formControlName="confirmSenha">
+    </div>
+
+    <button type="submit" [disabled]="formCadastro.invalid" class="button-padrao">CADASTRAR-SE</button>
+  </form>
 </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDTO } from 'src/app/dto/login-dto';
 import { ModalService } from 'src/app/service/modal.service';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -9,17 +9,20 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [
+    ReactiveFormsModule
+  ]
 })
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthenticationService,
-    private modalService: ModalService,
-    private router: Router
-  ) {
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthenticationService);
+  private modalService = inject(ModalService);
+  private router = inject(Router);
+
+  constructor() {
     this.formLogin = this.formBuilder.group({
       login: ['', Validators.required],
       senha: ['', Validators.required]
@@ -52,7 +55,6 @@ export class LoginComponent implements OnInit {
   checkTokenLocalStorage() {
     const token = localStorage.getItem('token');
     if (token) {
-      console.log('token', token);
       this.modalService.openModalSuccess('Login efetuado com sucesso');
       // this.router.navigate(['/home']);
       this.router.navigate(['/ficha']);

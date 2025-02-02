@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-criacao-campanha',
     templateUrl: './criacao-campanha.component.html',
     styleUrls: ['./criacao-campanha.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      MatIconModule,
+       
+    ]
 })
 export class CriacaoCampanhaComponent {
   lvlCampanha: number = 0

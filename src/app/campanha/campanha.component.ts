@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SolicitacaoComponent } from '../shared/solicitacao/solicitacao.component';
+import { CardPersonagemComponent } from '../cards/card-personagem/card-personagem.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-campanha',
     templateUrl: './campanha.component.html',
     styleUrls: ['./campanha.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CardPersonagemComponent,
+      MatIconModule,
+      MatDialogModule,
+    ]
 })
 export class CampanhaComponent implements OnInit{
 

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalEnum } from 'src/app/enums/modal';
@@ -6,7 +7,10 @@ import { ModalEnum } from 'src/app/enums/modal';
     selector: 'app-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+        CommonModule, 
+    ]
 })
 export class ModalComponent implements OnInit{
     data = inject(MAT_DIALOG_DATA);

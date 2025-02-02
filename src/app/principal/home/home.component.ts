@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CardCampanhaComponent } from 'src/app/cards/card-campanha/card-campanha.component';
 import { Campanha } from 'src/app/models/campanha';
 import { CampanhaService } from 'src/app/service/campanha.service';
 
@@ -6,7 +8,10 @@ import { CampanhaService } from 'src/app/service/campanha.service';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+        CommonModule,    
+        CardCampanhaComponent]
 })
 export class HomeComponent implements OnInit {
     listaCampanhas: Campanha[] = [];

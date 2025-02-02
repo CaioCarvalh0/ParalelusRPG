@@ -1,12 +1,12 @@
 <nav class="container-menu">
-  <div class="flex-1 "></div>
-  <div class="flex items-center">
+  <div class="flex"></div>
+  <div class="container-pagetitle">
     <span>🏹</span>
     <span class="text-gray-50">{{ pageTitle }}</span>
     <span>🎲</span>
   </div>
 
-  <div class="flex-1 flex justify-end pr-5">
+  <div class="container-btn-menu">
     <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLinkActive="active" routerLink="/index">Home</button>
@@ -17,4 +17,4 @@
   </div>
   
 </nav>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->

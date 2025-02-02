@@ -1,0 +1,16 @@
+.flex{
+    flex: 1 1 0%;
+}
+
+.container-pagetitle{
+    display: flex;
+    align-items: center;
+}
+
+.container-btn-menu{
+    flex: 1 1 0%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1.25rem; /* 20px */
+
+}
