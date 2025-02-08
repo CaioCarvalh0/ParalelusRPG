@@ -1,0 +1,15 @@
+<div class="modal">
+  <image-cropper 
+    [imageBase64]="imagemOriginal" 
+    [maintainAspectRatio]="true" 
+    [aspectRatio]="1"
+    [resizeToWidth]="182"
+    format="png"
+    base64ToFile="false"
+    (imageCropped)="cortarImagem($event)">
+  </image-cropper>
+
+  <div class="container-btns">
+    <p-button label="Salvar" (onClick)="salvar()"/>
+  </div>
+</div>

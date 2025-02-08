@@ -2,34 +2,67 @@
   <div class="container-geral-left">
 
     <div class="container-foto-vida-engeria">
-      <div class="container-foto">
-        FOTO
+
+
+      <div class="container-foto" (click)="abrirSeletorDeImagem()">
+        @if (imagemCortada()) {
+        <img [src]="imagemCortada()" alt="Foto do Personagem" />
+        } @else {
+        <div class="container-foto-icon">
+          <span class="pi pi-user"></span>
+        </div>
+        }
       </div>
 
+      <input type="file" #fileInput hidden (change)="selecionarImagem($event)" accept="image/*" />
+
       <div class="container-vida-energia">
+
         <div>Vida</div>
-        <p-progressbar color="red" [value]="(vidaatual / maxvida) * 100">
-          <ng-template #content let-value>
-            <span>{{vidaatual}}/{{ maxvida }}</span>
-          </ng-template>
-        </p-progressbar>
+        <div class="row-progressbar">
+          <span class="pi pi-angle-double-left" (click)="removePontosVidaMax()"></span>
+          <span class="pi pi-angle-left" (click)="removePontosVida()"></span>
+          <p-progressbar class="w-full" color="red" [value]="(vidaatual / maxvida) * 100">
+            <ng-template #content let-value>
+              <span>{{ vidaatual }}/{{ maxvida }}</span>
+            </ng-template>
+          </p-progressbar>
+          <span class="pi pi-angle-right" (click)="addPontosVida()"></span>
+          <span class="pi pi-angle-double-right" (click)="addPontosVidaMax()"></span>
+        </div>
 
         <div>Energia</div>
-        <p-progressbar color="rgb(74, 183, 255)" [value]="50">
-          <ng-template #content let-value>
-            <span>{{value}}/100</span>
-          </ng-template>
-        </p-progressbar>
+        <div class="row-progressbar">
+          <span class="pi pi-angle-double-left" (click)="removePontosManaMax()"></span>
+          <span class="pi pi-angle-left" (click)="removePontosMana()"></span>
+          <p-progressbar class="w-full" color="rgb(74, 183, 255)" [value]="(manaatual / maxmana) * 100">
+            <ng-template #content let-value>
+              <span>{{ manaatual }}/{{ maxmana }}</span>
+            </ng-template>
+          </p-progressbar>
+          <span class="pi pi-angle-right" (click)="addPontosMana()"></span>
+          <span class="pi pi-angle-double-right" (click)="addPontosManaMax()"></span>
+        </div>
 
       </div>
     </div>
 
-    <div class="container-tabs flex-grow">
-
-      @for (item of listaPericia; track item.id) {
-      <div>{{ item.nome }}</div>
-      }
-
+    <div class="container-tabs ">
+      <div class="container-inventario">
+        <div>Inventario:</div>
+        <textarea type="text" class="input-textarea"></textarea>
+        <label>Ca:</label>
+        <input type="text" class="input-padrao">
+      </div>
+      <div class="container-pericias">
+        @for (item of listaPontosPericia; track item.pericia.id) {
+        <div class="row-pericia" (click)="addPontosPericia(item.pericia)"
+          (contextmenu)="removePontosPericia($event, item.pericia)">
+          <div>{{ item.pericia.nome }}</div>
+          <div>{{ item.pontos }}</div>
+        </div>
+        }
+      </div>
     </div>
   </div>
 
@@ -62,40 +95,67 @@
 
           <div class="container-for-int">
             <div class="hexagon-borda">
-              <div class="hexagon-background flex-col ">
+              <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Forca)"
+                (contextmenu)="removePontosAtributo($event, atributoEnum.Forca)">
                 <div class="text-2xl">
-                  3
+                  {{ atributos.forca }}
                 </div>
                 <div>for</div>
               </div>
             </div>
             <div class="hexagon-borda">
-              <div class="hexagon-background">int</div>
+              <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Intelecto)"
+                (contextmenu)="removePontosAtributo($event, atributoEnum.Intelecto)">
+                <div class="text-2xl">
+                  {{ atributos.intelecto }}
+                </div>
+                <div>int</div>
+              </div>
             </div>
           </div>
           <div class="container-agi-pow">
             <div class="hexagon-borda">
-              <div class="hexagon-background">agi</div>
+              <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Agilidade)"
+                (contextmenu)="removePontosAtributo($event, atributoEnum.Agilidade)">
+                <div class="text-2xl">
+                  {{ atributos.agilidade }}
+                </div>
+                <div>AGI</div>
+              </div>
             </div>
             <div class="circle">Atributos</div>
             <div class="hexagon-borda">
-              <div class="hexagon-background">pow</div>
+              <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Poder)"
+                (contextmenu)="removePontosAtributo($event, atributoEnum.Poder)">
+                <div class="text-2xl">
+                  {{ atributos.poder }}
+                </div>
+                <div>POD</div>
+              </div>
             </div>
           </div>
           <div class="container-res-san">
             <div class="hexagon-borda">
-              <div class="hexagon-background">res</div>
+              <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Resistencia)"
+                (contextmenu)="removePontosAtributo($event, atributoEnum.Resistencia)">
+                <div class="text-2xl">
+                  {{ atributos.resistencia }}
+                </div>
+                <div>RES</div>
+              </div>
             </div>
             <div class="hexagon-borda">
-              <div class="hexagon-background">san</div>
+              <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Sanidade)"
+                (contextmenu)="removePontosAtributo($event, atributoEnum.Sanidade)">
+                <div class="text-2xl">
+                  {{ atributos.sanidade }}
+                </div>
+                <div>SAN</div>
+              </div>
             </div>
           </div>
-
         </div>
-
       </div>
-
-
     </div>
 
     <div class="container-geral-bottom">
@@ -104,20 +164,17 @@
         <div class="container-caminho">
           <div>
             <label class="label-padrao">Caminhos:</label>
-            <p-select class="w-full max-w-full" size="small"
-              [options]="listaCaminho" optionLabel="nome" 
-              (onChange)="selectCaminho()"
-              placeholder="Selecione um Caminho" [(ngModel)]="caminho"/>
+            <p-select class="w-full max-w-full" size="small" [options]="listaCaminho" optionLabel="nome"
+              (onChange)="selectCaminho()" placeholder="Selecione um Caminho" [(ngModel)]="caminho" />
           </div>
           <div class="content-caminho ">
             <div class="title">Caminhos Escolidos:</div>
             @for (caminho of listaCaminhoSelecionado; track $index) {
-              <div class="row-caminho">
-                <span>{{ caminho.nome }}</span> 
-                <p-button icon="pi pi-times" 
-                [rounded]="true" [text]="true"
-                severity="danger" click (click)="removeCaminho(caminho)"/>
-              </div>
+            <div class="row-caminho">
+              <span>{{ caminho.nome }}</span>
+              <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" click
+                (click)="removeCaminho(caminho)" />
+            </div>
             }
           </div>
         </div>
@@ -125,29 +182,26 @@
         <div class="container-arquetipo">
           <div>
             <label class="label-padrao">Arquetipos:</label>
-            <p-select class="w-full" size="small" 
-              [options]="listaCaminhoArquetipo" optionLabel="nome"
-              (onChange)="selectArquetipo()"
-              placeholder="Selecione um Arquetipos" [(ngModel)]="arquetipo" />
+            <p-select class="w-full" size="small" [options]="listaCaminhoArquetipo" optionLabel="nome"
+              (onChange)="selectArquetipo()" placeholder="Selecione um Arquetipos" [(ngModel)]="arquetipo" />
           </div>
           <div class="content-arquetipo">
             <div class="title">Arquetipos Escolidos:</div>
             @for (arquetipo of listaArquetipoSelecionado; track $index) {
-              <div class="row-caminho">
-                <span>{{ arquetipo.nome }}</span> 
-                <p-button icon="pi pi-times" 
-                [rounded]="true" [text]="true"
-                severity="danger" click (click)="removeArquetipo(arquetipo)"/>
-              </div>
+            <div class="row-caminho">
+              <span>{{ arquetipo.nome }}</span>
+              <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" click
+                (click)="removeArquetipo(arquetipo)" />
+            </div>
             }
           </div>
         </div>
 
         <div class="container-singularidade">
-          <label class="label-padrao">SINGULARIDADE:</label>
+          <label>SINGULARIDADE:</label>
           <textarea type="text" class="input-textarea"></textarea>
+          <p-button class="btn-salvar-personagem" label="Salvar"/>
         </div>
-
       </div>
     </div>
 
