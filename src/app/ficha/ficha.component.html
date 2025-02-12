@@ -49,17 +49,17 @@
 
     <div class="container-tabs ">
       <div class="container-inventario">
-        <div>Inventario:</div>
-        <textarea type="text" class="input-textarea"></textarea>
         <label>Ca:</label>
-        <input type="text" class="input-padrao">
+        <input type="text" class="input-padrao" [(ngModel)]="defesa">
+        <div>Inventario:</div>
+        <textarea type="text" class="input-textarea" [(ngModel)]="inventario"></textarea>
       </div>
       <div class="container-pericias">
-        @for (item of listaPontosPericia; track item.pericia.id) {
-        <div class="row-pericia" (click)="addPontosPericia(item.pericia)"
-          (contextmenu)="removePontosPericia($event, item.pericia)">
-          <div>{{ item.pericia.nome }}</div>
-          <div>{{ item.pontos }}</div>
+        @for (pericia of listaPericia; track pericia.id) {
+        <div class="row-pericia" (click)="addPontosPericia(pericia)"
+          (contextmenu)="removePontosPericia($event, pericia)">
+          <div>{{ pericia.nome }}</div>
+          <div>{{ pericia.pontos }}</div>
         </div>
         }
       </div>
@@ -70,22 +70,25 @@
 
     <div class="container-form-atrib">
 
-      <form class="container-form">
+      <form class="container-form" [formGroup]="form">
         <div>
           <label class="label-padrao">Nome:</label>
-          <input type="text" class="input-padrao">
+          <input type="text" class="input-padrao" formControlName="nome">
         </div>
         <div class="container-raca">
           <label class="">Raça:</label>
-          <p-select class="raca" size="small" [options]="listaRaca" optionLabel="nome" placeholder="Selecione a Raça" />
+          <p-select size="small" [options]="listaRaca" 
+            optionLabel="nome" placeholder="Selecione a Raça"  
+            formControlName="raca"
+          />
         </div>
         <div>
-          <label class="label-padrao">Idade:</label>
-          <input type="text" class="input-padrao">
+          <label class="label-padrao">Level:</label>
+          <input type="text" class="input-padrao" formControlName="level">
         </div>
         <div class="container-textarea">
           <label class="label-padrao">Características:</label>
-          <textarea type="text" class="input-textarea"></textarea>
+          <textarea type="text" class="input-textarea" formControlName="caracteristicas"></textarea>
         </div>
       </form>
 
@@ -200,7 +203,7 @@
         <div class="container-singularidade">
           <label>SINGULARIDADE:</label>
           <textarea type="text" class="input-textarea"></textarea>
-          <p-button class="btn-salvar-personagem" label="Salvar"/>
+          <p-button class="btn-salvar-personagem" styleClass="w-full" label="Salvar" (onClick)="salvarPersonagem()"/>
         </div>
       </div>
     </div>

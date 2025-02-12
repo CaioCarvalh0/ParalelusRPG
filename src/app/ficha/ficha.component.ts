@@ -9,18 +9,19 @@ import { Caminho } from '../models/caminho';
 import { Arquetipo } from '../models/arquetipo';
 import { CaminhoService } from '../service/caminho.service';
 import { ArquetipoService } from '../service/arquetipo.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RecorteComponent } from '../shared/recorte/recorte.component';
 import { TextareaModule } from 'primeng/textarea';
 import { AtributoEnum } from '../enums/atributo.enum';
 import { Atributos } from '../models/atributos';
-
-interface PontosPericia {
-  pericia: Pericia;
-  pontos: number;
-}
+import { PersonagemDTO } from '../dto/salvar.personagem-dto';
+import { AuthenticationService } from '../service/authentication.service';
+import { Usuario } from '../models/usuario';
+import { PersonagemService } from '../service/personagem.service';
+import { ModalService } from '../service/modal.service';
+import { Personagem } from '../models/personagem';
 
 @Component({
   selector: 'app-ficha',
@@ -33,10 +34,14 @@ interface PontosPericia {
     FormsModule,
     ButtonModule,
     MatDialogModule,
-    TextareaModule
+    TextareaModule,
+    ReactiveFormsModule
   ]
 })
 export class FichaComponent implements OnInit {
+  form: FormGroup
+  usuario: Usuario
+  personagem: Personagem = new Personagem()
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   imagemCortada = signal<string | null>(null);
@@ -48,7 +53,6 @@ export class FichaComponent implements OnInit {
   listaRaca: Raca[] = []
 
   listaPericia: Pericia[] = []
-  listaPontosPericia: PontosPericia[] = []
 
   listaCaminho: Caminho[] = []
   listaArquetipo: Arquetipo[] = []
@@ -66,13 +70,29 @@ export class FichaComponent implements OnInit {
   maxmana: number = 100
   manaatual: number = 100
 
+  defesa?: number
+
+  inventario: string = ""
+
   private racaService = inject(RacaService)
   private periciaService = inject(PericiaService)
   private caminhoService = inject(CaminhoService)
   private arquetipoService = inject(ArquetipoService)
   private dialog = inject(MatDialog)
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthenticationService)
+  private personagemService = inject(PersonagemService)
+  private modalService = inject(ModalService)
 
   constructor() {
+    this.usuario = this.authService.currentUser
+
+    this.form = this.formBuilder.group({
+      nome: [''],
+      raca: [''],
+      level: [''],
+      caracteristicas: [''],
+    })
   }
 
   ngOnInit(): void {
@@ -82,7 +102,7 @@ export class FichaComponent implements OnInit {
 
     this.periciaService.getListaPericias().subscribe((result) => {
       this.listaPericia = result
-      this.addListaPericiaOnPericiaPontos()
+      this.listaPericia.forEach(pericia => { pericia.pontos = 0 })
     })
 
     this.caminhoService.getListaCaminhos().subscribe((result) => {
@@ -94,10 +114,9 @@ export class FichaComponent implements OnInit {
     })
   }
 
+  verificaUsuarioPossuiPersonagem() {
 
-
-
-
+  }
 
   addPontosAtributo(atributo: AtributoEnum) {
     switch (atributo) {
@@ -163,17 +182,17 @@ export class FichaComponent implements OnInit {
   }
 
   addPontosPericia(pericia: Pericia) {
-    let index = this.listaPontosPericia.findIndex(p => p.pericia.id == pericia.id)
-    if (this.listaPontosPericia[index].pontos < 3) {
-      this.listaPontosPericia[index].pontos++
+    let index = this.listaPericia.findIndex(p => p.id == pericia.id)
+    if (this.listaPericia[index].pontos < 3) {
+      this.listaPericia[index].pontos++
     }
   }
 
   removePontosPericia(event: MouseEvent, pericia: Pericia) {
     event.preventDefault()
-    let index = this.listaPontosPericia.findIndex(p => p.pericia.id == pericia.id)
-    if (this.listaPontosPericia[index].pontos > 0) {
-      this.listaPontosPericia[index].pontos--
+    let index = this.listaPericia.findIndex(p => p.id == pericia.id)
+    if (this.listaPericia[index].pontos > 0) {
+      this.listaPericia[index].pontos--
     }
   }
 
@@ -208,12 +227,6 @@ export class FichaComponent implements OnInit {
     this.listaArquetipoSelecionado = this.listaArquetipoSelecionado.filter(a => a.id != arquetipo.id)
   }
 
-
-  addListaPericiaOnPericiaPontos() {
-    this.listaPericia.forEach(pericia => {
-      this.listaPontosPericia.push({ pericia: pericia, pontos: 0 })
-    })
-  }
 
   abrirSeletorDeImagem() {
     this.fileInput.nativeElement.click();
@@ -295,6 +308,35 @@ export class FichaComponent implements OnInit {
     if (this.maxmana > 0) {
       this.maxmana--
     }
+  }
+
+
+  salvarPersonagem(){
+    var personagemDTO = this.montaJsonDTO()
+    this.personagemService.salvarPersonagem(personagemDTO).subscribe((result) => {
+      this.modalService.openModalSuccess(result)
+    })
+  } 
+
+  montaJsonDTO(): PersonagemDTO{
+    let personagemDTO: PersonagemDTO = {
+      id: this.personagem.id,
+      nome: this.form.get('nome')!.value,
+      usuario: this.usuario,
+      raca: this.form.get('raca')!.value,
+      caminho: this.listaCaminhoSelecionado,
+      arquetipo: this.listaArquetipoSelecionado,
+      pericia: this.listaPericia,
+      atributos: this.atributos,
+      maxvida: this.maxvida,
+      vidaatual: this.vidaatual,
+      maxmana: this.maxmana,
+      manaatual: this.manaatual,
+      defesa: this.defesa ?? 0,
+      inventario: this.inventario,
+      imagem: this.imagemCortada.toString() ?? ""
+    }
+    return personagemDTO
   }
 
 }

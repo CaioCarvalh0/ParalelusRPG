@@ -12,7 +12,7 @@ export class ModalService {
   constructor() {
   }
 
-  private openModal(msg: string, tipo: ModalEnum) {
+  private openModal(msg: String, tipo: ModalEnum) {
     const config = {
       width: '50vw',
       maxWidth: '400px', 
@@ -32,19 +32,19 @@ export class ModalService {
     this.dialog.open(ModalComponent, config)
   }
 
-  openModalAlert(mensagem: string) {
+  openModalAlert(mensagem: String) {
     this.openModal(mensagem, ModalEnum.ALERTA);
   }
 
-  openModalSuccess(mensagem: string) {
+  openModalSuccess(mensagem: String) {
     this.openModal(mensagem, ModalEnum.SUCESSO);
   }
 
-  openModalConfirm(mensagem: string) {
+  openModalConfirm(mensagem: String) {
     this.openModal(mensagem, ModalEnum.CONFIRMACAO);
   }
 
-  openModalError(mensagem: string) {
+  openModalError(mensagem: String) {
     this.openModal(mensagem, ModalEnum.ERRO);
   }
 
