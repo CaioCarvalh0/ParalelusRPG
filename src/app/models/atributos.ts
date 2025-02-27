@@ -6,4 +6,8 @@ export class Atributos {
     poder: number = 0
     sanidade: number = 0
     resistencia: number = 0
+
+    constructor(init?: Partial<Atributos>) {
+        Object.assign(this, init)
+    }
 }

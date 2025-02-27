@@ -40,7 +40,7 @@ import { Personagem } from '../models/personagem';
 })
 export class FichaComponent implements OnInit {
   form: FormGroup
-  usuario: Usuario
+  usuario: Usuario = new Usuario()
   personagem: Personagem = new Personagem()
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -73,6 +73,7 @@ export class FichaComponent implements OnInit {
   defesa?: number
 
   inventario: string = ""
+  singularidade: string = ""
 
   private racaService = inject(RacaService)
   private periciaService = inject(PericiaService)
@@ -85,8 +86,9 @@ export class FichaComponent implements OnInit {
   private modalService = inject(ModalService)
 
   constructor() {
-    this.usuario = this.authService.currentUser
-
+    this.authService.currentUser$.subscribe(user => { 
+      this.usuario = user 
+    })
     this.form = this.formBuilder.group({
       nome: [''],
       raca: [''],
@@ -112,10 +114,20 @@ export class FichaComponent implements OnInit {
     this.arquetipoService.getListaArquetipos().subscribe((result) => {
       this.listaArquetipo = result
     })
+
+    this.verificaUsuarioPossuiPersonagem()
   }
 
   verificaUsuarioPossuiPersonagem() {
-
+    this.personagemService.getPersonagemOfUsuario(this.usuario.id).subscribe((result) => {
+      if (result) {
+        this.personagem = result
+        this.setPersonagemOnForm()
+        this.personagemService.getImagemPersonagem(this.personagem.id).subscribe((result) => {
+          this.imagemCortada.set(result)
+        })
+      }
+    })
   }
 
   addPontosAtributo(atributo: AtributoEnum) {
@@ -313,7 +325,7 @@ export class FichaComponent implements OnInit {
 
   salvarPersonagem(){
     var personagemDTO = this.montaJsonDTO()
-    this.personagemService.salvarPersonagem(personagemDTO).subscribe((result) => {
+    this.personagemService.postSalvarPersonagem(personagemDTO).subscribe((result) => {
       this.modalService.openModalSuccess(result)
     })
   } 
@@ -326,17 +338,39 @@ export class FichaComponent implements OnInit {
       raca: this.form.get('raca')!.value,
       caminho: this.listaCaminhoSelecionado,
       arquetipo: this.listaArquetipoSelecionado,
-      pericia: this.listaPericia,
+      pericias: this.listaPericia,
       atributos: this.atributos,
-      maxvida: this.maxvida,
-      vidaatual: this.vidaatual,
-      maxmana: this.maxmana,
-      manaatual: this.manaatual,
-      defesa: this.defesa ?? 0,
+      vidaMax: this.maxvida,
+      vidaAtual: this.vidaatual,
+      energiaMax: this.maxmana,
+      energiaAtual: this.manaatual,
+      defesa: Number(this.defesa) || 0,
       inventario: this.inventario,
-      imagem: this.imagemCortada.toString() ?? ""
+      singularidade: this.singularidade,
+      imagem: this.imagemCortada()?.split(',')[1] || null,
+      caracteristica: this.form.get('caracteristicas')!.value,
+      level: this.form.get('level')!.value
     }
     return personagemDTO
   }
 
+
+  setPersonagemOnForm(){
+    this.form.get('nome')!.setValue(this.personagem.nome)
+    this.form.get('raca')!.setValue(this.personagem.raca)
+    this.form.get('level')!.setValue(this.personagem.level)
+    this.form.get('caracteristicas')!.setValue(this.personagem.caracteristicas)
+    this.listaCaminhoSelecionado = this.personagem.caminho
+    this.listaArquetipoSelecionado = this.personagem.arquetipo
+    this.listaPericia = this.personagem.pericia
+    this.atributos = this.personagem.atributos
+    this.maxvida = this.personagem.maxvida
+    this.vidaatual = this.personagem.vidaatual
+    this.maxmana = this.personagem.maxmana
+    this.manaatual = this.personagem.manaatual
+    this.defesa = this.personagem.defesa
+    this.inventario = this.personagem.inventario
+    this.singularidade = this.personagem.singularidade
+    this.imagemCortada.set(this.personagem.imagem)
+  }
 }

@@ -1,6 +1,6 @@
 import { Usuario } from "../models/usuario"
 
 export interface TokenDTO {
-    usuario: Usuario
+    user: Usuario
     token: string
 }

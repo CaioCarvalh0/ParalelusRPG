@@ -42,7 +42,12 @@ export class RecorteComponent implements OnInit {
   }
 
   salvar() {
-    this.dialogRef.close(this.imagemCortadaBase64);
+    if (this.imagemCortadaBase64) {
+      const base64SemPrefixo = this.imagemCortadaBase64.split(",")[1];
+      this.dialogRef.close(base64SemPrefixo);
+    } else {
+      this.dialogRef.close(null);
+    }
   }
 
   cancelar() {

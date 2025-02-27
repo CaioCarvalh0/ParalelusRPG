@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { inject, Injectable, OnInit } from '@angular/core';
 import { API_URL_AUTH } from '../contants/api';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { RegisterDTO } from '../dto/register-dto';
 import { LoginDTO } from '../dto/login-dto';
 import { TokenDTO } from '../dto/token-dto';
@@ -12,16 +12,24 @@ import { Usuario } from '../models/usuario';
 })
 export class AuthenticationService implements OnInit {
 
-  currentUser: Usuario = new Usuario();
+  private http = inject(HttpClient)
 
-  constructor(
-    private http: HttpClient
-  ) {
+  private currentUserSubject = new BehaviorSubject<Usuario>(new Usuario());
+  currentUser$ = this.currentUserSubject.asObservable();
 
+  constructor() {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
+  }
+
+  get currentUser(): Usuario {
+    return this.currentUserSubject.value;
   }
 
   ngOnInit() {
-
+    
   }
 
   isAuthenticated(): boolean {
@@ -39,13 +47,14 @@ export class AuthenticationService implements OnInit {
   }
 
   private setCurrentUser(usuario: Usuario) {
-    this.currentUser = usuario;
+    localStorage.setItem('currentUser', JSON.stringify(usuario));
+    this.currentUserSubject.next(usuario);
   }
 
   login(body: LoginDTO) {
     return this.http.post<TokenDTO>(`${API_URL_AUTH}/login`, body).pipe(map(result => {
       this.setTokenOnLocalStorage(result.token);
-      this.setCurrentUser(result.usuario);  
+      this.setCurrentUser(result.user);  
       return result;
     }))
   }
