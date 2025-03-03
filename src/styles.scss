@@ -23,3 +23,9 @@ body{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: white; }
+
+.custom-modal .mat-dialog-container {
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    overflow: hidden !important;
+}

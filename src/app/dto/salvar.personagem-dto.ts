@@ -21,7 +21,7 @@ export interface PersonagemDTO {
     energiaAtual: number
     defesa: number
     inventario: string
-    imagem?: string | null
+    imagemBase64?: string | null
     singularidade: string,
     caracteristica: string,
     level: number

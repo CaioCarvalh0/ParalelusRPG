@@ -1,4 +1,4 @@
-const SERVER = 'http://192.168.100.128:8082';
+const SERVER = '/api';
 
 export const environment = {
     production: true,

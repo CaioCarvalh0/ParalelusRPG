@@ -26,25 +26,21 @@ export class RecorteComponent implements OnInit {
   }
 
   cortarImagem(event: ImageCroppedEvent) {
-    if (event.base64) {
+    if (event.blob) {
+      this.converterBlobParaArquivo(event.blob);
+    } else if (event.base64) {
       this.imagemCortadaBase64 = event.base64;
-    } else if (event.blob) {
-      this.converterBlobParaBase64(event.blob);
     }
   }
   
-  converterBlobParaBase64(blob: Blob) {
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onloadend = () => {
-      this.imagemCortadaBase64 = reader.result as string;
-    };
+  converterBlobParaArquivo(blob: Blob) {
+    const file = new File([blob], "imagem.png", { type: "image/png" });
+    this.imagemCortadaBase64 = URL.createObjectURL(file);
   }
 
   salvar() {
     if (this.imagemCortadaBase64) {
-      const base64SemPrefixo = this.imagemCortadaBase64.split(",")[1];
-      this.dialogRef.close(base64SemPrefixo);
+      this.dialogRef.close(this.imagemCortadaBase64);
     } else {
       this.dialogRef.close(null);
     }

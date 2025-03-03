@@ -49,7 +49,7 @@ export class Personagem {
         this.singularidade = dto.singularidade;
         this.caracteristicas = dto.caracteristica;
         this.level = dto.level;
-        this.imagem = dto.imagem? dto.imagem : '';
+        this.imagem = dto.imagemBase64? dto.imagemBase64 : '';
         return this;
     }
 }

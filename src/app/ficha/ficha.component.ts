@@ -266,8 +266,9 @@ export class FichaComponent implements OnInit {
   abrirModalRecorte(imagemBase64: string) {
     const dialogRef = this.dialog.open(RecorteComponent, {
       data: { imagemOriginal: imagemBase64 },
-      width: 'auto',
-      height: 'auto',
+      width: '400px',
+      height: 'auto',  
+      panelClass: 'custom-modal'
     });
 
     dialogRef.afterClosed().subscribe((imagemRecortada: string | null) => {
@@ -323,12 +324,16 @@ export class FichaComponent implements OnInit {
   }
 
 
-  salvarPersonagem(){
-    var personagemDTO = this.montaJsonDTO()
-    this.personagemService.postSalvarPersonagem(personagemDTO).subscribe((result) => {
-      this.modalService.openModalSuccess(result)
-    })
-  } 
+  salvarPersonagem() {
+    this.converterBlobParaBase64(this.imagemCortada()).then(base64 => {
+      this.imagemCortada.set(base64); 
+      const personagemDTO = this.montaJsonDTO();
+      console.log(personagemDTO)
+      this.personagemService.postSalvarPersonagem(personagemDTO).subscribe((result) => {
+        this.modalService.openModalSuccess(result);
+      });
+    }).catch(err => this.modalService.openModalError("Erro ao converter Imagem: " + err.message));
+  }
 
   montaJsonDTO(): PersonagemDTO{
     let personagemDTO: PersonagemDTO = {
@@ -347,7 +352,7 @@ export class FichaComponent implements OnInit {
       defesa: Number(this.defesa) || 0,
       inventario: this.inventario,
       singularidade: this.singularidade,
-      imagem: this.imagemCortada()?.split(',')[1] || null,
+      imagemBase64: this.imagemCortada()?.split(',')[1] || null,
       caracteristica: this.form.get('caracteristicas')!.value,
       level: this.form.get('level')!.value
     }
@@ -373,4 +378,23 @@ export class FichaComponent implements OnInit {
     this.singularidade = this.personagem.singularidade
     this.imagemCortada.set(this.personagem.imagem)
   }
+
+  converterBlobParaBase64(blobUrl: string | null): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      if (!blobUrl) {
+        resolve(null);
+        return;
+      }
+      fetch(blobUrl)
+        .then(response => response.blob())
+        .then(blob => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        })
+        .catch(reject);
+    });
+  }
+
 }

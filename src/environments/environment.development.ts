@@ -5,5 +5,5 @@ const SERVER = 'http://servercaio.ddns.net:8082';
 
 export const environment = {
     production: false,
-    apiUrl: SERVER89
+    apiUrl: LOCALHOST
 };

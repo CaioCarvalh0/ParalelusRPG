@@ -2,10 +2,11 @@
   <image-cropper 
     [imageBase64]="imagemOriginal" 
     [maintainAspectRatio]="true" 
-    [aspectRatio]="1"
+    [aspectRatio]="1" 
     [resizeToWidth]="182"
     format="png"
     base64ToFile="false"
+    alignImage="center"
     (imageCropped)="cortarImagem($event)">
   </image-cropper>
 
