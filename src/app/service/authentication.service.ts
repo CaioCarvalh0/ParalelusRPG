@@ -6,6 +6,8 @@ import { RegisterDTO } from '../dto/register-dto';
 import { LoginDTO } from '../dto/login-dto';
 import { TokenDTO } from '../dto/token-dto';
 import { Usuario } from '../models/usuario';
+import { UsuarioDTO } from '../dto/usuario-dto';
+import { ApiResponse } from '../responses/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -52,9 +54,12 @@ export class AuthenticationService implements OnInit {
   }
 
   login(body: LoginDTO) {
-    return this.http.post<TokenDTO>(`${API_URL_AUTH}/login`, body).pipe(map(result => {
-      this.setTokenOnLocalStorage(result.token);
-      this.setCurrentUser(result.user);  
+    return this.http.post<ApiResponse<TokenDTO>>(`${API_URL_AUTH}/login`, body, {
+    }).pipe(map(result => {
+      if(result.sucesso){
+        this.setTokenOnLocalStorage(result.data.token);
+        this.setCurrentUser(result.data.user);
+      }
       return result;
     }))
   }
@@ -63,6 +68,12 @@ export class AuthenticationService implements OnInit {
     return this.http.post(`${API_URL_AUTH}/register`, body).pipe(map(result => {
       return result;
     }));
+  }
+
+  verificaUserCadastro(user: UsuarioDTO){
+    return this.http.post<ApiResponse<String>>(`${API_URL_AUTH}/checkcadastro`, user).pipe(map(result => {
+      return result;
+    }))
   }
 
 }

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CardCampanhaComponent } from 'src/app/cards/card-campanha/card-campanha.component';
 import { Campanha } from 'src/app/models/campanha';
 import { CampanhaService } from 'src/app/service/campanha.service';
@@ -17,6 +18,9 @@ export class HomeComponent implements OnInit {
     listaCampanhas: Campanha[] = [];
     listaCampanhasAtivas: Campanha[] = [];
     listaCampanhasInativas: Campanha[] = [];
+
+    private router = inject(Router);
+    
     constructor(
         private campanhaService: CampanhaService
     ){
@@ -45,6 +49,14 @@ export class HomeComponent implements OnInit {
     getCampanhasInativas(){
         this.listaCampanhasInativas = this.listaCampanhas.filter(campanha => campanha.ativa == false)
         console.log('inativas',this.listaCampanhasInativas)
+    }
+
+    navigateCriarCampanha(){
+        this.router.navigate(['/criacaodecampanha'])
+    }
+
+    nagigatePersonagens(){
+        this.router.navigate(['/personagens'])
     }
 
 }

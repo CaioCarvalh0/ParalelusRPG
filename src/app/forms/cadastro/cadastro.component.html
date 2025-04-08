@@ -1,8 +1,8 @@
 <div class="container-geral-center">
-  <form [formGroup]="formCadastro" class="container-form" (submit)="cadastrarUsario()">
+  <form [formGroup]="formCadastro" class="container-form" (submit)="checkUserValido()">
 
     <div>
-      <label class="label-padrao">Usuario:</label>
+      <label class="label-padrao">Nickname:</label>
       <input type="text" class="input-padrao" formControlName="nome">
     </div>
 
@@ -16,14 +16,17 @@
       <input type="text" class="input-padrao" formControlName="login">
     </div>
 
-    <div>
+    <div class="flex flex-col">
       <label class="label-padrao">Senha:</label>
-      <input type="password" class="input-padrao" formControlName="senha">
+      <p-password formControlName="senha" size="small" 
+        promptLabel="Digite sua senha" weakLabel="Senha Muito Simpes" mediumLabel="Senha Moderada"
+        strongLabel="Senha Forte"
+        [toggleMask]="true" />
     </div>
     
-    <div>
+    <div class="flex flex-col">
       <label class="label-padrao">Confirmar Senha:</label>
-      <input type="password" class="input-padrao" formControlName="confirmSenha">
+      <p-password formControlName="confirmSenha" size="small" [toggleMask]="true" [feedback]="false" />
     </div>
 
     <button type="submit" [disabled]="formCadastro.invalid" class="button-padrao">CADASTRAR-SE</button>

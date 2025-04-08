@@ -2,19 +2,12 @@
   <div class="flex"></div>
   <div class="container-pagetitle">
     <span>🏹</span>
-    <span class="text-gray-50">{{ pageTitle }}</span>
+    <span class="text-gray-50 font-bold">{{ pageTitle }}</span>
     <span>🎲</span>
   </div>
-
   <div class="container-btn-menu">
-    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLinkActive="active" routerLink="/index">Home</button>
-      <button mat-menu-item routerLinkActive="active" routerLink="/usuario">Perfil</button>
-      <button mat-menu-item routerLinkActive="active" routerLink="/livro" >Livro</button>
-      <button mat-menu-item (click)="desLogar()">Sair</button>
-    </mat-menu>
+    <p-menu #menu [model]="items" [style]="{ 'font-size': '1rem' }" [popup]="true" />
+    <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
   </div>
-  
+
 </nav>
-<!-- <router-outlet></router-outlet> -->

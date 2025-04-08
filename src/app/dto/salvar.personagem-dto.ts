@@ -5,6 +5,7 @@ import { ArquetipoDTO } from "./arquetipo-dto"
 import { AtributosDTO } from "./atributos-dto"
 import { CaminhoDTO } from "./caminho-dto"
 import { PericiaDTO } from "./pericia-dto"
+import { SingularidadeDTO } from "./singularidade-dto"
 
 export interface PersonagemDTO {
     id: number
@@ -21,8 +22,10 @@ export interface PersonagemDTO {
     energiaAtual: number
     defesa: number
     inventario: string
+    cibernetica: string
+    historia: string
     imagemBase64?: string | null
-    singularidade: string,
+    singularidade: SingularidadeDTO,
     caracteristica: string,
     level: number
 }

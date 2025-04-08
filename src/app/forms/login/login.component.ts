@@ -31,18 +31,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      // this.router.navigate(['/home']);
-      this.router.navigate(['/ficha']);
+      this.router.navigate(['/home']);
     }
-  }
-
-  Login() {
-    const login = this.bodyLogin();
-    this.authService.login(login).subscribe(result => {
-      if (result.token) {
-        this.checkTokenLocalStorage()
-      }
-    })
   }
 
   bodyLogin(): LoginDTO {
@@ -52,12 +42,21 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  Login() {
+    this.authService.login(this.bodyLogin()).subscribe(result => {
+      if (result.sucesso) {
+        this.checkTokenLocalStorage();
+      } else {
+        this.modalService.openModalError(result.mensagem);
+      }
+    })
+  }
+
   checkTokenLocalStorage() {
     const token = localStorage.getItem('token');
     if (token) {
       this.modalService.openModalSuccess('Login efetuado com sucesso');
-      // this.router.navigate(['/home']);
-      this.router.navigate(['/ficha']);
+      this.router.navigate(['/home']);
     } else {
       this.modalService.openModalError('Token não encontrado no LocalStorage');
     }

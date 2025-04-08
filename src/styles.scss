@@ -13,19 +13,27 @@
 @import "primeicons/primeicons.css";
 
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon+SC&family=Rubik:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 
 body{
     background-color: #35313B;
 }
 *{
-    font-family: 'IM Fell French Canon SC', serif;
+    font-family: "Cinzel", serif;
+    font-style: normal;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: white; }
+body { margin: 0; font-family: "Cinzel", serif; color: white; }
 
 .custom-modal .mat-dialog-container {
     max-width: 100% !important;
     max-height: 90vh !important;
     overflow: hidden !important;
+}
+
+.p-password-input {
+    width: 100% !important;
+}
+.p-password {
+    width: 100% !important;
 }

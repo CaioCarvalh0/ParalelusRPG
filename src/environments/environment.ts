@@ -1,6 +1,5 @@
-const SERVER = '/api';
-
 export const environment = {
     production: true,
-    apiUrl: SERVER
+    apiUrl: 'https://servercaio.ddns.net/api',
+    version: require('../../package.json').version
 };

@@ -1,0 +1,41 @@
+.container-card-personagem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 25%;
+    border: 1px solid #000000;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    background-color: rgb(34, 11, 21);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    &:hover{
+        border-color: #FF1457;
+        cursor: pointer;
+    }    
+}   
+
+.title-nome{
+    display: flex;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    color: #FF1457;
+    text-shadow: 5px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.container-row{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+}

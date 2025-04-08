@@ -6,6 +6,7 @@ import { Raca } from "./raca";
 import { Usuario } from "./usuario";
 import { PersonagemDTO } from "../dto/salvar.personagem-dto";
 import { Arquetipo } from "./arquetipo";
+import { Singularidade } from "./singularidade";
 
 export class Personagem {
     id: number = 0;
@@ -22,9 +23,11 @@ export class Personagem {
     manaatual: number = 100;
     defesa: number = 0;
     inventario: string = '';
-    singularidade: string = '';
+    singularidade: Singularidade = new Singularidade();
     imagem: string = '';
     caracteristicas: string = '';
+    cibernetica: string = '';
+    historia: string = '';
     level: number = 0;
 
     constructor(init?: Partial<Personagem>) {
@@ -50,6 +53,8 @@ export class Personagem {
         this.caracteristicas = dto.caracteristica;
         this.level = dto.level;
         this.imagem = dto.imagemBase64? dto.imagemBase64 : '';
+        this.cibernetica = dto.cibernetica;
+        this.historia = dto.historia;
         return this;
     }
 }

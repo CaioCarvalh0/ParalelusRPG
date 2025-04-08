@@ -1,40 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd  } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-
+import { MenuItem } from 'primeng/api';
+import { Menu } from 'primeng/menu';
+import { ButtonModule } from 'primeng/button';
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss'],
-    standalone: true,
-    imports: [
-      MatIconModule,
-      MatMenuModule
-    ]
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
+  standalone: true,
+  imports: [
+    Menu,
+    ButtonModule
+  ]
 })
 export class MenuComponent implements OnInit {
   pageTitle: string = 'Paralelus Rpg';
+  items: MenuItem[];
 
   constructor(
     private router: Router,
     private authService: AuthenticationService,
-  ) { 
+  ) {
+    this.items = [
+      {
+        label: 'Menu',
+        items: [
+          {
+            label: 'Home',
+            icon: 'pi pi-home',
+            routerLink: '/index'
+          },
+          {
+            label: 'Perfil',
+            icon: 'pi pi-user',
+            routerLink: '/usuario'
+          },
+          {
+            label: 'Livro',
+            icon: 'pi pi-book',
+            routerLink: '/livro'
+          },
+          {
+            label: 'Sair',
+            icon: 'pi pi-sign-out',
+            command: () => {
+              this.desLogar();
+            }
+          }
+        ]
+      }
+    ];
   }
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      if(event instanceof NavigationEnd){
+      if (event instanceof NavigationEnd) {
         this.atualizaTituloMenu(event.url);
       }
     });
-   
+
   }
 
-  atualizaTituloMenu(url: string){
-    switch(url){
+  atualizaTituloMenu(url: string) {
+    switch (url) {
       case '/usuario':
         this.pageTitle = 'Painel do Usuário';
         break;
@@ -50,13 +79,19 @@ export class MenuComponent implements OnInit {
       case '/livro':
         this.pageTitle = 'Livro';
         break;
+      case '/personagens':
+        this.pageTitle = 'Seus Personagens';
+        break;
+      case '/personagens/ficha':
+        this.pageTitle = 'Ficha';
+        break;
       default:
         this.pageTitle = 'Paralellus Rpg';
         break;
     }
   }
 
-  desLogar(){
+  desLogar() {
     this.authService.removeTokenOnLocalStorage();
     this.router.navigate(['/']);
   }

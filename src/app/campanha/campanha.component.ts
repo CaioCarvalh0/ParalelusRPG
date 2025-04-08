@@ -10,10 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
     styleUrls: ['./campanha.component.scss'],
     standalone: true,
     imports: [
-      CardPersonagemComponent,
-      MatIconModule,
-      MatDialogModule,
-    ]
+    MatIconModule,
+    MatDialogModule
+]
 })
 export class CampanhaComponent implements OnInit{
 

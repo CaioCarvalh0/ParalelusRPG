@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { PersonagemDTO } from '../dto/salvar.personagem-dto';
 import { API_URL_PERS } from '../contants/api';
 import { map } from 'rxjs';
@@ -11,21 +11,32 @@ import { ApiResponse } from '../responses/api-response';
 })
 export class PersonagemService {
 
+  personagem = signal<Personagem>(new Personagem());
+
   private http = inject(HttpClient);
 
   constructor() { }
 
+  setPersonagem(personagem: Personagem) {
+    this.personagem.set(personagem);  
+  }
 
-  postSalvarPersonagem(body: PersonagemDTO) {
-    return this.http.post<ApiResponse>(`${API_URL_PERS}/salvar`, body).pipe(map(result => {
-      return result.mensagem;
+  resetPersonagem() {
+    this.personagem.set(new Personagem());
+  }
+  
+  getPersonagemOfUsuario(usuarioId: number) {
+    return this.http.get<ApiResponse<PersonagemDTO[]>>(`${API_URL_PERS}/usuario/${usuarioId}`).pipe(map(result => {
+      if(result.data) {
+        const data = Array.isArray(result.data) ? result.data : [result.data];
+        return data.map(dto => new Personagem().fromDTO(dto));}
+      return [];
     }))
   }
 
-  getPersonagemOfUsuario(usuarioId: number) {
-    return this.http.get<PersonagemDTO>(`${API_URL_PERS}/usuario/${usuarioId}`).pipe(map(result => {
-      if(result.id != 0) return new Personagem().fromDTO(result);
-      return null;
+  postSalvarPersonagem(body: PersonagemDTO) {
+    return this.http.post<ApiResponse<String>>(`${API_URL_PERS}/salvar`, body).pipe(map(result => {
+      return result.mensagem;
     }))
   }
 

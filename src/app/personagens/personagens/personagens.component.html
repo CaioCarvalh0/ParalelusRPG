@@ -1,0 +1,12 @@
+<div class="container-geral">
+
+    <div class="conteiner-persoangens">
+        @for (personagem of listaPersonagens; track $index) {
+            <app-card-personagem [personagem]="personagem" (click)="editarPersonagem(personagem)" ></app-card-personagem>
+        }
+    </div>
+
+    <div class="container-btns">
+        <button class="button-padrao" (click)="novoPersonagem()">Criar Personagem</button>
+    </div>
+</div>

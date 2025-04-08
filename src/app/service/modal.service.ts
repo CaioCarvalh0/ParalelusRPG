@@ -27,7 +27,7 @@ export class ModalService {
         tipo: tipo,
         mensagem: msg
       },
-      disableClose: false //POR ENQUANTO
+      disableClose: false
     }
     this.dialog.open(ModalComponent, config)
   }

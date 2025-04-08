@@ -27,6 +27,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
         } else {
           this.modalService!.openModalError('Erro desconhecido: ' + error.message);
         }
+        console.error('error', error)
         return throwError(() => new Error('Erro processado pelo interceptor: ' + error.message));
       })
     );

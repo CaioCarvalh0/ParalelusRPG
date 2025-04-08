@@ -7,10 +7,9 @@ import { CardPersonagemComponent } from 'src/app/cards/card-personagem/card-pers
     templateUrl: './painel-usuario.component.html',
     styleUrls: ['./painel-usuario.component.scss'],
     standalone: true,
-    imports: [ 
-        CardCampanhaComponent,
-        CardPersonagemComponent
-    ]
+    imports: [
+    CardCampanhaComponent
+]
 })
 export class PainelUsuarioComponent {
 

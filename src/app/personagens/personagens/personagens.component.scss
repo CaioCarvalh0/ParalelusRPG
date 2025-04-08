@@ -1,0 +1,23 @@
+.conteiner-persoangens{
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    flex-basis: 90%;
+    padding: 1rem;
+    gap: 1rem;	
+
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
+}
+
+.container-btns{
+    width: 100%;
+    flex-basis: 10%;
+    display: flex;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}

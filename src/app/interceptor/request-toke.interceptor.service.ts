@@ -14,6 +14,11 @@ export class TokeIntercotorService implements HttpInterceptor {
         },
       });
     }
+    req = req.clone({
+      setHeaders: {
+        'Content-Type': 'application/json',
+      }
+    })
     return next.handle(req);
   }
 }
