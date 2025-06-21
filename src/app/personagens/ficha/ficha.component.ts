@@ -43,46 +43,43 @@ import { SingularidadeEnum } from '../../enums/singularidade.enum';
   ]
 })
 export class FichaComponent implements OnInit {
+  atributoMap: Record<AtributoEnum, keyof typeof this.atributos> = {
+    [AtributoEnum.Forca]: 'forca',
+    [AtributoEnum.Agilidade]: 'agilidade',
+    [AtributoEnum.Intelecto]: 'intelecto',
+    [AtributoEnum.Poder]: 'poder',
+    [AtributoEnum.Sanidade]: 'sanidade',
+    [AtributoEnum.Resistencia]: 'resistencia'
+  };
   form: FormGroup
   usuario: Usuario = new Usuario()
   personagem: Personagem = new Personagem()
-
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   imagemCortada = signal<string | null>(null);
-
   atributoEnum = AtributoEnum
   singularidadeEnum = SingularidadeEnum
-
   atributos: Atributos = new Atributos()
   singularidade: Singularidade = new Singularidade()
-
   listaRaca: Raca[] = []
-
   listaPericia: Pericia[] = []
-
   listaCaminho: Caminho[] = []
   listaArquetipo: Arquetipo[] = []
   listaCaminhoArquetipo: Arquetipo[] = []
-
   listaArquetipoSelecionado: Arquetipo[] = []
   listaCaminhoSelecionado: Caminho[] = []
-
   caminho: Caminho = new Caminho()
   arquetipo: Arquetipo = new Arquetipo()
-
   maxvida: number = 100
   vidaatual: number = 100
-
   maxmana: number = 100
   manaatual: number = 100
-
   editandoVida = false;
   editandoMana = false;
-
   defesa: number = 0
-
   inventario: string = ""
   cibernetica: string = ""
+  atributoMax = 5;
+  atributoMin = -1;
 
   private racaService = inject(RacaService)
   private periciaService = inject(PericiaService)
@@ -108,6 +105,7 @@ export class FichaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //TODO: Melhorar a inicialização do personagem
     this.racaService.getListaRacas().subscribe((result) => {
       this.listaRaca = result
     })
@@ -119,74 +117,28 @@ export class FichaComponent implements OnInit {
     this.arquetipoService.getListaArquetipos().subscribe((result) => {
       this.listaArquetipo = result
     })
-
+    
     this.periciaService.getListaPericias().subscribe((result) => {
       this.listaPericia = result
-      this.listaPericia.forEach(p => {p.pontos = 0 })
+      this.listaPericia.forEach(p => { p.pontos = 0 })
       this.setPersonagemOnForm()
     })
   }
 
   addPontosAtributo(atributo: AtributoEnum) {
-    switch (atributo) {
-      case AtributoEnum.Forca:
-        if (this.atributos.forca < 5)
-          this.atributos.forca++
-        break
-      case AtributoEnum.Agilidade:
-        if (this.atributos.agilidade < 5)
-          this.atributos.agilidade++
-        break
-      case AtributoEnum.Intelecto:
-        if (this.atributos.intelecto < 5)
-          this.atributos.intelecto++
-        break
-      case AtributoEnum.Poder:
-        if (this.atributos.poder < 5)
-          this.atributos.poder++
-        break
-      case AtributoEnum.Sanidade:
-        if (this.atributos.sanidade < 5)
-          this.atributos.sanidade++
-        break
-      case AtributoEnum.Resistencia:
-        if (this.atributos.resistencia < 5)
-          this.atributos.resistencia++
+    const chave = this.atributoMap[atributo];
+    const valor = this.atributos[chave];
+    if (valor < this.atributoMax) {
+      this.atributos[chave]++;
     }
   }
 
   removePontosAtributo(event: MouseEvent, atributo: AtributoEnum) {
-    event.preventDefault()
-    switch (atributo) {
-      case AtributoEnum.Forca:
-        if (this.atributos.forca > -1) {
-          this.atributos.forca--
-        }
-        break
-      case AtributoEnum.Agilidade:
-        if (this.atributos.agilidade > -1) {
-          this.atributos.agilidade--
-        }
-        break
-      case AtributoEnum.Intelecto:
-        if (this.atributos.intelecto > -1) {
-          this.atributos.intelecto--
-        }
-        break
-      case AtributoEnum.Poder:
-        if (this.atributos.poder > -1) {
-          this.atributos.poder--
-        }
-        break
-      case AtributoEnum.Sanidade:
-        if (this.atributos.sanidade > -1) {
-          this.atributos.sanidade--
-        }
-        break
-      case AtributoEnum.Resistencia:
-        if (this.atributos.resistencia > -1) {
-          this.atributos.resistencia--
-        }
+    event.preventDefault();
+    const chave = this.atributoMap[atributo];
+    const valor = this.atributos[chave];
+    if (valor > this.atributoMin) {
+      this.atributos[chave]--;
     }
   }
 
@@ -401,7 +353,8 @@ export class FichaComponent implements OnInit {
       this.imagemCortada.set(base64);
       const personagemDTO = this.montaJsonDTO();
       this.personagemService.postSalvarPersonagem(personagemDTO).subscribe((result) => {
-        this.modalService.openModalSuccess(result);
+        this.modalService.openModalSuccess(result.mensagem);
+        this.personagemService.setPersonagem(new Personagem().fromDTO(result.data));
       });
     }).catch(err => this.modalService.openModalError("Erro ao converter Imagem: " + err.message));
   }

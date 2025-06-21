@@ -1,0 +1,29 @@
+<div class="container-geral-row">
+  <div class="container-campanha-btn">
+    <div class="conteiner-campanhas">
+      @for (item of campanhas(); track $index) {
+      <app-card-campanha [campanha]="item"></app-card-campanha>
+      }
+    </div>
+    <p-button styleClass="button-padrao" label="Criar Campanha" />
+  </div>
+  <div class="container-detalhes">
+    <div class="detalhe-campanha">
+      <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" />
+      <div>
+        <div>Nome da Campanha</div>
+      </div>
+      <div>
+        <div>
+          Level
+        </div>
+        <div>
+          Jogadores
+        </div>
+      </div>
+      <div>
+        Introdução:
+      </div>
+    </div>
+  </div>
+</div>

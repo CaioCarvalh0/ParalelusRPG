@@ -1,0 +1,39 @@
+.container-campanha-btn{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 40%;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+
+    .conteiner-campanhas{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        gap: 0.5rem;
+    }
+}
+
+.container-detalhes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 60%;
+    width: 100%;
+    height: 100%;
+    padding-left: 0.5rem;
+
+    .detalhe-campanha{
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        height: 95%;
+        padding: 1.5rem;
+        background-color: var(--main-rosa-cinza);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem;
+    }
+}

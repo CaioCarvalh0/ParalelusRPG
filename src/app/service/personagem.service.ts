@@ -35,8 +35,8 @@ export class PersonagemService {
   }
 
   postSalvarPersonagem(body: PersonagemDTO) {
-    return this.http.post<ApiResponse<String>>(`${API_URL_PERS}/salvar`, body).pipe(map(result => {
-      return result.mensagem;
+    return this.http.post<ApiResponse<PersonagemDTO>>(`${API_URL_PERS}/salvar`, body).pipe(map(result => {
+      return result;
     }))
   }
 

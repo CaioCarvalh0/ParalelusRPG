@@ -1,5 +1,4 @@
 <div class="container-geral">
-
     <div class="conteiner-persoangens">
         @for (personagem of listaPersonagens; track $index) {
             <app-card-personagem [personagem]="personagem" (click)="editarPersonagem(personagem)" ></app-card-personagem>

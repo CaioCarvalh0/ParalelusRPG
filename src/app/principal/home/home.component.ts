@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { CardCampanhaComponent } from 'src/app/cards/card-campanha/card-campanha.component';
 import { Campanha } from 'src/app/models/campanha';
 import { CampanhaService } from 'src/app/service/campanha.service';
+import { ModalService } from 'src/app/service/modal.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-home',
@@ -11,8 +13,9 @@ import { CampanhaService } from 'src/app/service/campanha.service';
     styleUrls: ['./home.component.scss'],
     standalone: true,
     imports: [
-        CommonModule,    
-        CardCampanhaComponent]
+        CommonModule, ButtonModule   
+        // CardCampanhaComponent
+    ]
 })
 export class HomeComponent implements OnInit {
     listaCampanhas: Campanha[] = [];
@@ -20,11 +23,9 @@ export class HomeComponent implements OnInit {
     listaCampanhasInativas: Campanha[] = [];
 
     private router = inject(Router);
-    
-    constructor(
-        private campanhaService: CampanhaService
-    ){
-
+    private campanhaService = inject(CampanhaService);
+    private modal = inject(ModalService)
+    constructor(){
     }
     
     ngOnInit(): void {
@@ -32,13 +33,13 @@ export class HomeComponent implements OnInit {
     }
 
     buscarCampanhas(){
-        this.campanhaService.getListaCampanhas().subscribe(result => {
-            this.listaCampanhas = result
-            if(this.listaCampanhas.length > 0){
-                this.getCampanhasAtivas()
-                this.getCampanhasInativas()
-            }
-        })
+        // this.campanhaService.getListaCampanhas().subscribe(result => {
+        //     this.listaCampanhas = result
+        //     if(this.listaCampanhas.length > 0){
+        //         this.getCampanhasAtivas()
+        //         this.getCampanhasInativas()
+        //     }
+        // })
     }
 
     getCampanhasAtivas(){
@@ -52,11 +53,15 @@ export class HomeComponent implements OnInit {
     }
 
     navigateCriarCampanha(){
-        this.router.navigate(['/criacaodecampanha'])
+        this.router.navigate(['/campanha/home'])
     }
 
     nagigatePersonagens(){
         this.router.navigate(['/personagens'])
+    }
+
+    openModalEmBreve(){
+        this.modal.emBreve()
     }
 
 }

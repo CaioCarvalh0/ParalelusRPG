@@ -1,0 +1,36 @@
+:host {
+  width: 100%;
+  height: 25%;
+
+  //   @media (max-width: 768px) {
+  //     width: 100%;
+  //     height: auto;
+  //   }
+
+  //   @media (min-width: 769px) and (max-width: 1024px) {
+  //     width: 50%;
+  //     height: 30%;
+  //   }
+}
+
+.container-card-campanha {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000000;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  background-color: #361c30;
+
+  &:hover {
+    cursor: pointer;
+    border-color: var(--main-rosa-choque);
+    color: var(--main-rosa-choque);
+  }
+}

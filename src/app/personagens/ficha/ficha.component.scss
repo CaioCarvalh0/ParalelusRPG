@@ -4,8 +4,8 @@
   width: 100%;
   height: 100%;
   flex-direction: column;
-  padding: 0.5rem;
   gap: 0.75rem;
+  padding-right: 0.5rem;
 
   .container-foto-vida-engeria {
     width: 100%;
@@ -70,19 +70,21 @@
           color: black;
         }
 
-          input[type="number"]::-webkit-inner-spin-button,
-          input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
 
-            &:focus{
-              --tw-ring-opacity: 1;
-              --tw-ring-color: rgb(255 20 87 / var(--tw-ring-opacity)) /* #ff1457 */;
-              border-color: #FF1457;
-              outline: none;
-              box-shadow: 0 0 0 1px #FF1457;
+          &:focus {
+            --tw-ring-opacity: 1;
+            --tw-ring-color: rgb(255 20 87 / var(--tw-ring-opacity))
+              /* #ff1457 */
+            ;
+            border-color: #FF1457;
+            outline: none;
+            box-shadow: 0 0 0 1px #FF1457;
           }
-          }
+        }
 
         .pi {
 
@@ -175,7 +177,7 @@
   flex-basis: 65%;
   width: 100%;
   height: 100%;
-  padding: 0.5rem;
+  padding-left: 0.5rem;
 
   .container-form-atrib {
     display: flex;

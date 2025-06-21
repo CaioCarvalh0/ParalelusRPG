@@ -48,4 +48,8 @@ export class ModalService {
     this.openModal(mensagem, ModalEnum.ERRO);
   }
 
+  emBreve(mensagem: String = 'Em breve disponível!') {
+    this.openModalAlert(mensagem);
+  }
+
 }

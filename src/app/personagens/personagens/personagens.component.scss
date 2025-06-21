@@ -1,23 +1,27 @@
-.conteiner-persoangens{
-    flex-wrap: wrap;
-    flex-direction: row;
-    display: flex;
-    width: 100%;
-    flex-basis: 90%;
-    padding: 1rem;
-    gap: 1rem;	
+.conteiner-persoangens {
+  flex-wrap: wrap;
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  flex-basis: 90%;
+  padding: 1rem;
+  gap: 1rem;
 
-    &::-webkit-scrollbar {
-        display: none !important;
-    }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    flex-direction: column;
+  }
 }
 
-.container-btns{
-    width: 100%;
-    flex-basis: 10%;
-    display: flex;
-    padding: 1rem;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
+.container-btns {
+  width: 100%;
+  flex-basis: 10%;
+  display: flex;
+  padding: 1rem;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { ModalService } from '../service/modal.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -18,9 +19,10 @@ export class MenuComponent implements OnInit {
   pageTitle: string = 'Paralelus Rpg';
   items: MenuItem[];
 
+  private router = inject(Router);
+  private authService = inject(AuthenticationService);
+  private modal = inject(ModalService);
   constructor(
-    private router: Router,
-    private authService: AuthenticationService,
   ) {
     this.items = [
       {
@@ -34,12 +36,13 @@ export class MenuComponent implements OnInit {
           {
             label: 'Perfil',
             icon: 'pi pi-user',
-            routerLink: '/usuario'
+            routerLink: '/painel-do-usuario'
           },
           {
             label: 'Livro',
             icon: 'pi pi-book',
-            routerLink: '/livro'
+            // routerLink: '/livro'
+            command: () => { this.openModalEmBreve() }
           },
           {
             label: 'Sair',
@@ -94,5 +97,9 @@ export class MenuComponent implements OnInit {
   desLogar() {
     this.authService.removeTokenOnLocalStorage();
     this.router.navigate(['/']);
+  }
+
+  openModalEmBreve() {
+    this.modal.emBreve()
   }
 }

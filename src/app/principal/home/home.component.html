@@ -1,40 +1,30 @@
 <div class="container-geral-row">
 
-    <div class="container-btn-acoes">
-     
-        <button type="button" (click)="navigateCriarCampanha()"
-          class="button-padrao">
-          <div>Criar</div>
-          <div>Nova Campanha</div>
-        </button>
+  <div class="container-btn-acoes">
 
-        <button type="button" (click)="nagigatePersonagens()"
-          class="button-padrao">
-          <div>Personagens</div>
-      </button>
-      
+    <button type="button" (click)="navigateCriarCampanha()" class="button-padrao">
+      <div>Campanhas</div>
+    </button>
+
+    <button type="button" (click)="nagigatePersonagens()" class="button-padrao">
+      <div>Personagens</div>
+    </button>
+
+  </div>
+
+  <div class="basis-1/3 h-full border-r-2 border-[#FF1457] p-3">
+    <div class="text-2xl">
+      Suas Campanhas:
     </div>
+  </div>
 
-    <div class="basis-1/3 h-full border-r-2 border-[#FF1457] p-3">
-      <div class="text-2xl">
-        Suas Campanhas:
-      </div>
-    </div>
-
-    <div class="basis-1/3 h-full p-3 flex flex-col justify-between ">
-      <div>
-        <div class="text-2xl">Encontre uma campanha:</div>
+  <div class="basis-1/3 h-full p-3 flex flex-col justify-between ">
+    <div>
+      <!-- <div class="text-2xl">Encontre uma campanha:</div>
         @for (item of listaCampanhasAtivas; track $index) {
           <app-card-campanha [campanha]="item"></app-card-campanha>
-        }
-      </div>
-
-      <div>
-        <div class="text-2xl">Campanhas Terminadas:</div>
-        @for (item of listaCampanhasInativas; track $index) {
-          <app-card-campanha [campanha]="item"></app-card-campanha>
-        }
-      </div>
+        } -->
     </div>
+  </div>
 
 </div>
