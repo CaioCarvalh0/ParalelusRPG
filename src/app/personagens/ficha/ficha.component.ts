@@ -25,6 +25,7 @@ import { Personagem } from '../../models/personagem';
 import { Singularidade } from '../../models/singularidade';
 import { CommonModule } from '@angular/common';
 import { SingularidadeEnum } from '../../enums/singularidade.enum';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-ficha',
@@ -43,6 +44,21 @@ import { SingularidadeEnum } from '../../enums/singularidade.enum';
   ]
 })
 export class FichaComponent implements OnInit {
+  private readonly racaService = inject(RacaService)
+  private readonly periciaService = inject(PericiaService)
+  private readonly caminhoService = inject(CaminhoService)
+  private readonly arquetipoService = inject(ArquetipoService)
+  private readonly dialog = inject(MatDialog)
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly authService = inject(AuthenticationService)
+  private readonly personagemService = inject(PersonagemService)
+  private readonly modalService = inject(ModalService)
+
+  public listaRaca = toSignal(this.racaService.getListaRacas())
+  public listaCaminho = toSignal(this.caminhoService.getListaCaminhos())
+  public listaArquetipo = toSignal(this.arquetipoService.getListaArquetipos())
+  public listaPericia: Pericia[] = []
+
   atributoMap: Record<AtributoEnum, keyof typeof this.atributos> = {
     [AtributoEnum.Forca]: 'forca',
     [AtributoEnum.Agilidade]: 'agilidade',
@@ -60,10 +76,6 @@ export class FichaComponent implements OnInit {
   singularidadeEnum = SingularidadeEnum
   atributos: Atributos = new Atributos()
   singularidade: Singularidade = new Singularidade()
-  listaRaca: Raca[] = []
-  listaPericia: Pericia[] = []
-  listaCaminho: Caminho[] = []
-  listaArquetipo: Arquetipo[] = []
   listaCaminhoArquetipo: Arquetipo[] = []
   listaArquetipoSelecionado: Arquetipo[] = []
   listaCaminhoSelecionado: Caminho[] = []
@@ -81,16 +93,6 @@ export class FichaComponent implements OnInit {
   atributoMax = 5;
   atributoMin = -1;
 
-  private racaService = inject(RacaService)
-  private periciaService = inject(PericiaService)
-  private caminhoService = inject(CaminhoService)
-  private arquetipoService = inject(ArquetipoService)
-  private dialog = inject(MatDialog)
-  private formBuilder = inject(FormBuilder);
-  private authService = inject(AuthenticationService)
-  private personagemService = inject(PersonagemService)
-  private modalService = inject(ModalService)
-
   constructor() {
     this.authService.currentUser$.subscribe(user => {
       this.usuario = user
@@ -101,23 +103,9 @@ export class FichaComponent implements OnInit {
       level: [''],
       caracteristicas: [''],
     })
-
   }
 
   ngOnInit(): void {
-    //TODO: Melhorar a inicialização do personagem
-    this.racaService.getListaRacas().subscribe((result) => {
-      this.listaRaca = result
-    })
-
-    this.caminhoService.getListaCaminhos().subscribe((result) => {
-      this.listaCaminho = result
-    })
-
-    this.arquetipoService.getListaArquetipos().subscribe((result) => {
-      this.listaArquetipo = result
-    })
-    
     this.periciaService.getListaPericias().subscribe((result) => {
       this.listaPericia = result
       this.listaPericia.forEach(p => { p.pontos = 0 })
@@ -238,7 +226,8 @@ export class FichaComponent implements OnInit {
 
   fillListArquetipo() {
     this.listaCaminhoArquetipo = []
-    this.listaCaminhoArquetipo = this.listaArquetipo.filter(arquetipo => arquetipo.caminho.id == this.caminho.id)
+    const arquetipos = this.listaArquetipo();
+    this.listaCaminhoArquetipo = arquetipos ? arquetipos.filter(arquetipo => arquetipo.caminho.id == this.caminho.id) : [];
   }
 
   removeCaminho(caminho: Caminho) {

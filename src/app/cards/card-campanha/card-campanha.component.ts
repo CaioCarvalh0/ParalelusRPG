@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit, Output, output } from '@angular/core';
 import { Campanha } from 'src/app/models/campanha';
 
 @Component({
@@ -6,18 +6,28 @@ import { Campanha } from 'src/app/models/campanha';
     templateUrl: './card-campanha.component.html',
     styleUrls: ['./card-campanha.component.scss'],
     standalone: true,
-    imports: [ 
-    ]
+    imports: [],
 })
 export class CardCampanhaComponent implements OnInit {
 
-    @Input() campanha: Campanha = new Campanha();
-    constructor() { 
+    campanha = input<Campanha>();
+    selecionar = output<Campanha>();
+
+    constructor() {
 
     }
 
-    ngOnInit(){
-        console.log(this.campanha);
+    ngOnInit() {
     }
-    
+
+    onSelecionar() {
+        this.selecionar.emit(this.campanha() || new Campanha());
+    }
+
+    getImagem() {
+        if (!this.campanha()?.capa) {
+            return 'assets/imagens/personagem.png';
+        }
+        return `data:image/png;base64,${this.campanha()?.capa}`;
+    }
 }

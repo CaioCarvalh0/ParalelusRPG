@@ -1,45 +1,56 @@
-<div class="container-geral-center">
-    <form class="container-form">
+<form [formGroup]="form" class="container-form">
+  <div class="container-left">
+    <div>
+      <label class="label-padrao">Nome da Campanha:</label>
+      <input type="text" class="input-padrao" formControlName="nome"/>
+    </div>
 
-      <div>
-        <label class="custum-file-upload" for="file">
-          <div class="icon">
-            <mat-icon class="file-icon">cloud_upload</mat-icon>
-          </div>
-             <input type="file" id="file">
-          </label>
-      </div>
+    <div class="container-capa" (click)="abrirSeletorDeImagem()">
+      @if (imagemCortada()){
+      <img [src]="imagemCortada()" alt="Capa da Campanha" />
+      }@else {
+      <label class="custum-file-upload" for="file">
+        <div class="icon">
+          <mat-icon class="file-icon">cloud_upload</mat-icon>
+        </div>
+      </label>
+      }
+    </div>
 
-      <div>
-        <label class="label-padrao">Nome da Campanha:</label>
-        <input type="text" class="input-padrao">
-      </div>
+    <input type="file" hidden (change)="selecionarImagem($event)" accept="image/*" #fileInput>
+    
+    <div class="container-lvl-campanha">
+      <div class="container-input-lvl">
+        <label class="mb-2 text-base ">Level da Campanha:</label>
+        <div class="container-input">
+          <button type="button" class="flex" mat-icon-button (click)="alterarNivel('remove')">
+            <mat-icon class="text-[#FF1457]">remove</mat-icon>
+          </button>
 
-      <div class="container-lvl-campanha">
-        <div class="container-input-lvl">
-          <label class="mb-2 text-base ">Level da Campanha:</label>
-          <div class="container-input">
-            <button type="button" class="flex" mat-icon-button (click)="removeLvl()">
-              <mat-icon class="text-[#FF1457]">remove</mat-icon>
-            </button>
+          <div class="text-[#FF1457] text-2xl">{{ lvlCampanha() }}</div>
 
-            <div class="text-[#FF1457] text-2xl">{{ lvlCampanha }}</div>
-
-            <button type="button" class="flex" mat-icon-button (click)="addLvl()">
-              <mat-icon class="text-[#FF1457]">add</mat-icon>
-            </button>
-          </div>
+          <button type="button" class="flex" mat-icon-button (click)="alterarNivel('add')">
+            <mat-icon class="text-[#FF1457]">add</mat-icon>
+          </button>
         </div>
       </div>
+    </div>
 
-      <div class="container-btn">
-        <button type="button" class=" p-2 pl-6 pr-6 me-2 mb-2 text-sm bg-[#613C4C] border border-[#FF1457] rounded-lg
-          hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">Cancelar</button>
 
-        <button type="button" routerLink="/campanha" routerLinkActive="active" class=" p-2 pl-6 pr-6 me-2 mb-2 text-sm bg-[#FF1457] rounded-lg
-           hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">Criar</button>
-      </div>
+  </div>
 
-    </form>
+  <div class="container-rigth">
+    <p-floatlabel variant="in">
+      <textarea pTextarea id="over_label" style="resize: none" class="textarea"
+        formControlName="introducao"></textarea>
+      <label for="in_label">Introdução</label>
+    </p-floatlabel>
+    <div class="container-btn">
+      <p-button styleClass="button-padrao btn-cancelar" label="Cancelar" (onClick)="fecharCriacao()" />
 
-</div>
+      <p-button styleClass="button-padrao" label="Criar" (onClick)="criarCampanha()"  />
+    </div>
+
+  </div>
+
+</form>

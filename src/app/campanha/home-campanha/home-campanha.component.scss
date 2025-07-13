@@ -1,39 +1,129 @@
-.container-campanha-btn{
+.container-campanha-btn {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  transition: flex-basis 0.3s ease;
+  gap: 0.5rem;
+
+  &.reduzido {
+    flex-basis: 40%;
+  }
+
+  .conteiner-campanhas {
     display: flex;
     flex-direction: column;
-    flex-basis: 40%;
     width: 100%;
     height: 100%;
-    justify-content: space-between;
-
-    .conteiner-campanhas{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        overflow-y: auto;
-        gap: 0.5rem;
+    overflow-y: scroll;
+    gap: 0.5rem;
+    
+    &::-webkit-scrollbar {
+      display: none;
     }
+
+  }
 }
 
-.container-detalhes{
+.container-detalhes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 0%;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding-left: 0.5rem;
+
+  &.aberto {
+    flex-basis: 60%;
+    opacity: 1;
+  }
+
+  .detalhe-campanha {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-basis: 60%;
-    width: 100%;
-    height: 100%;
-    padding-left: 0.5rem;
+    width: 95%;
+    height: 95%;
+    padding: 1.5rem;
+    background-color: var(--main-rosa-cinza);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
 
-    .detalhe-campanha{
+    .content-nome{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 1rem;
+    }
+
+    .container-nivel-jogadores{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem;
+      width: 100%;
+      height: 12%;
+
+      .container-nivel{
         display: flex;
         flex-direction: column;
-        width: 95%;
-        height: 95%;
-        padding: 1.5rem;
-        background-color: var(--main-rosa-cinza);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-        border-radius: 0.5rem;
+        align-items: center;
+        justify-content: space-between;
+        width: 50%;
+        font-size: 1.2rem;
+      }
+
+      .container-jogadores{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 50%;
+        font-size: 1.2rem;
+
+        .container-list{
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .jogador-ativo{
+            color: var(--main-rosa-choque);
+            cursor: pointer;
+            font-size: 1.5rem;
+          }
+          .jogador-vazio{
+            color: var(--main-rosa-escura);
+            cursor: pointer;    
+            font-size: 1.5rem;        
+          }
+        }
+      }
     }
+
+    .container-introducao{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 80%;
+      overflow-y: auto;
+      padding: 1rem;
+      font-size: 1rem;
+
+    }
+
+    .container-btn{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+    }
+  }
 }

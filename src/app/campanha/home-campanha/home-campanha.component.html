@@ -1,29 +1,47 @@
 <div class="container-geral-row">
-  <div class="container-campanha-btn">
+  <div class="container-campanha-btn" [class.reduzido]="campanhaSelecionada() !== null">
     <div class="conteiner-campanhas">
       @for (item of campanhas(); track $index) {
-      <app-card-campanha [campanha]="item"></app-card-campanha>
+      <app-card-campanha [campanha]="item" (selecionar)="campanhaSelecionada.set($event)">
+      </app-card-campanha>
       }
     </div>
-    <p-button styleClass="button-padrao" label="Criar Campanha" />
+    <p-button styleClass="button-padrao" label="Criar Campanha" (onClick)="criarCampanha()" />
   </div>
-  <div class="container-detalhes">
+  <div class="container-detalhes" [class.aberto]="campanhaSelecionada() !== null">
+    @if (campanhaSelecionada()) {
     <div class="detalhe-campanha">
-      <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" />
       <div>
-        <div>Nome da Campanha</div>
+        <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" (click)="campanhaSelecionada.set(null)" />
       </div>
-      <div>
-        <div>
-          Level
+      <div class="content-nome">{{ campanhaSelecionada()?.nome }}</div>
+      <div class="container-nivel-jogadores">
+        <div class="container-nivel">
+          Nivel:
+          <div>{{ campanhaSelecionada()?.nivel }}</div>
         </div>
-        <div>
+        <div class="container-jogadores">
           Jogadores
+          <div class="container-list">
+            @for (jogador of jogadoresPreenchidos(); track $index) {
+            <span class="pi pi-user" 
+              [ngClass]="{ 'jogador-ativo': jogador,'jogador-vazio': jogador.id == 0}" 
+              [pTooltip]="jogador?.usuario?.nome || 'Disponível'" 
+              tooltipPosition="bottom">
+            </span>
+            }
+          </div>
         </div>
       </div>
-      <div>
-        Introdução:
+      <div class="container-introducao">
+        {{ campanhaSelecionada()?.introducao }}
+      </div>
+      <div class="container-btn">
+        <p-button styleClass="button-padrao" label="Entrar na Campanha" 
+        (onClick)="entrarEmCampanha(campanhaSelecionada()!)" />
       </div>
     </div>
+    }
+
   </div>
 </div>

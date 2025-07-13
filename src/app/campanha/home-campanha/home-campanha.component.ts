@@ -1,42 +1,73 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Campanha } from 'src/app/models/campanha';
 import { CampanhaService } from 'src/app/service/campanha.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { ButtonModule } from 'primeng/button';
 import { CardCampanhaComponent } from 'src/app/cards/card-campanha/card-campanha.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CriacaoCampanhaComponent } from '../criacao-campanha/criacao-campanha.component';
+import { CommonModule } from '@angular/common';
+import { TooltipModule } from 'primeng/tooltip';
+import { Personagem } from 'src/app/models/personagem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-campanha',
-  imports: [ButtonModule, CardCampanhaComponent],
+  imports: [
+    ButtonModule,
+    CardCampanhaComponent,
+    CommonModule,
+    TooltipModule
+  ],
   templateUrl: './home-campanha.component.html',
   styleUrl: './home-campanha.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeCampanhaComponent implements OnInit {
-  campanhas = signal<Campanha[]>([])
+  private readonly capanhaService = inject(CampanhaService)
+  private readonly modal = inject(ModalService)
+  private readonly dialog = inject(MatDialog)
+  private readonly route = inject(Router)
 
-  private capanhaService = inject(CampanhaService)
-  private modal = inject(ModalService)
-  private dialog = inject(MatDialog)
+  public readonly jogadoresPreenchidos = computed(() => {
+    const jogadores = this.campanhaSelecionada()?.jogadores ?? [];
+    const preenchidos = [...jogadores];
+    while (preenchidos.length < 10) {
+      preenchidos.push(new Personagem());
+    }
+    return preenchidos;
+  });
+  public readonly campanhas = signal<Campanha[]>([])
+  public readonly campanhaSelecionada = signal<Campanha | null>(null)
+
   constructor() {
 
   }
 
   ngOnInit(): void {
+    this.buscarCampanhas()
+  }
+
+  buscarCampanhas() {
     this.capanhaService.getListaCampanhasAtivas().subscribe({
       next: (result) => {
         this.campanhas.set(result);
       },
       error: (error) => {
         this.modal.openModalError(error)
-      } 
+      }
     });
   }
 
   criarCampanha() {
-    this.dialog.open(CriacaoCampanhaComponent)
+    const config = new MatDialogConfig();
+    config.width = '60%';
+    config.height = '60%';
+    config.disableClose = true;
+    this.dialog.open(CriacaoCampanhaComponent, config)
   }
 
+  entrarEmCampanha(campanha: Campanha) {
+    this.route.navigate(['/campanha', campanha.id])
+  }
 }

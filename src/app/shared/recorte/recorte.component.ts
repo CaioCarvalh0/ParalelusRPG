@@ -15,14 +15,20 @@ import { ButtonModule } from 'primeng/button';
 export class RecorteComponent implements OnInit {
   @Input() imagemOriginal!: string;
   imagemCortadaBase64: string | null = null;
+  aspectRatio: number = 1
 
   constructor(
     private dialogRef: MatDialogRef<RecorteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.imagemOriginal = this.data.imagemOriginal;
+    if (this.data.aspectRatio) {
+      this.aspectRatio = this.data.aspectRatio;
+    }
   }
 
   cortarImagem(event: ImageCroppedEvent) {

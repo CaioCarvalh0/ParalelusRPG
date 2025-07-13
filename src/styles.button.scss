@@ -29,3 +29,11 @@
     cursor: not-allowed;
   }
 }
+
+.btn-cancelar{
+    background-color: #613C4C !important;
+
+    &:hover {
+      background-color: white !important;
+    }
+}

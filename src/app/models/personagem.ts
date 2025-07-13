@@ -39,9 +39,9 @@ export class Personagem {
         this.nome = dto.nome;
         this.usuario = new Usuario(dto.usuario);
         this.raca = new Raca(dto.raca);
-        this.caminho = dto.caminho.map(caminho => new Caminho(caminho));
-        this.pericia = dto.pericias.map(pericia => new Pericia(pericia));
-        this.arquetipo = dto.arquetipo.map(arquetipo => new Arquetipo(arquetipo));
+        this.caminho = (dto.caminho ?? []).map(c => new Caminho(c));
+        this.pericia = (dto.pericias ?? []).map(p => new Pericia(p));
+        this.arquetipo = (dto.arquetipo ?? []).map(a => new Arquetipo(a));
         this.atributos = new Atributos(dto.atributos);
         this.maxvida = dto.vidaMax;
         this.vidaatual = dto.vidaAtual;

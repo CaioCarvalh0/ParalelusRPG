@@ -2,7 +2,10 @@
   <div class="flex"></div>
   <div class="container-pagetitle">
     <span>🏹</span>
-    <span class="text-gray-50 font-bold">{{ pageTitle }}</span>
+    <div class="text-gray-50 font-bold hover:cursor-pointer hover:text-[#FF1457]"
+         (click)="navegarPara('/home')">
+      {{ pageTitle }}
+    </div>
     <span>🎲</span>
   </div>
   <div class="container-btn-menu">

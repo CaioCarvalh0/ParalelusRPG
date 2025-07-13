@@ -116,7 +116,7 @@
         </div>
         <div class="container-raca">
           <label class="">Raça:</label>
-          <p-select size="small" [options]="listaRaca" 
+          <p-select size="small" [options]="listaRaca()" 
             optionLabel="nome" placeholder="Selecione a Raça"  
             formControlName="raca"/>
         </div>
@@ -200,7 +200,7 @@
         <div class="container-caminho">
           <div>
             <label class="label-padrao">Caminhos:</label>
-            <p-select class="w-full max-w-full" size="small" [options]="listaCaminho" optionLabel="nome"
+            <p-select class="w-full max-w-full" size="small" [options]="listaCaminho()" optionLabel="nome"
               (onChange)="selectCaminho()" placeholder="Selecione um Caminho" [(ngModel)]="caminho" />
           </div>
           <div class="content-caminho ">

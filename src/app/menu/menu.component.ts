@@ -94,6 +94,10 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  navegarPara(url: string) {
+    this.router.navigate([url]); 
+  }
+
   desLogar() {
     this.authService.removeTokenOnLocalStorage();
     this.router.navigate(['/']);

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { API_URL_RACA } from '../contants/api';
 import { RacaDTO } from '../dto/raca-dto';
 import { Raca } from '../models/raca';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class RacaService {
     private http: HttpClient
   ) { }
 
-  getListaRacas() {
+  getListaRacas(): Observable<Raca[]> {
     return this.http.get<RacaDTO[]>(`${API_URL_RACA}`).pipe(map(result =>
       result.map(raca => new Raca().fromDTO(raca)
     )));

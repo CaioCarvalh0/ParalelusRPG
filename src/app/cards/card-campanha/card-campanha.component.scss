@@ -1,7 +1,6 @@
 :host {
   width: 100%;
-  height: 25%;
-
+  height: 100%;
   //   @media (max-width: 768px) {
   //     width: 100%;
   //     height: auto;
@@ -19,7 +18,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 200px;
   border: 1px solid #000000;
   border-radius: 1rem;
   padding: 0.5rem;
@@ -27,6 +26,11 @@
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   background-color: #361c30;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  // background-blend-mode: darken;
+  // background-color: rgba(0, 0, 0, 0.1);
 
   &:hover {
     cursor: pointer;
