@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardCampanhaComponent } from 'src/app/cards/card-campanha/card-campanha.component';
@@ -13,9 +13,8 @@ import { ButtonModule } from 'primeng/button';
     styleUrls: ['./home.component.scss'],
     standalone: true,
     imports: [
-        CommonModule, ButtonModule   
-        // CardCampanhaComponent
-    ]
+    ButtonModule
+]
 })
 export class HomeComponent implements OnInit {
     listaCampanhas: Campanha[] = [];

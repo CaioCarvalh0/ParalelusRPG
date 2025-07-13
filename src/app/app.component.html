@@ -1,3 +1,5 @@
 <app-menu></app-menu>
-<app-loader *ngIf="loaderService.loading()" ></app-loader>
+@if (loaderService.loading()) {
+  <app-loader ></app-loader>
+}
 <router-outlet></router-outlet>

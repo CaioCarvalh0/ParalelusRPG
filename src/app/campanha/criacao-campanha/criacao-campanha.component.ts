@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 import { TextareaModule } from 'primeng/textarea';
 import { RecorteComponent } from 'src/app/shared/recorte/recorte.component';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CampanhaService } from 'src/app/service/campanha.service';
 import { Campanha } from 'src/app/models/campanha';
@@ -26,9 +26,8 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
     InputTextModule,
     FloatLabel,
     TextareaModule,
-    CommonModule,
     ReactiveFormsModule
-  ]
+]
 })
 export class CriacaoCampanhaComponent {
   private readonly authService = inject(AuthenticationService)

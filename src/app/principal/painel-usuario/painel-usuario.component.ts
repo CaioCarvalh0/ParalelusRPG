@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -14,9 +14,13 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     styleUrls: ['./painel-usuario.component.scss'],
     standalone: true,
     imports: [
-        CommonModule, ButtonModule, IconFieldModule, InputIconModule, FormsModule,
-        InputGroupModule, InputGroupAddonModule
-    ]
+    ButtonModule,
+    IconFieldModule,
+    InputIconModule,
+    FormsModule,
+    InputGroupModule,
+    InputGroupAddonModule
+]
 })
 export class PainelUsuarioComponent implements OnInit {
     usuario: Usuario = new Usuario()

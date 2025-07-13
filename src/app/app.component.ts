@@ -4,19 +4,18 @@ import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { LoaderService } from './service/loader.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     standalone: true,
-    imports: [ 
-        CommonModule,
-        MenuComponent,
-        RouterModule,
-        LoaderComponent,
-    ]
+    imports: [
+    MenuComponent,
+    RouterModule,
+    LoaderComponent
+]
 })
 export class AppComponent implements OnInit {
   title = 'rpgParalelus';
