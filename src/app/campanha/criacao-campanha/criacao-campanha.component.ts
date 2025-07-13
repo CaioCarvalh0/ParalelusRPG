@@ -2,6 +2,7 @@ import { Component, computed, ElementRef, inject, signal, ViewChild } from '@ang
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonModule } from 'primeng/button';
+import { MatButtonModule } from '@angular/material/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 import { TextareaModule } from 'primeng/textarea';
@@ -20,6 +21,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   standalone: true,
   imports: [
     MatIconModule,
+    MatButtonModule,
     ButtonModule,
     InputTextModule,
     FloatLabel,
@@ -36,8 +38,7 @@ export class CriacaoCampanhaComponent {
   form = this.fb.group({
     nome: [''],
     introducao: [''],
-    capa: [null],
-    nivel: [0]
+    capa: [null]
   });
 
   public readonly maxLevel = 30;

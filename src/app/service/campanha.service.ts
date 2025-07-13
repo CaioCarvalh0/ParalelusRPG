@@ -20,7 +20,7 @@ export class CampanhaService {
     )));
   }
 
-  getListaCampanhasAtivas() {
+  getListaCampanhasAtivas(): Observable<Campanha[]> {
     return this.http.get<CampanhaDTO[]>(`${API_URL_CAMP}/listar/ativas`).pipe(map(result =>
       result.map(campanha => new Campanha().fromDTO(campanha))
     ));

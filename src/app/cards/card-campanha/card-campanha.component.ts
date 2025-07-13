@@ -1,4 +1,4 @@
-import { Component, input, Input, OnInit, Output, output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { Campanha } from 'src/app/models/campanha';
 
 @Component({
