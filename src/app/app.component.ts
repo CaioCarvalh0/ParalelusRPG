@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { MenuComponent } from './menu/menu.component';
+import { MenuComponent } from './shared/menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './shared/loader/loader.component';
-import { LoaderService } from './service/loader.service';
+import { LoaderService } from './core/service/loader.service';
 
 
 @Component({

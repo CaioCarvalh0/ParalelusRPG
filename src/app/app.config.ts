@@ -5,10 +5,10 @@ import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { TokeIntercotorService } from './interceptor/request-toke.interceptor.service';
-import { ErrorInterceptorService } from './interceptor/error.interceptor.service';
-import { Tema } from './contants/paralelus-tema';
-import { LoaderInterceptorService } from './interceptor/loader.interceptor.service';
+import { TokeIntercotorService } from './core/interceptor/request-toke.interceptor.service';
+import { ErrorInterceptorService } from './core/interceptor/error.interceptor.service';
+import { Tema } from './core/contants/paralelus-tema';
+import { LoaderInterceptorService } from './core/interceptor/loader.interceptor.service';
 
 
 export const appConfig: ApplicationConfig = {
