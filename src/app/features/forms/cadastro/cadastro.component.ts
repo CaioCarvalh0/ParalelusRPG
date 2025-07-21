@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterDTO } from 'src/app/core/models/dtos/register-dto';
 import { UsuarioDTO } from 'src/app/core/models/dtos/usuario-dto';
@@ -18,25 +18,22 @@ import { ModalService } from 'src/app/core/service/modal.service';
     ]
 })
 export class CadastroComponent implements OnInit {
+    private readonly router: Router = inject(Router);
     private readonly authService = inject(AuthenticationService);
     private readonly modalService = inject(ModalService);
-    private readonly formBuilder = inject(FormBuilder);
 
-    formCadastro: FormGroup;
-    constructor(
-        private router: Router
-    ) {
-        this.formCadastro = this.formBuilder.group(
-            {
-                nome: ['', Validators.required],
-                login: ['', Validators.required],
-                email: ['', [Validators.required, Validators.email]],
-                senha: ['', [Validators.required, Validators.minLength(6)]],
-                confirmSenha: ['', Validators.required]
-            },
-            { validator: this.senhasIguaisValidator }
-        );
-    }
+    formCadastro = inject(FormBuilder).nonNullable.group(
+        {
+            nome: ['', Validators.required],
+            login: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            senha: ['', [Validators.required, Validators.minLength(6)]],
+            confirmSenha: ['', Validators.required]
+        },
+        { validators: this.senhasIguaisValidator }
+    );
+
+    constructor() {}
 
     ngOnInit(): void {
 
@@ -75,7 +72,7 @@ export class CadastroComponent implements OnInit {
         })
     }
 
-    senhasIguaisValidator(form: AbstractControl) {
+    senhasIguaisValidator(form: AbstractControl): ValidationErrors | null {
         const senha = form.get('senha')?.value;
         const confirmSenha = form.get('confirmSenha')?.value;
         return senha === confirmSenha ? null : { senhasDiferentes: true };

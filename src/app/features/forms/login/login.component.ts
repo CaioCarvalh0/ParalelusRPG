@@ -15,19 +15,15 @@ import { ModalService } from 'src/app/core/service/modal.service';
   ]
 })
 export class LoginComponent implements OnInit {
-  formLogin: FormGroup;
-
-  private formBuilder = inject(FormBuilder);
   private authService = inject(AuthenticationService);
   private modalService = inject(ModalService);
   private router = inject(Router);
+  formLogin = inject(FormBuilder).nonNullable.group({
+    login: ['', Validators.required],
+    senha: ['', Validators.required]
+  });
 
-  constructor() {
-    this.formLogin = this.formBuilder.group({
-      login: ['', Validators.required],
-      senha: ['', Validators.required]
-    })
-  }
+  constructor() {}
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {

@@ -18,12 +18,10 @@
 
     <div class="flex flex-col">
       <label class="label-padrao">Senha:</label>
-      <p-password formControlName="senha" size="small" 
-        promptLabel="Digite sua senha" weakLabel="Senha Muito Simpes" mediumLabel="Senha Moderada"
-        strongLabel="Senha Forte"
-        [toggleMask]="true" />
+      <p-password formControlName="senha" size="small" promptLabel="Digite sua senha" weakLabel="Senha Muito Simpes"
+        mediumLabel="Senha Moderada" strongLabel="Senha Forte" [toggleMask]="true" />
     </div>
-    
+
     <div class="flex flex-col">
       <label class="label-padrao">Confirmar Senha:</label>
       <p-password formControlName="confirmSenha" size="small" [toggleMask]="true" [feedback]="false" />
