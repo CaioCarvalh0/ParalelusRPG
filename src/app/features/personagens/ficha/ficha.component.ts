@@ -26,6 +26,7 @@ import { Pericia } from 'src/app/core/models/pericia';
 import { RecorteComponent } from 'src/app/shared/recorte/recorte.component';
 import { PersonagemDTO } from 'src/app/core/models/dtos/salvar.personagem-dto';
 import { SelectModule } from 'primeng/select';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ficha',
@@ -59,6 +60,8 @@ export class FichaComponent implements OnInit {
   public listaArquetipo = toSignal(this.arquetipoService.getListaArquetipos())
   public listaPericia: Pericia[] = []
 
+  public readonly usuario = this.authService.currentUser();
+
   atributoMap: Record<AtributoEnum, keyof typeof this.atributos> = {
     [AtributoEnum.Forca]: 'forca',
     [AtributoEnum.Agilidade]: 'agilidade',
@@ -68,10 +71,10 @@ export class FichaComponent implements OnInit {
     [AtributoEnum.Resistencia]: 'resistencia'
   };
   form: FormGroup
-  usuario: Usuario = new Usuario()
   personagem: Personagem = new Personagem()
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  imagemCortada = signal<string | null>(null);
+  public readonly imagemCortada = signal<File | null>(null);
+  public readonly imagemPreview = signal<string | null>(null);
   atributoEnum = AtributoEnum
   singularidadeEnum = SingularidadeEnum
   atributos: Atributos = new Atributos()
@@ -94,9 +97,6 @@ export class FichaComponent implements OnInit {
   atributoMin = -1;
 
   constructor() {
-    this.authService.currentUser$.subscribe(user => {
-      this.usuario = user
-    })
     this.form = this.formBuilder.group({
       nome: [''],
       raca: [''],
@@ -258,12 +258,10 @@ export class FichaComponent implements OnInit {
 
   converterParaBase64(arquivo: File) {
     const reader = new FileReader();
-
     reader.onload = () => {
       const imagemBase64 = reader.result as string;
       this.abrirModalRecorte(imagemBase64);
     };
-
     reader.readAsDataURL(arquivo);
   }
 
@@ -275,10 +273,12 @@ export class FichaComponent implements OnInit {
       panelClass: 'custom-modal'
     });
 
-    dialogRef.afterClosed().subscribe((imagemRecortada: string | null) => {
-      if (imagemRecortada) {
-        this.imagemCortada.set(imagemRecortada);
-      }
+    dialogRef.afterClosed().subscribe((imagemRecortada: File | null) => {
+    if (imagemRecortada) {
+      this.imagemCortada.set(imagemRecortada);
+      const previewUrl = URL.createObjectURL(imagemRecortada);
+      this.imagemPreview.set(previewUrl);
+    }
     });
   }
 
@@ -337,22 +337,32 @@ export class FichaComponent implements OnInit {
     this.editandoMana = false;
   }
 
-  salvarPersonagem() {
-    this.converterBlobParaBase64(this.imagemCortada()).then(base64 => {
-      this.imagemCortada.set(base64);
-      const personagemDTO = this.montaJsonDTO();
-      this.personagemService.postSalvarPersonagem(personagemDTO).subscribe((result) => {
-        this.modalService.openModalSuccess(result.mensagem);
-        this.personagemService.setPersonagem(new Personagem().fromDTO(result.data));
-      });
-    }).catch(err => this.modalService.openModalError("Erro ao converter Imagem: " + err.message));
+  public salvarPersonagem() {
+    const personagemDTO = this.montaJsonDTO();
+    this.personagemService.postSalvarPersonagem(personagemDTO).subscribe({
+      next: (personagem) => {
+        const file = this.imagemCortada()
+        if (file) {
+          this.personagemService.postUploadImagem(personagem.id, file).subscribe({
+            next: (url) => {
+              this.modalService.openModalSuccess("Personagem salvo com sucesso!");
+            },
+            error: (err) => this.modalService.openModalError("Erro ao fazer upload da imagem: " + err.message)
+          });
+        }else{
+          this.modalService.openModalSuccess("Personagem salvo com sucesso!");
+        }
+      },
+      error: (err) => this.modalService.openModalError("Erro ao salvar personagem: " + err.message)
+    })
   }
+
 
   montaJsonDTO(): PersonagemDTO {
     let personagemDTO: PersonagemDTO = {
       id: this.personagem.id,
       nome: this.form.get('nome')!.value,
-      usuario: this.usuario,
+      usuario: this.usuario!,
       raca: this.form.get('raca')!.value,
       caminho: this.listaCaminhoSelecionado,
       arquetipo: this.listaArquetipoSelecionado,
@@ -365,13 +375,12 @@ export class FichaComponent implements OnInit {
       defesa: Number(this.defesa) || 0,
       inventario: this.inventario,
       singularidade: this.singularidade,
-      imagemBase64: this.imagemCortada()?.split(',')[1] || null,
+      imagemUrl: "",
       caracteristica: this.form.get('caracteristicas')!.value,
       level: this.form.get('level')!.value,
       cibernetica: this.cibernetica,
       historia: this.personagem.historia
     }
-    console.log('personagemDTO', personagemDTO.pericias)
     return personagemDTO
   }
 
@@ -396,27 +405,10 @@ export class FichaComponent implements OnInit {
       this.cibernetica = this.personagem.cibernetica
       this.singularidade = this.personagem.singularidade
       if (this.personagem.imagem) {
-        this.imagemCortada.set(`data:image/png;base64,${this.personagem.imagem}`)
+        const url = environment.apiUrl + this.personagem.imagem
+        this.personagem.imagem = url
       }
     }
-  }
-
-  converterBlobParaBase64(blobUrl: string | null): Promise<string | null> {
-    return new Promise((resolve, reject) => {
-      if (!blobUrl) {
-        resolve(null);
-        return;
-      }
-      fetch(blobUrl)
-        .then(response => response.blob())
-        .then(blob => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result as string);
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        })
-        .catch(reject);
-    });
   }
 
 }

@@ -1,6 +1,45 @@
-import { CampanhaDTO } from "./dtos/campanha-dto";
+import { CampanhaDTO, CampanhaSolicitacaoDTO, CampanhaTimelineEventoDTO } from "./dtos/campanha-dto";
 import { Personagem } from "./personagem";
 import { Usuario } from "./usuario";
+
+export class CampanhaSessao {
+    id: number = 0;
+    titulo: string = '';
+    ativa: boolean = false;
+    estadoMesa: string = '';
+    iniciadaEm: string = '';
+    atualizadaEm: string | null = null;
+    timeline: CampanhaTimelineEventoDTO[] = [];
+
+    constructor(init?: Partial<CampanhaSessao>) {
+        Object.assign(this, init);
+    }
+}
+
+export class CampanhaSolicitacao {
+    id: number = 0;
+    usuario: Usuario = new Usuario();
+    personagem: Personagem = new Personagem();
+    status: string = '';
+    mensagem: string = '';
+    criadoEm: string = '';
+    atualizadoEm: string = '';
+
+    constructor(init?: Partial<CampanhaSolicitacao>) {
+        Object.assign(this, init);
+    }
+
+    fromDTO(dto: CampanhaSolicitacaoDTO): CampanhaSolicitacao {
+        this.id = dto.id;
+        this.usuario = new Usuario(dto.usuario);
+        this.personagem = new Personagem().fromDTO(dto.personagem);
+        this.status = dto.status;
+        this.mensagem = dto.mensagem;
+        this.criadoEm = dto.criadoEm;
+        this.atualizadoEm = dto.atualizadoEm;
+        return this;
+    }
+}
 
 export class Campanha {
     id: number = 0;
@@ -9,7 +48,10 @@ export class Campanha {
     ativa: boolean = false;
     nivel: number = 0;
     introducao: string = '';
-    jogadores: Personagem[] = [];
+    personagens: Personagem[] = [];
+    jogadores: Usuario[] = [];
+    solicitacoesPendentes: number = 0;
+    sessaoAtiva: CampanhaSessao | null = null;
     capa: string = '';
 
     constructor(init?: Partial<Campanha>) {
@@ -22,9 +64,15 @@ export class Campanha {
         this.nome = dto.nome;
         this.ativa = dto.ativa;
         this.nivel = dto.nivel;
-        this.jogadores = (dto.jogadores ?? []).map(j => new Personagem().fromDTO(j));
+        this.personagens = (dto.personagens ?? []).map(p => new Personagem().fromDTO(p));
+        this.jogadores = (dto.jogadores ?? []).map(j => new Usuario(j));
+        this.solicitacoesPendentes = dto.solicitacoesPendentes ?? 0;
+        this.sessaoAtiva = dto.sessaoAtiva ? new CampanhaSessao({
+            ...dto.sessaoAtiva,
+            timeline: dto.sessaoAtiva.timeline ?? []
+        }) : null;
         this.introducao = dto.introducao;
-        this.capa = dto.capaBase64? dto.capaBase64 : '';
+        this.capa = dto.capaUrl? dto.capaUrl : '';
         return this;
     }
 

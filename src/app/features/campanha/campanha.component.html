@@ -1,46 +1,191 @@
-<div class="container-geral ">
-  <div class="w-full h-full flex flex-row p-2">
-    <div class="basis-[75%] p-3 w-full h-full flex flex-col">
-      <div class="text-2xl">Jogadores:</div>
+@if (campanha(); as campanhaAtual) {
+  <section class="campanha-shell">
+    <div class="campanha-content">
+      <div class="content-column content-column--main">
+        <div class="panel panel--characters">
+          <div class="panel__header">
+            <div>
+              <span class="panel__eyebrow">Elenco da campanha</span>
+              <h2>Personagens em cena</h2>
+            </div>
 
-      <div class="w-full h-[85%] ">
-        <!-- <app-card-personagem></app-card-personagem> -->
+            <button type="button" class="back-link" (click)="voltarParaCampanhas()">
+              <i class="pi pi-arrow-left"></i>
+              Voltar
+            </button>
+          </div>
+
+          <div class="personagens-grid">
+            @for (personagem of campanhaAtual.personagens; track personagem.id) {
+              <div class="personagem-bloco">
+                <app-card-personagem [personagem]="personagem" [campanhaNome]="campanhaAtual.nome"></app-card-personagem>
+                <div class="personagem-meta">
+                  <span>{{ getUsuarioCampanha(personagem)?.nome || personagem.usuario.nome }}</span>
+                </div>
+              </div>
+            } @empty {
+              <div class="empty-panel">
+                Ainda nao ha personagens vinculados a esta campanha. A mesa fica pronta para receber o primeiro jogador assim que o mestre aprovar uma solicitacao.
+              </div>
+            }
+          </div>
+        </div>
       </div>
 
-      <div class="w-full flex flex-row items-end gap-3 ">
-        <button type="button"
-          class="w-[150px] p-2 pl-6 pr-6 text-sm bg-[#FF1457] rounded-lg  hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
-          Adicionar Personagem
-        </button>
+      <div class="content-column content-column--sidebar">
+        @if (isMestre()) {
+          <div class="panel panel--controls">
+            <div class="panel__header">
+              <div>
+                <span class="panel__eyebrow">Mesa do mestre</span>
+                <h2>Controles da campanha</h2>
+              </div>
+            </div>
 
-        <button type="button" (click)="btnSolicitacao()"
-          class="w-[150px] flex justify-evenly items-center h-[40px] text-sm bg-[#FF1457] rounded-lg hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
-          Solicitações
-          <mat-icon class="text-xl ">notifications</mat-icon>
-        </button>
+            <div class="controls-grid">
+              <button type="button" class="request-button" [disabled]="carregandoSolicitacoes()" (click)="abrirSolicitacoes()">
+                <i class="pi pi-inbox"></i>
+                <span>Solicitacoes</span>
+                @if (campanhaAtual.solicitacoesPendentes > 0) {
+                  <strong>{{ campanhaAtual.solicitacoesPendentes }}</strong>
+                }
+              </button>
+
+              <button type="button" class="request-button" [disabled]="salvando()" (click)="abrirControleSessao()">
+                <i class="pi" [ngClass]="sessaoAtiva() ? 'pi-cog' : 'pi-play-circle'"></i>
+                <span>{{ sessaoAtiva() ? 'Gerenciar sessao' : 'Abrir sessao' }}</span>
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (!isMestre() && !isParticipante()) {
+          <div class="panel panel--compact">
+            <div class="panel__header">
+              <div>
+                <span class="panel__eyebrow">Entrada na campanha</span>
+              </div>
+            </div>
+            <p-button
+              label="Solicitar entrada"
+              icon="pi pi-send"
+              [disabled]="salvando() || opcoesPersonagemSolicitacao().length === 0"
+              (onClick)="abrirSolicitacao()"
+            />
+          </div>
+        }
+
+        @if (isParticipante() && !isMestre()) {
+          <div class="panel panel--compact">
+            <div class="panel__header">
+              <div>
+                <span class="panel__eyebrow">Participacao</span>
+                <h2>Voce esta na mesa</h2>
+              </div>
+            </div>
+
+            <p-button
+              label="Sair da campanha"
+              severity="secondary"
+              icon="pi pi-sign-out"
+              [disabled]="salvando()"
+              (onClick)="sairDaCampanha()"
+            />
+          </div>
+        }
+
+        <div class="panel panel--timeline">
+          <div class="panel__header">
+            <div>
+              <span class="panel__eyebrow">Timeline</span>
+              <h2>Rolagens da sessao</h2>
+            </div>
+            @if (sessaoAtiva()) {
+              <div class="timeline-session-badge">
+                <strong>{{ sessaoAtiva()?.titulo }}</strong>
+                <span>{{ formatarData(sessaoAtiva()?.iniciadaEm) }}</span>
+              </div>
+            }
+          </div>
+
+          @if (sessaoAtiva()) {
+            <div class="timeline-controls">
+              @if (opcoesPersonagemTimeline().length > 0) {
+                <p-select
+                  [options]="opcoesPersonagemTimeline()"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Personagem"
+                  [ngModel]="personagemTimelineId()"
+                  (ngModelChange)="personagemTimelineId.set($event)"
+                />
+              }
+
+              <div class="timeline-compose">
+                <p-select
+                  [options]="opcoesQuantidadeDados"
+                  optionLabel="label"
+                  optionValue="value"
+                  [ngModel]="quantidadeDados()"
+                  (ngModelChange)="quantidadeDados.set($event)"
+                />
+
+                <p-select
+                  [options]="opcoesDados"
+                  optionLabel="label"
+                  optionValue="value"
+                  [ngModel]="dadoSelecionado()"
+                  (ngModelChange)="dadoSelecionado.set($event)"
+                />
+              </div>
+
+              <p-button
+                label="Rolar dado"
+                icon="pi pi-bolt"
+                [disabled]="salvando() || !podeInteragirTimeline()"
+                (onClick)="registrarRolagem()"
+              />
+            </div>
+
+            <p-divider />
+
+            <div class="timeline-wrapper">
+              <p-timeline [value]="timeline()" align="left" styleClass="roll-timeline">
+                <ng-template pTemplate="marker" let-entry>
+                  <span class="timeline-marker" [ngStyle]="getTimelineMarkerStyle(entry)"></span>
+                </ng-template>
+                <ng-template pTemplate="content" let-entry>
+                  <div class="timeline-item" [class.timeline-item--own]="isTimelineEntryFromCurrentUser(entry)">
+                    <div class="timeline-item__meta">
+                      <strong>{{ entry.usuario.nome }}</strong>
+                      <span>{{ formatarData(entry.criadoEm) }}</span>
+                    </div>
+
+                    <div class="timeline-item__bubble">
+                      <div class="roll-summary">
+                        <span>Rolagem</span>
+                        @if (entry.personagem) {
+                          <strong>{{ entry.personagem.nome }}</strong>
+                        }
+                      </div>
+
+                      <div class="roll-note">{{ entry.conteudo }}</div>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-timeline>
+            </div>
+          } @else {
+            <div class="empty-panel">
+              A timeline so registra rolagens da sessao ativa. Inicie a mesa para liberar os dados.
+            </div>
+          }
+        </div>
       </div>
-
     </div>
-    <div class="basis-[1%] flex w-full pt-11 pb-11  h-ful justify-center">
-      <div class="bg-[#FF1457] rounded-lg h-full w-[2px]"></div>
-    </div>
-
-    <div class="basis-[24%] w-full h-full flex flex-col items-center gap-2 ">
-      <div>
-        <button type="button" class="w-[200px] h-[60px] text-xl p-2 pl-6 pr-6   bg-[#FF1457] rounded-lg
-           hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
-          Adicionar NPC
-        </button>
-      </div>
-      <div class="h-full ">
-        <!-- <app-card-personagem></app-card-personagem> -->
-      </div>
-      <div>
-        <button type="button" class="w-[200px] h-[40px] text-lg p-2 pl-6 pr-6   bg-[#FF1457] rounded-lg
-           hover:bg-gray-100 hover:border-[#FF1457] hover:!text-[#FF1457]">
-          Iniciar Sessão
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+  </section>
+} @else {
+  <section class="campanha-shell">
+    <div class="empty-panel">Carregando campanha...</div>
+  </section>
+}

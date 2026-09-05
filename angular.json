@@ -38,26 +38,29 @@
               "src/styles.scss",
               "src/styles-container.scss",
               "src/styles.inputs.scss",
-              "src/styles.button.scss",
-              "src/styles.variaveis.scss"
+              "src/styles.button.scss"
             ],
             "scripts": [],
-            "browser": "src/main.ts"
+            "browser": "src/main.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {
-              "budgets": [
-              {   
-                "type": "initial",
-                "maximumWarning": "2mb",
-                "maximumError": "2.5mb"
-              },
-              {
-                "type": "anyComponentStyle",
-                "maximumWarning": "10kb",
-                "maximumError": "15kb"
-              }
-            ],
+              "budgets": [{
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "2.5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kb",
+                  "maximumError": "15kb"
+                }
+              ],
               "outputHashing": "all",
               "sourceMap": false,
               "optimization": true
@@ -67,12 +70,10 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
-                }
-              ]
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.development.ts"
+              }]
             }
           },
           "defaultConfiguration": "production"

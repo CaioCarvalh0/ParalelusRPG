@@ -5,8 +5,10 @@
 
 
       <div class="container-foto" (click)="abrirSeletorDeImagem()">
-        @if (imagemCortada()) {
-        <img [src]="imagemCortada()" alt="Foto do Personagem" />
+        @if (imagemPreview()) {
+        <img [src]="imagemPreview()" alt="Foto do Personagem" />
+        } @else if (personagem.imagem) {
+        <img [src]="personagem.imagem" alt="Foto do Personagem" />
         } @else {
         <div class="container-foto-icon">
           <span class="pi pi-user"></span>
@@ -21,7 +23,7 @@
         <div class="row-progressbar" (mouseenter)="editandoVida = true" (mouseleave)="editandoVida = false">
           <span class="pi pi-angle-double-left" (click)="removePontosVidaMax()"></span>
           <span class="pi pi-angle-left" (click)="removePontosVida()"></span>
-      
+
           <ng-container *ngIf="!editandoVida; else editarVida">
             <p-progressbar class="w-full" color="red" [value]="(vidaatual / maxvida) * 100">
               <ng-template #content>
@@ -29,21 +31,21 @@
               </ng-template>
             </p-progressbar>
           </ng-container>
-      
+
           <ng-template #editarVida>
             <input type="number" [(ngModel)]="vidaatual" (keydown.enter)="salvarVida()" class="input-vida">
             <input type="number" [(ngModel)]="maxvida" (keydown.enter)="salvarVida()" class="input-vida">
           </ng-template>
-      
+
           <span class="pi pi-angle-right" (click)="addPontosVida()"></span>
           <span class="pi pi-angle-double-right" (click)="addPontosVidaMax()"></span>
         </div>
-      
+
         <div>Energia</div>
         <div class="row-progressbar" (mouseenter)="editandoMana = true" (mouseleave)="editandoMana = false">
           <span class="pi pi-angle-double-left" (click)="removePontosManaMax()"></span>
           <span class="pi pi-angle-left" (click)="removePontosMana()"></span>
-      
+
           <ng-container *ngIf="!editandoMana; else editarMana">
             <p-progressbar class="w-full" color="rgb(74, 183, 255)" [value]="(manaatual / maxmana) * 100">
               <ng-template #content>
@@ -51,12 +53,12 @@
               </ng-template>
             </p-progressbar>
           </ng-container>
-      
+
           <ng-template #editarMana>
             <input type="number" [(ngModel)]="manaatual" (keydown.enter)="salvarMana()" class="input-mana">
             <input type="number" [(ngModel)]="maxmana" (keydown.enter)="salvarMana()" class="input-mana">
           </ng-template>
-      
+
           <span class="pi pi-angle-right" (click)="addPontosMana()"></span>
           <span class="pi pi-angle-double-right" (click)="addPontosManaMax()"></span>
         </div>
@@ -67,11 +69,11 @@
     <div class="container-tabs ">
 
       <div class="container-ca-inv-ciber">
-        
+
         <div class="container-ca">
           <div class="hexagon-borda !w-[33%]">
             <div class="hexagon-background flex-col" (click)="addPontosDefesa()"
-            (contextmenu)="removePontosDefesa($event)">
+              (contextmenu)="removePontosDefesa($event)">
               <div class="text-2xl">
                 {{ defesa }}
               </div>
@@ -116,9 +118,8 @@
         </div>
         <div class="container-raca">
           <label class="">Raça:</label>
-          <p-select size="small" [options]="listaRaca()" 
-            optionLabel="nome" placeholder="Selecione a Raça"  
-            formControlName="raca"/>
+          <p-select size="small" [options]="listaRaca()" optionLabel="nome" placeholder="Selecione a Raça"
+            formControlName="raca" />
         </div>
         <div>
           <label class="label-padrao">Level:</label>
@@ -132,7 +133,7 @@
 
       <div class="container-atributos">
 
-         <div class="line-atrib">
+        <div class="line-atrib">
           <div class="hexagon-borda">
             <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Forca)"
               (contextmenu)="removePontosAtributo($event, atributoEnum.Forca)">
@@ -160,9 +161,9 @@
               <div>AGI</div>
             </div>
           </div>
-         </div> 
+        </div>
 
-         <div class="line-atrib">
+        <div class="line-atrib">
           <div class="hexagon-borda">
             <div class="hexagon-background flex-col " (click)="addPontosAtributo(atributoEnum.Poder)"
               (contextmenu)="removePontosAtributo($event, atributoEnum.Poder)">
@@ -190,7 +191,7 @@
               <div>SAN</div>
             </div>
           </div>
-         </div>
+        </div>
       </div>
     </div>
 
@@ -241,9 +242,10 @@
 
                 <div class="container-pentagono">
                   <div class="pentagono-borda">
-                    <div class="pentagono-background flex-col" (click)="addPontosSingularidade(singularidadeEnum.Criacao)"
+                    <div class="pentagono-background flex-col"
+                      (click)="addPontosSingularidade(singularidadeEnum.Criacao)"
                       (contextmenu)="removePontosSingularidade($event, singularidadeEnum.Criacao)">
-                      <div >
+                      <div>
                         {{ singularidade.criacao }}
                       </div>
                     </div>
@@ -253,7 +255,8 @@
 
                 <div class="container-pentagono">
                   <div class="pentagono-borda">
-                    <div class="pentagono-background flex-col" (click)="addPontosSingularidade(singularidadeEnum.Manipulacao)"
+                    <div class="pentagono-background flex-col"
+                      (click)="addPontosSingularidade(singularidadeEnum.Manipulacao)"
                       (contextmenu)="removePontosSingularidade($event, singularidadeEnum.Manipulacao)">
                       <div>
                         {{ singularidade.manipulacao }}
@@ -262,11 +265,12 @@
                   </div>
                   <div>Manipulação</div>
                 </div>
-                
-                
-                <div class="container-pentagono" >
+
+
+                <div class="container-pentagono">
                   <div class="pentagono-borda">
-                    <div class="pentagono-background flex-col" (click)="addPontosSingularidade(singularidadeEnum.Ampliacao)"
+                    <div class="pentagono-background flex-col"
+                      (click)="addPontosSingularidade(singularidadeEnum.Ampliacao)"
                       (contextmenu)="removePontosSingularidade($event, singularidadeEnum.Ampliacao)">
                       <div>
                         {{ singularidade.ampliacao }}
@@ -279,7 +283,8 @@
               <div class="flex w-full h-full items-center justify-evenly">
                 <div class="container-pentagono">
                   <div class="pentagono-borda">
-                    <div class="pentagono-background flex-col" (click)="addPontosSingularidade(singularidadeEnum.Difusao)"
+                    <div class="pentagono-background flex-col"
+                      (click)="addPontosSingularidade(singularidadeEnum.Difusao)"
                       (contextmenu)="removePontosSingularidade($event, singularidadeEnum.Difusao)">
                       <div>
                         {{ singularidade.difusao }}
@@ -288,10 +293,11 @@
                   </div>
                   <div>Difusão</div>
                 </div>
-                
+
                 <div class="container-pentagono">
                   <div class="pentagono-borda">
-                    <div class="pentagono-background flex-col" (click)="addPontosSingularidade(singularidadeEnum.Corporeo)"
+                    <div class="pentagono-background flex-col"
+                      (click)="addPontosSingularidade(singularidadeEnum.Corporeo)"
                       (contextmenu)="removePontosSingularidade($event, singularidadeEnum.Corporeo)">
                       <div>
                         {{ singularidade.corporeo }}
@@ -300,10 +306,11 @@
                   </div>
                   <div>Corpóreo</div>
                 </div>
-                
+
                 <div class="container-pentagono">
                   <div class="pentagono-borda">
-                    <div class="pentagono-background flex-col" (click)="addPontosSingularidade(singularidadeEnum.Espacial)"
+                    <div class="pentagono-background flex-col"
+                      (click)="addPontosSingularidade(singularidadeEnum.Espacial)"
                       (contextmenu)="removePontosSingularidade($event, singularidadeEnum.Espacial)">
                       <div>
                         {{ singularidade.espacial }}
@@ -313,15 +320,15 @@
                   <div>Espacial</div>
                 </div>
               </div>
-              
-              
+
+
             </div>
           </div>
           <div class="w-full basis-[20%]">
             <label class="label-padrao">Descrição:</label>
             <textarea type="text" class="input-textarea" [(ngModel)]="singularidade.descricao"></textarea>
           </div>
-          <p-button class="btn-salvar-personagem" styleClass="w-full" label="Salvar" (onClick)="salvarPersonagem()"/>
+          <p-button class="btn-salvar-personagem" styleClass="w-full" label="Salvar" (onClick)="salvarPersonagem()" />
         </div>
       </div>
     </div>

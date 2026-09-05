@@ -24,13 +24,11 @@ import { Usuario } from 'src/app/core/models/usuario';
 ]
 })
 export class PainelUsuarioComponent implements OnInit {
-    usuario: Usuario = new Usuario()
     private authService = inject(AuthenticationService)
-    
+
+    public readonly usuario = this.authService.currentUser;
+
     constructor() { 
-        this.authService.currentUser$.subscribe(usuario => {
-            this.usuario = usuario;
-        })
     }
 
     ngOnInit() {

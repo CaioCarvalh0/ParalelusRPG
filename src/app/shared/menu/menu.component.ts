@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { AuthenticationService } from 'src/app/core/service/authentication.service';
 import { ModalService } from 'src/app/core/service/modal.service';
+import { CampanhaService } from 'src/app/core/service/campanha.service';
 
 @Component({
   selector: 'app-menu',
@@ -23,8 +24,9 @@ export class MenuComponent implements OnInit {
   private router = inject(Router);
   private authService = inject(AuthenticationService);
   private modal = inject(ModalService);
-  constructor(
-  ) {
+  private campanhaService = inject(CampanhaService);
+
+  constructor() {
     this.items = [
       {
         label: 'Menu',
@@ -42,8 +44,7 @@ export class MenuComponent implements OnInit {
           {
             label: 'Livro',
             icon: 'pi pi-book',
-            // routerLink: '/livro'
-            command: () => { this.openModalEmBreve() }
+            command: () => { this.openModalEmBreve(); }
           },
           {
             label: 'Sair',
@@ -55,27 +56,41 @@ export class MenuComponent implements OnInit {
         ]
       }
     ];
+
+    effect(() => {
+      const campanha = this.campanhaService.campanha();
+      const url = this.router.url;
+
+      if (url.startsWith('/campanha/') && campanha?.nome) {
+        this.pageTitle = campanha.nome;
+      }
+    });
   }
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.atualizaTituloMenu(event.url);
+        this.atualizaTituloMenu(event.urlAfterRedirects);
       }
     });
-
   }
 
   atualizaTituloMenu(url: string) {
+    if (url.startsWith('/campanha/')) {
+      this.pageTitle = this.campanhaService.getCampanhaAtual()?.nome || 'Campanha';
+      return;
+    }
+
     switch (url) {
       case '/usuario':
-        this.pageTitle = 'Painel do Usuário';
+        this.pageTitle = 'Painel do Usuario';
         break;
-      case '/criaçãodecampanha':
-        this.pageTitle = 'Criação de Campanha';
+      case '/criacaodecampanha':
+        this.pageTitle = 'Criacao de Campanha';
         break;
       case '/campanha':
-        this.pageTitle = 'Campanha';
+      case '/campanha/home':
+        this.pageTitle = 'Campanhas';
         break;
       case '/ficha':
         this.pageTitle = 'Ficha';
@@ -90,13 +105,13 @@ export class MenuComponent implements OnInit {
         this.pageTitle = 'Ficha';
         break;
       default:
-        this.pageTitle = 'Paralellus Rpg';
+        this.pageTitle = 'Paralelus Rpg';
         break;
     }
   }
 
   navegarPara(url: string) {
-    this.router.navigate([url]); 
+    this.router.navigate([url]);
   }
 
   desLogar() {
@@ -105,6 +120,6 @@ export class MenuComponent implements OnInit {
   }
 
   openModalEmBreve() {
-    this.modal.emBreve()
+    this.modal.emBreve();
   }
 }

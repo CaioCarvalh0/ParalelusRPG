@@ -1,47 +1,99 @@
-<div class="container-geral-row">
-  <div class="container-campanha-btn" [class.reduzido]="campanhaSelecionada() !== null">
-    <div class="conteiner-campanhas">
-      @for (item of campanhas(); track $index) {
-      <app-card-campanha [campanha]="item" (selecionar)="campanhaSelecionada.set($event)">
-      </app-card-campanha>
-      }
-    </div>
-    <p-button styleClass="button-padrao" label="Criar Campanha" (onClick)="criarCampanha()" />
-  </div>
-  <div class="container-detalhes" [class.aberto]="campanhaSelecionada() !== null">
-    @if (campanhaSelecionada()) {
-    <div class="detalhe-campanha">
-      <div>
-        <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" (click)="campanhaSelecionada.set(null)" />
+<section class="campanhas-shell">
+  <div class="hero-panel">
+      <div class="stat-card">
+        <span class="stat-label">Campanhas abertas</span>
+        <strong>{{ campanhas().length }}</strong>
       </div>
-      <div class="content-nome">{{ campanhaSelecionada()?.nome }}</div>
-      <div class="container-nivel-jogadores">
-        <div class="container-nivel">
-          Nivel:
-          <div>{{ campanhaSelecionada()?.nivel }}</div>
-        </div>
-        <div class="container-jogadores">
-          Jogadores
-          <div class="container-list">
-            @for (jogador of jogadoresPreenchidos(); track $index) {
-            <span class="pi pi-user" 
-              [ngClass]="{ 'jogador-ativo': jogador,'jogador-vazio': jogador.id == 0}" 
-              [pTooltip]="jogador?.usuario?.nome || 'Disponível'" 
-              tooltipPosition="bottom">
-            </span>
-            }
+      <div class="stat-card">
+        <span class="stat-label">Jogadores vinculados</span>
+        <strong>{{ totalJogadores() }}</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Mesas com vaga</span>
+        <strong>{{ campanhasComVagas() }}</strong>
+      </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-copy">
+      <h2>Explorar campanhas</h2>
+    </div>
+
+    <p-button icon="pi pi-plus" label="Nova Campanha" (onClick)="criarCampanha()" />
+  </div>
+
+  <div class="conteiner-campanhas">
+    @for (item of campanhas(); track item.id) {
+      <app-card-campanha [campanha]="item" (selecionar)="campanhaSelecionada.set($event)"></app-card-campanha>
+    } @empty {
+      <div class="empty-state">
+        <i class="pi pi-compass"></i>
+        <strong>Nenhuma campanha ativa encontrada</strong>
+        <span>Crie a primeira campanha para começar a organizar os jogadores.</span>
+      </div>
+    }
+  </div>
+</section>
+
+<p-drawer [visible]="campanhaSelecionada() !== null" [modal]="true" [dismissible]="true" [showCloseIcon]="false"
+  (onHide)="campanhaSelecionada.set(null)">
+
+  <ng-template #header>
+    <div class="titulo">{{ campanhaSelecionada()?.nome }}</div>
+  </ng-template>
+
+  <div class="drawer-banner">
+    @if (imagemSelecionada()) {
+      <img [src]="imagemSelecionada()!" [alt]="campanhaSelecionada()?.nome">
+    } @else {
+      <div class="drawer-banner__fallback">
+        <i class="pi pi-sparkles"></i>
+      </div>
+    }
+  </div>
+
+  <div class="container-drawer">
+    <div class="container-drawer-section">
+      <div class="section-title">Introducao</div>
+      <div class="section-content">{{ campanhaSelecionada()?.introducao }}</div>
+    </div>
+
+    <p-divider />
+
+    <div class="container-introducao">
+      <div class="title-introducao">Detalhes</div>
+      <div class="texto-introducao">
+        <i class="pi pi-bolt"></i> Mestre: {{ campanhaSelecionada()?.mestre?.nome }}
+      </div>
+      <div class="texto-introducao">
+        <i class="pi pi-users"></i> Jogadores: {{ campanhaSelecionada()?.jogadores?.length }}/10
+      </div>
+      <div class="texto-introducao">
+        <i class="pi pi-bullseye"></i> Nivel recomendado: {{ campanhaSelecionada()?.nivel }}
+      </div>
+    </div>
+
+    <p-divider />
+
+    <div class="container-jogadores">
+      <div class="title">Jogadores na campanha</div>
+      @for (jogador of jogadoresPreenchidos(); track jogador.id) {
+        <div class="card">
+          <p-avatar [label]="jogador.nome.charAt(0).toUpperCase()" class="mr-2" shape="circle" />
+          <div class="card-copy">
+            <strong>{{ jogador.nome }}</strong>
+            <span>{{ jogador.login }}</span>
           </div>
         </div>
-      </div>
-      <div class="container-introducao">
-        {{ campanhaSelecionada()?.introducao }}
-      </div>
-      <div class="container-btn">
-        <p-button styleClass="button-padrao" label="Entrar na Campanha" 
-        (onClick)="entrarEmCampanha(campanhaSelecionada()!)" />
-      </div>
+      } @empty {
+        <div class="empty-inline">Nenhum jogador entrou ainda. A campanha esta pronta para receber participantes.</div>
+      }
     </div>
-    }
-
   </div>
-</div>
+
+  <ng-template #footer>
+    <div>
+      <p-button styleClass="!w-full" label="Abrir Campanha" (onClick)="entrarEmCampanha()" />
+    </div>
+  </ng-template>
+</p-drawer>

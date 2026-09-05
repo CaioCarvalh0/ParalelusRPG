@@ -1,65 +1,79 @@
-
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Campanha } from 'src/app/core/models/campanha';
+import { Personagem } from 'src/app/core/models/personagem';
+import { AuthenticationService } from 'src/app/core/service/authentication.service';
 import { CampanhaService } from 'src/app/core/service/campanha.service';
 import { ModalService } from 'src/app/core/service/modal.service';
+import { PersonagemService } from 'src/app/core/service/personagem.service';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    standalone: true,
-    imports: [
-    ButtonModule
-]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [ButtonModule]
 })
 export class HomeComponent implements OnInit {
-    listaCampanhas: Campanha[] = [];
-    listaCampanhasAtivas: Campanha[] = [];
-    listaCampanhasInativas: Campanha[] = [];
+  private readonly router = inject(Router);
+  private readonly campanhaService = inject(CampanhaService);
+  private readonly personagemService = inject(PersonagemService);
+  private readonly authService = inject(AuthenticationService);
+  private readonly modal = inject(ModalService);
 
-    private router = inject(Router);
-    private campanhaService = inject(CampanhaService);
-    private modal = inject(ModalService)
-    constructor(){
-    }
-    
-    ngOnInit(): void {
-        this.buscarCampanhas()
-    }
+  public readonly listaCampanhas = signal<Campanha[]>([]);
+  public readonly listaPersonagens = signal<Personagem[]>([]);
 
-    buscarCampanhas(){
-        // this.campanhaService.getListaCampanhas().subscribe(result => {
-        //     this.listaCampanhas = result
-        //     if(this.listaCampanhas.length > 0){
-        //         this.getCampanhasAtivas()
-        //         this.getCampanhasInativas()
-        //     }
-        // })
-    }
+  public readonly totalCampanhas = computed(() => this.listaCampanhas().length);
+  public readonly totalCampanhasAtivas = computed(() =>
+    this.listaCampanhas().filter(campanha => campanha.ativa).length
+  );
+  public readonly totalCampanhasEncerradas = computed(() =>
+    this.listaCampanhas().filter(campanha => !campanha.ativa).length
+  );
+  public readonly totalPersonagens = computed(() => this.listaPersonagens().length);
+  public readonly nomeUsuarioAtual = computed(() => this.authService.currentUser()?.nome ?? 'Aventureiro');
 
-    getCampanhasAtivas(){
-        this.listaCampanhasAtivas = this.listaCampanhas.filter(campanha => campanha.ativa == true)
-        console.log('ativas',this.listaCampanhasAtivas)
-    }
+  ngOnInit(): void {
+    this.buscarCampanhas();
+    this.buscarPersonagens();
+  }
 
-    getCampanhasInativas(){
-        this.listaCampanhasInativas = this.listaCampanhas.filter(campanha => campanha.ativa == false)
-        console.log('inativas',this.listaCampanhasInativas)
-    }
+  buscarCampanhas() {
+    this.campanhaService.getListaCampanhas().subscribe({
+      next: campanhas => this.listaCampanhas.set(campanhas),
+      error: () => this.listaCampanhas.set([])
+    });
+  }
 
-    navigateCriarCampanha(){
-        this.router.navigate(['/campanha/home'])
-    }
+  buscarPersonagens() {
+    const usuarioId = this.authService.currentUser()?.id;
 
-    nagigatePersonagens(){
-        this.router.navigate(['/personagens'])
+    if (!usuarioId) {
+      this.listaPersonagens.set([]);
+      return;
     }
 
-    openModalEmBreve(){
-        this.modal.emBreve()
-    }
+    this.personagemService.getPersonagemOfUsuario(usuarioId).subscribe({
+      next: personagens => this.listaPersonagens.set(personagens),
+      error: () => this.listaPersonagens.set([])
+    });
+  }
 
+  navigateCriarCampanha() {
+    this.router.navigate(['/campanha/home']);
+  }
+
+  nagigatePersonagens() {
+    this.router.navigate(['/personagens']);
+  }
+
+  navigateLivro() {
+    this.router.navigate(['/livro']);
+  }
+
+  openModalEmBreve() {
+    this.modal.emBreve();
+  }
 }

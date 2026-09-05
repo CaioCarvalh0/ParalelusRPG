@@ -1,17 +1,79 @@
-<div class="w-[650px] h-[500px] border-2 flex flex-col bg-cinza-escuro border-rosa-choque rounded-md">
-    <div class="bg-rosa-choque flex  justify-center">
-       <div class="flex flex-col items-center"> 
-            Solicitação para entrar na
-            <div> nome da campanha </div>
-       </div>
+<section class="solicitacao-dialog">
+  <header class="dialog-header">
+    @if (data.modo === 'criar') {
+      <span class="dialog-eyebrow">Entrada na campanha</span>
+      <h2>Solicitar participacao</h2>
+      <p>{{ data.campanhaNome }}</p>
+    } @else {
+      <span class="dialog-eyebrow">Mesa do mestre</span>
+      <h2>Solicitacoes pendentes</h2>
+      <p>{{ data.campanhaNome }}</p>
+    }
+  </header>
+
+  @if (data.modo === 'criar') {
+    <div class="dialog-body">
+      <label class="field">
+        <span>Personagem</span>
+        <select
+          [ngModel]="personagemId()"
+          (ngModelChange)="personagemId.set($event)"
+        >
+          @for (item of data.personagemOptions ?? []; track item.value) {
+            <option [ngValue]="item.value">{{ item.label }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Mensagem para o mestre</span>
+        <textarea
+          rows="5"
+          placeholder="Opcional. Explique com qual personagem voce quer entrar."
+          [ngModel]="mensagem()"
+          (ngModelChange)="mensagem.set($event)"
+        ></textarea>
+      </label>
     </div>
-    <div class="w-full border-b border-b-rosa-choque p-3 flex flex-row items-center justify-between">
-        <div>
-            Nome do Jogador
+
+    <footer class="dialog-footer">
+      <p-button label="Cancelar" severity="secondary" [text]="true" (onClick)="fechar()" />
+      <p-button label="Enviar solicitacao" [disabled]="!personagemId()" (onClick)="enviar()" />
+    </footer>
+  } @else {
+    <div class="request-list">
+      @for (solicitacao of data.solicitacoes ?? []; track solicitacao.id) {
+        <article class="request-card" [class.request-card--muted]="!isPendente(solicitacao.status)">
+          <div class="request-card__head">
+            <div>
+              <strong>{{ solicitacao.personagem.nome }}</strong>
+              <span>{{ solicitacao.usuario.nome }}</span>
+            </div>
+            <span class="status-chip" [class.status-chip--pending]="isPendente(solicitacao.status)">
+              {{ solicitacao.status }}
+            </span>
+          </div>
+
+          @if (solicitacao.mensagem) {
+            <p class="request-message">{{ solicitacao.mensagem }}</p>
+          }
+
+          @if (isPendente(solicitacao.status)) {
+            <div class="request-actions">
+              <p-button label="Recusar" severity="secondary" [outlined]="true" (onClick)="recusar(solicitacao.id)" />
+              <p-button label="Aprovar" (onClick)="aprovar(solicitacao.id)" />
+            </div>
+          }
+        </article>
+      } @empty {
+        <div class="empty-state">
+          Nenhuma solicitacao encontrada no momento.
         </div>
-        <div class="flex flex-row gap-4">
-            <button type="button" class="text-white bg-rosa-cinza hover:bg-rosa-choque font-medium rounded-full text-sm px-4 py-1 text-center">Recusar</button>
-            <button type="button" class="text-white bg-rosa-choque hover:bg-white hover:text-rosa-choque font-medium rounded-full text-sm px-4 py-1 text-center">Aceitar</button>
-        </div>
+      }
     </div>
-</div>
+
+    <footer class="dialog-footer dialog-footer--single">
+      <p-button label="Fechar" severity="secondary" [text]="true" (onClick)="fechar()" />
+    </footer>
+  }
+</section>

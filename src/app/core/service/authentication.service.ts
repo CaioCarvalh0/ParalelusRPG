@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, OnInit } from '@angular/core';
+import { inject, Injectable, OnInit, signal } from '@angular/core';
 import { API_URL_AUTH } from '../contants/api';
 import { BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from '../responses/api-response';
@@ -13,21 +13,16 @@ import { UsuarioDTO } from '../models/dtos/usuario-dto';
   providedIn: 'root'
 })
 export class AuthenticationService implements OnInit {
-
   private http = inject(HttpClient)
 
-  private currentUserSubject = new BehaviorSubject<Usuario>(new Usuario());
-  currentUser$ = this.currentUserSubject.asObservable();
+  private _currentUser = signal<Usuario | null>(null);
+  public readonly currentUser = this._currentUser.asReadonly();
 
   constructor() {
     const user = localStorage.getItem('currentUser');
     if (user) {
-      this.currentUserSubject.next(JSON.parse(user));
+      this._currentUser.set(JSON.parse(user));
     }
-  }
-
-  get currentUser(): Usuario {
-    return this.currentUserSubject.value;
   }
 
   ngOnInit() {
@@ -40,17 +35,12 @@ export class AuthenticationService implements OnInit {
     return true;
   }
 
+  hasRole(role: string): boolean {
+    return (this.currentUser()?.role ?? 'USER') === role;
+  }
+
   removeTokenOnLocalStorage() {
     localStorage.removeItem('token');
-  }
-
-  private setTokenOnLocalStorage(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  private setCurrentUser(usuario: Usuario) {
-    localStorage.setItem('currentUser', JSON.stringify(usuario));
-    this.currentUserSubject.next(usuario);
   }
 
   login(body: LoginDTO) {
@@ -76,4 +66,12 @@ export class AuthenticationService implements OnInit {
     }))
   }
 
+  private setTokenOnLocalStorage(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  private setCurrentUser(usuario: Usuario) {
+    localStorage.setItem('currentUser', JSON.stringify(usuario));
+    this._currentUser.set(usuario);
+  }
 }

@@ -1,56 +1,71 @@
 <form [formGroup]="form" class="container-form">
-  <div class="container-left">
+  <div class="container-head">
     <div>
-      <label class="label-padrao">Nome da Campanha:</label>
-      <input type="text" class="input-padrao" formControlName="nome"/>
+      <span class="eyebrow">Nova campanha</span>
+      <h2>Configure a base da mesa</h2>
+      <p>Defina nome, clima inicial e nivel de entrada para os jogadores.</p>
     </div>
+  </div>
 
-    <div class="container-capa" (click)="abrirSeletorDeImagem()">
-      @if (imagemCortada()){
-      <img [src]="imagemCortada()" alt="Capa da Campanha" />
-      }@else {
-      <label class="custum-file-upload" for="file">
-        <div class="icon">
-          <mat-icon class="file-icon">cloud_upload</mat-icon>
-        </div>
-      </label>
+  <div class="grid-form">
+    <div class="campo">
+      <label class="label-padrao" for="nome">Nome da campanha</label>
+      <input class="input-padrao" pInputText id="nome" formControlName="nome" autocomplete="off" />
+      @if (nomeInvalido()) {
+        <small class="erro">Informe um nome com pelo menos 3 caracteres.</small>
       }
     </div>
 
-    <input type="file" hidden (change)="selecionarImagem($event)" accept="image/*" #fileInput>
-    
-    <div class="container-lvl-campanha">
-      <div class="container-input-lvl">
-        <label class="mb-2 text-base ">Level da Campanha:</label>
-        <div class="container-input">
-          <button type="button" class="flex" mat-icon-button (click)="alterarNivel('remove')">
-            <mat-icon class="text-[#FF1457]">remove</mat-icon>
-          </button>
-
-          <div class="text-[#FF1457] text-2xl">{{ lvlCampanha() }}</div>
-
-          <button type="button" class="flex" mat-icon-button (click)="alterarNivel('add')">
-            <mat-icon class="text-[#FF1457]">add</mat-icon>
-          </button>
+    <div class="container-capa" (click)="abrirSeletorDeImagem()">
+      @if (imagemCortada()) {
+        <img [src]="imagemPreview()" alt="Capa da campanha" />
+      } @else {
+        <div class="custum-file-upload">
+          <div class="icon">
+            <mat-icon class="file-icon">cloud_upload</mat-icon>
+          </div>
+          <strong>Adicionar capa</strong>
+          <span>Use uma imagem panoramica para destacar a campanha.</span>
         </div>
+      }
+    </div>
+  </div>
+
+  <input type="file" hidden (change)="selecionarImagem($event)" accept="image/*" #fileInput>
+
+  <div class="container-lvl-campanha">
+    <div class="container-input-lvl">
+      <label class="label-padrao">Nivel recomendado</label>
+      <div class="container-input">
+        <button type="button" class="action-level" mat-icon-button (click)="alterarNivel('remove')">
+          <mat-icon>remove</mat-icon>
+        </button>
+
+        <div class="level-display">{{ lvlCampanha() }}</div>
+
+        <button type="button" class="action-level" mat-icon-button (click)="alterarNivel('add')">
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
     </div>
 
-
+    <p class="helper-text">Defina o ponto de entrada esperado para personagens novos ou recorrentes.</p>
   </div>
 
-  <div class="container-rigth">
+  <div class="campo campo--textarea">
     <p-floatlabel variant="in">
-      <textarea pTextarea id="over_label" style="resize: none" class="textarea"
+      <label for="introducao">Introducao da campanha</label>
+      <textarea pTextarea id="introducao" style="resize: none" class="textarea"
         formControlName="introducao"></textarea>
-      <label for="in_label">Introdução</label>
     </p-floatlabel>
-    <div class="container-btn">
-      <p-button styleClass="button-padrao btn-cancelar" label="Cancelar" (onClick)="fecharCriacao()" />
-
-      <p-button styleClass="button-padrao" label="Criar" (onClick)="criarCampanha()"  />
-    </div>
-
+    @if (introducaoInvalida()) {
+      <small class="erro">Descreva a proposta da campanha com pelo menos 12 caracteres.</small>
+    }
   </div>
 
+  <div class="container-btn">
+    <p-button styleClass="button-padrao btn-cancelar" label="Cancelar" (onClick)="fecharCriacao()" />
+    <p-button styleClass="button-padrao" [label]="salvando() ? 'Criando...' : 'Criar campanha'"
+      [disabled]="salvando()" (onClick)="criarCampanha()" />
+  </div>
 </form>

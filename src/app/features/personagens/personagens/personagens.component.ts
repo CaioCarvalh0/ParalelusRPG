@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Personagem } from 'src/app/core/models/personagem';
 import { AuthenticationService } from 'src/app/core/service/authentication.service';
@@ -14,12 +14,13 @@ import { CardPersonagemComponent } from 'src/app/shared/cards/card-personagem/ca
   styleUrl: './personagens.component.scss'
 })
 export class PersonagensComponent implements OnInit {
+  private readonly persoangemService = inject(PersonagemService);
+  private readonly authService = inject(AuthenticationService);
+  private readonly router = inject(Router);
 
-  listaPersonagens: Personagem[] = [];
+  private _currentUser = this.authService.currentUser;
 
-  persoangemService = inject(PersonagemService);
-  authService = inject(AuthenticationService);
-  router = inject(Router);
+  public readonly listaPersonagens = signal<Personagem[]>([]);
 
   constructor() {
   }
@@ -30,8 +31,8 @@ export class PersonagensComponent implements OnInit {
 
 
   buscarListaPersonagens(){
-    this.persoangemService.getPersonagemOfUsuario(this.authService.currentUser.id).subscribe(result => {
-      this.listaPersonagens = result ?? [];
+    this.persoangemService.getPersonagemOfUsuario(this._currentUser()!.id).subscribe(result => {
+      this.listaPersonagens.set(result);
     })
   }
 

@@ -4,12 +4,13 @@
     [maintainAspectRatio]="true" 
     [aspectRatio]="aspectRatio" 
     format="png"
-    base64ToFile="false"
+    base64ToFile="true"
     alignImage="center"
     (imageCropped)="cortarImagem($event)">
   </image-cropper>
 
   <div class="container-btns">
     <p-button label="Salvar" (onClick)="salvar()"/>
+    <p-button label="Cancelar" (onClick)="cancelar()"/>
   </div>
 </div>

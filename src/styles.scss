@@ -1,3 +1,4 @@
+@import 'variaveis';
 @layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
@@ -10,31 +11,118 @@
 
 }
 
-
 @import "primeicons/primeicons.css";
 
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon+SC&family=Rubik:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 
-body{
-    background-color: #35313B;
-}
 *{
-    font-family: "Cinzel", serif;
-    font-style: normal;
+    // font-family: "Cinzel", serif;
+    // font-style: normal;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: "Cinzel", serif; color: white; }
 
+html, body { height: 100%; overflow: hidden; }
+body { margin: 0; font-family: "Cinzel", serif; color: white; background-color: var(--color-bg-main); }
+
+// ============================
+// CSS Custom Properties (Theme Tokens)
+// ============================
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-primary-hover: #{$color-primary-hover};
+  --color-secondary: #{$color-secondary};
+  --color-accent: #{$color-accent};
+
+  --color-bg-main: #{$color-bg-main};
+  --color-bg-secondary: #{$color-bg-secondary};
+  --color-bg-tertiary: #{$color-bg-tertiary};
+
+  --color-text-primary: #{$color-text-primary};
+  --color-text-secondary: #{$color-text-secondary};
+  --color-text-disabled: #{$color-text-disabled};
+
+  --color-border: #{$color-border};
+
+  --color-success: #{$color-success};
+  --color-warning: #{$color-warning};
+  --color-error: #{$color-error};
+
+   --font-display: 'Sora', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+}
+
+/* base */
+html { font-family: var(--font-sans); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+
+/* escala e refinamentos (dark) */
+h1, .h1 { font-family: var(--font-display); font-weight: 700; letter-spacing: .01em;
+  font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; color: var(--color-text-primary);
+}
+h2, .h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: .005em;
+  font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; color: var(--color-text-primary);
+}
+h3, .h3 { font-weight: 600; font-size: 1.25rem; line-height: 1.35; color: var(--color-text-primary); }
+p, .text { font-weight: 400; font-size: 1rem; line-height: 1.6; color: var(--color-text-secondary); }
+
+.mono, .stat { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+
+//Estilos PRIMENG
 .custom-modal .mat-dialog-container {
     max-width: 100% !important;
     max-height: 90vh !important;
     overflow: hidden !important;
 }
 
+.notification-dialog-panel .mat-mdc-dialog-container,
+.notification-dialog-panel .mdc-dialog__surface {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.notification-dialog-panel .mat-mdc-dialog-inner-container {
+  overflow: visible !important;
+}
 .p-password-input {
     width: 100% !important;
 }
 .p-password {
     width: 100% !important;
+}
+.p-dialog-content {
+  height: 100%;
+  background: var(--color-bg-tertiary);
+  border-radius: 12px;
+}
+.p-drawer {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border: none;
+  width: 30%;
+}
+.p-dialog-content {
+  background: var(--color-bg-secondary);
+}
+
+.campanha-create-dialog {
+  .p-dialog {
+    border: none;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .p-dialog-header {
+    display: none;
+  }
+
+  .p-dialog-content {
+    padding: 0 !important;
+    border-radius: 0.9rem;
+    background: transparent !important;
+  }
 }

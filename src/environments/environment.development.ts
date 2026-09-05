@@ -5,6 +5,5 @@ const SERVER = 'https://servercaio.ddns.net/api';
 
 export const environment = {
     production: false,
-    apiUrl: LOCALHOST,
-    // version: require('../../package.json').version
+    apiUrl: LOCALHOST
 };

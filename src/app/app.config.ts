@@ -4,20 +4,24 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { TokeIntercotorService } from './core/interceptor/request-toke.interceptor.service';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { TokenInterceptorService } from './core/interceptor/request-toke.interceptor.service';
 import { ErrorInterceptorService } from './core/interceptor/error.interceptor.service';
 import { Tema } from './core/contants/paralelus-tema';
 import { LoaderInterceptorService } from './core/interceptor/loader.interceptor.service';
+import { DialogService } from 'primeng/dynamicdialog';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokeIntercotorService, multi: true },
+    DialogService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
-
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(
+      withInterceptorsFromDi(),
+      withFetch()
+    ),
     provideRouter(routes),
     provideAnimations(),
     provideAnimationsAsync(),

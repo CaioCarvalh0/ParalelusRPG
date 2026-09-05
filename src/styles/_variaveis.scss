@@ -1,0 +1,60 @@
+// ============================
+// Paralellus Site - Dark Theme
+// ============================
+
+// 🎨 Paleta Principal
+$color-primary: #FF1457;
+$color-primary-hover: #E0134E;
+$color-secondary: #FF7A99;
+$color-accent: #00D1B2;
+
+// 🌑 Fundos
+$color-bg-main: #111317;
+$color-bg-secondary: #1A1D21;
+$color-bg-tertiary: #22262B;
+
+// 🖋 Texto
+$color-text-primary: #E4E6EB;
+$color-text-secondary: #A0A3A8;
+$color-text-disabled: #6C6F74;
+
+// 🧭 Bordas e Divisores
+$color-border: #2F343A;
+
+// ✅ Estados e Feedback
+$color-success: #27AE60;
+$color-warning: #F2C94C;
+$color-error: #E74C3C;
+
+
+
+// ============================
+// Mixins para facilitar uso
+// ============================
+
+@mixin button-primary {
+  background-color: $color-primary;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $color-primary-hover;
+  }
+}
+
+@mixin card {
+  background-color: $color-bg-secondary;
+  border: 1px solid $color-border;
+  border-radius: 10px;
+  color: $color-text-primary;
+
+  &:hover {
+    border-color: $color-primary-hover !important;
+    color: $color-primary-hover !important;
+  }
+}

@@ -23,7 +23,7 @@ export interface PersonagemDTO {
     inventario: string
     cibernetica: string
     historia: string
-    imagemBase64?: string | null
+    imagemUrl?: string | null
     singularidade: SingularidadeDTO,
     caracteristica: string,
     level: number

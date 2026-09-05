@@ -1,0 +1,104 @@
+.sessao-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: min(100%, 42rem);
+  min-width: 0;
+  padding: 1.15rem;
+  color: #eef2f8;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+    rgba(14, 18, 26, 0.98);
+}
+
+.dialog-header {
+  display: grid;
+  gap: 0.3rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #f8fbff;
+  }
+
+  p {
+    margin: 0;
+    color: rgba(228, 234, 243, 0.64);
+    font-size: 0.85rem;
+  }
+}
+
+.dialog-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f38ba8;
+}
+
+.dialog-body {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+
+  span {
+    font-size: 0.78rem;
+    color: rgba(228, 234, 243, 0.75);
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: #eef2f8;
+    padding: 0.85rem 0.95rem;
+    outline: none;
+    font: inherit;
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  textarea:focus {
+    border-color: rgba(243, 139, 168, 0.45);
+    box-shadow: 0 0 0 1px rgba(243, 139, 168, 0.2);
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+:host ::ng-deep {
+  .p-inputtext,
+  .p-button {
+    width: 100%;
+  }
+
+  .p-inputtext {
+    border-color: rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: #eef2f8;
+  }
+
+  .p-inputtext:enabled:focus {
+    border-color: rgba(243, 139, 168, 0.45);
+    box-shadow: 0 0 0 1px rgba(243, 139, 168, 0.2);
+  }
+
+  .p-button {
+    width: auto;
+    border-radius: 0.8rem;
+  }
+}

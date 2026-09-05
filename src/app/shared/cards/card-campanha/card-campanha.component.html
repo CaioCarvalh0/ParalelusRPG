@@ -1,5 +1,23 @@
-<div class="container-card-campanha"
-  [style.background-image]="'url(' + getImagem() + ')'"
-  (click)="onSelecionar()">
-  <div class="text-3xl"> {{ campanha()?.nome }} </div>
+<div class="container-card-campanha group transition-all duration-300 hover:shadow-primary hover:-translate-y-1 " (click)="onSelecionar()">
+  <div class="image-shell overflow-hidden h-[70%]">
+    <img class="object-cover transition-transform duration-300 group-hover:scale-105" src="{{ getImagem() }}" alt="capa campanha">
+    <div class="campaign-level">Nivel {{ campanha()?.nivel }}</div>
+  </div>
+  <div class="container-bottom">
+    <div class="title-row">
+      <div class="text-xl"> {{ campanha()?.nome }} </div>
+      <span class="status-chip">{{ campanha()?.ativa ? 'Ativa' : 'Fechada' }}</span>
+    </div>
+    <div class="text-sm text-ellipsis line-clamp-2"> {{ campanha()?.introducao }} </div>
+    <div class="container-info">
+      <div class="container-users">
+        <i class="pi pi-users" style="font-size: 1rem"></i>
+        <span class="ml-1">{{ campanha()?.jogadores?.length || 0 }} / 10</span>
+      </div>
+      <div class="container-master">
+        <i class="pi pi-bolt"></i>
+        <span>{{ campanha()?.mestre?.nome }}</span>
+      </div>
+    </div>
+  </div>
 </div>

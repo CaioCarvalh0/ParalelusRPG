@@ -3,23 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class TokeIntercotorService implements HttpInterceptor {
+export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
+    const headers: { [name: string]: string } = {};
     if (token) {
-      req = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      headers['Authorization'] = `Bearer ${token}`;
     }
-    req = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-      }
-    })
+    if (!(req.body instanceof FormData)) {
+      headers['Content-Type'] = 'application/json';
+    }
+    req = req.clone({ setHeaders: headers });
     return next.handle(req);
   }
 }
- 

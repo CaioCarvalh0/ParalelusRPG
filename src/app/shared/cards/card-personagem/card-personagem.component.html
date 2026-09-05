@@ -1,15 +1,36 @@
-<div class="container-card-personagem"
-    [style.background-image]="'url(' + getImagem() + ')'">
-    <div class="title-nome"> {{ personagem.nome }} </div>
-    <div class="container-row">
-        <div class="flex flex-col"> 
-            <div>Vida: {{ personagem.vidaatual }}</div>
-            <div>Mana: {{ personagem.manaatual }}</div>
-        </div>
-        <div class="flex flex-col">
-            <div>{{ personagem.raca.nome }}</div>
-            <div>Level: {{ personagem.level }} </div>
-        </div>
+<div class="container-card-personagem">
+    <div class="container-avatar">
+        @if(personagem().imagem){
+            <p-avatar [image]="getImagem()" size="xlarge"/>
+        }@else {
+            <p-avatar [label]="this.personagem().nome.charAt(0).toUpperCase()" size="xlarge"/>
+        }
     </div>
 
+    <div class="container-body">
+        <div class="container-info-personagem">
+            <div class="title-nome">{{ personagem().nome }}</div>
+            <div class="raca-caminho">
+                <span class="raca">{{ personagem().raca.nome }}</span>
+                <span class="separator">•</span>
+                <span class="caminho">{{ this.personagem().caminho.length > 0 ? this.personagem().caminho[0].nome : "Sem caminho" }}</span>
+            </div>
+        </div>
+
+        <div class="container-contexto">
+            <span class="level">NVL {{ personagem().level }}</span>
+            <span class="campanha">{{ nomeCampanha() }}</span>
+        </div>
+
+        <div class="container-vida">
+            <div class="vida-track">
+                <div class="vida-fill" [style.width.%]="vidaPercentual()"></div>
+            </div>
+            <div class="vida-label">{{ personagem().vidaatual }}/{{ personagem().maxvida }} PV</div>
+        </div>
+
+        <div class="titulo-personagem">
+            Operativo de Campo
+        </div>
+    </div>
 </div>

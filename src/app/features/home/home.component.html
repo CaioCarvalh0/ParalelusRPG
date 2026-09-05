@@ -1,30 +1,94 @@
-<div class="container-geral-row">
+<section class="home-shell">
+  <header class="home-hero">
+    <div class="hero-carousel">
+      <div class="carousel-copy">
+        <span class="eyebrow">Livro</span>
+        <h1>Acesse o livro e centralize as regras fora da campanha.</h1>
+        <p>
+          Esse espaço pode crescer depois com mais destaques, mas por enquanto fica fixo no livro para manter a
+          home mais contida e objetiva.
+        </p>
+      </div>
 
-  <div class="container-btn-acoes">
-
-    <button type="button" (click)="navigateCriarCampanha()" class="button-padrao">
-      <div>Campanhas</div>
-    </button>
-
-    <button type="button" (click)="nagigatePersonagens()" class="button-padrao">
-      <div>Personagens</div>
-    </button>
-
-  </div>
-
-  <div class="basis-1/3 h-full border-r-2 border-[#FF1457] p-3">
-    <div class="text-2xl">
-      Suas Campanhas:
+      <div class="carousel-actions">
+        <p-button
+          label="Abrir livro"
+          styleClass="button-padrao carousel-button"
+          (onClick)="navigateLivro()" />
+      </div>
     </div>
-  </div>
+  </header>
 
-  <div class="basis-1/3 h-full p-3 flex flex-col justify-between ">
-    <div>
-      <!-- <div class="text-2xl">Encontre uma campanha:</div>
-        @for (item of listaCampanhasAtivas; track $index) {
-          <app-card-campanha [campanha]="item"></app-card-campanha>
-        } -->
+  <section class="home-conteudo">
+    <div class="home-principal">
+      <div class="section-heading">
+        <span class="section-kicker">Navegação</span>
+        <h2>Escolha por onde continuar</h2>
+      </div>
+
+      <button type="button" class="nav-strip" (click)="navigateCriarCampanha()">
+        <div class="nav-strip__icon">
+          <i class="pi pi-flag"></i>
+        </div>
+        <div class="nav-strip__copy">
+          <strong>Campanhas</strong>
+          <span>Gerencie mesas, solicitações de entrada e sessões em andamento.</span>
+        </div>
+        <div class="nav-strip__meta">
+          <span>{{ totalCampanhasAtivas() }} ativas</span>
+          <i class="pi pi-angle-right"></i>
+        </div>
+      </button>
+
+      <button type="button" class="nav-strip" (click)="nagigatePersonagens()">
+        <div class="nav-strip__icon">
+          <i class="pi pi-user"></i>
+        </div>
+        <div class="nav-strip__copy">
+          <strong>Personagens</strong>
+          <span>Revise fichas, crie novos personagens e ajuste sua progressão.</span>
+        </div>
+        <div class="nav-strip__meta">
+          <span>{{ totalPersonagens() }} no total</span>
+          <i class="pi pi-angle-right"></i>
+        </div>
+      </button>
     </div>
-  </div>
 
-</div>
+    <aside class="home-lateral">
+      <div class="section-heading">
+        <span class="section-kicker">Visão rápida</span>
+        <h2>Estado atual</h2>
+      </div>
+
+      <div class="status-list">
+        <div class="status-row">
+          <span>Usuário ativo</span>
+          <strong>{{ nomeUsuarioAtual() }}</strong>
+        </div>
+        <div class="status-row">
+          <span>Campanhas disponíveis</span>
+          <strong>{{ totalCampanhas() }}</strong>
+        </div>
+        <div class="status-row">
+          <span>Seu acervo de personagens</span>
+          <strong>{{ totalPersonagens() }}</strong>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <p-button
+          label="Ir para campanhas"
+          icon="pi pi-flag"
+          styleClass="button-padrao quick-action-button"
+          (onClick)="navigateCriarCampanha()" />
+
+        <p-button
+          label="Ir para personagens"
+          icon="pi pi-user"
+          styleClass="button-padrao quick-action-button quick-action-button--secondary"
+          (onClick)="nagigatePersonagens()" />
+      </div>
+    </aside>
+  </section>
+</section>

@@ -1,0 +1,41 @@
+<section class="sessao-dialog">
+  <header class="dialog-header">
+    <span class="dialog-eyebrow">Controle da mesa</span>
+    <h2>{{ data.sessaoAtiva ? 'Gerenciar sessao' : 'Iniciar sessao' }}</h2>
+    <p>{{ data.campanhaNome }}</p>
+  </header>
+
+  <div class="dialog-body">
+    <label class="field">
+      <span>Titulo</span>
+      <input
+        pInputText
+        type="text"
+        placeholder="Titulo da sessao"
+        [ngModel]="titulo()"
+        (ngModelChange)="titulo.set($event)"
+      />
+    </label>
+
+    <label class="field">
+      <span>Estado da mesa</span>
+      <textarea
+        rows="6"
+        placeholder="Resumo do momento atual da mesa"
+        [ngModel]="estadoMesa()"
+        (ngModelChange)="estadoMesa.set($event)"
+      ></textarea>
+    </label>
+  </div>
+
+  <footer class="dialog-footer">
+    <p-button label="Fechar" severity="secondary" [text]="true" (onClick)="fechar()" />
+
+    @if (data.sessaoAtiva) {
+      <p-button label="Salvar" icon="pi pi-save" (onClick)="salvar()" />
+      <p-button label="Finalizar" severity="secondary" icon="pi pi-stop" (onClick)="finalizar()" />
+    } @else {
+      <p-button label="Iniciar" icon="pi pi-play" [disabled]="!titulo().trim()" (onClick)="iniciar()" />
+    }
+  </footer>
+</section>

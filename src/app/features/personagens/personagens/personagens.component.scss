@@ -1,11 +1,17 @@
 .conteiner-persoangens {
+  display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  display: flex;
+  align-content: flex-start;
+  gap: 3rem;
   width: 100%;
-  flex-basis: 90%;
-  padding: 1rem;
-  gap: 1rem;
+  height: 100%;
+  padding: 2rem;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;

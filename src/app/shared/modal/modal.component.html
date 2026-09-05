@@ -1,3 +1,14 @@
-<div class="container-modal" [ngClass]="tipo?.toLocaleLowerCase()" >
-    {{ mensagem }}
+<div class="container-modal" [ngClass]="tipo?.toLocaleLowerCase()" [style.--duration.ms]="durationMs">
+  <button type="button" class="close-button" (click)="close()" aria-label="Fechar notificacao">
+    <span class="pi pi-times"></span>
+  </button>
+
+  <div class="modal-copy">
+    <div class="modal-type">{{ tipo }}</div>
+    <div class="modal-message">{{ mensagem }}</div>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-bar"></div>
+  </div>
 </div>

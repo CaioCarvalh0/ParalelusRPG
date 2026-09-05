@@ -1,5 +1,6 @@
 import { Component, input, OnInit, output } from '@angular/core';
 import { Campanha } from 'src/app/core/models/campanha';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-card-campanha',
@@ -14,7 +15,6 @@ export class CardCampanhaComponent implements OnInit {
     selecionar = output<Campanha>();
 
     constructor() {
-
     }
 
     ngOnInit() {
@@ -24,10 +24,10 @@ export class CardCampanhaComponent implements OnInit {
         this.selecionar.emit(this.campanha() || new Campanha());
     }
 
-    getImagem() {
-        if (!this.campanha()?.capa) {
-            return 'assets/imagens/personagem.png';
+    getImagem(): string {
+        if (this.campanha()?.capa) {
+            return `${environment.apiUrl}${this.campanha()?.capa}`;
         }
-        return `data:image/png;base64,${this.campanha()?.capa}`;
+        return 'assets/images/placeholder-campanha.png';
     }
 }

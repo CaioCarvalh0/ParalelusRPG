@@ -14,7 +14,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class RecorteComponent implements OnInit {
   @Input() imagemOriginal!: string;
-  imagemCortadaBase64: string | null = null;
+  imagemCortada: File | null = null;
   aspectRatio: number = 1
 
   constructor(
@@ -33,23 +33,12 @@ export class RecorteComponent implements OnInit {
 
   cortarImagem(event: ImageCroppedEvent) {
     if (event.blob) {
-      this.converterBlobParaArquivo(event.blob);
-    } else if (event.base64) {
-      this.imagemCortadaBase64 = event.base64;
+      this.imagemCortada = new File([event.blob], "imagem.png", { type: "image/png" });
     }
-  }
-  
-  converterBlobParaArquivo(blob: Blob) {
-    const file = new File([blob], "imagem.png", { type: "image/png" });
-    this.imagemCortadaBase64 = URL.createObjectURL(file);
   }
 
   salvar() {
-    if (this.imagemCortadaBase64) {
-      this.dialogRef.close(this.imagemCortadaBase64);
-    } else {
-      this.dialogRef.close(null);
-    }
+    this.dialogRef.close(this.imagemCortada);
   }
 
   cancelar() {
